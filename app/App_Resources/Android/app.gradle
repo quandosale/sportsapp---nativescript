@@ -20,6 +20,7 @@ buildscript {
     }
  
    dependencies {
+    
   	classpath "com.android.tools.build:gradle:2.1.2"
     classpath 'com.google.gms:google-services:3.0.0'
    
@@ -30,6 +31,7 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 dependencies {
+    compile 'no.nordicsemi.android.support.v18:scanner:1.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
  

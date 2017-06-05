@@ -6,6 +6,7 @@
 /app/**/*.map
 !/app/tns_modules/**/*.js
 /node_modules/
+!/node_modules/a-nativescript-ecg-sleep-analysis
 hooks/
 
 *.tgz

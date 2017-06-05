@@ -1,0 +1,25 @@
+<Page 
+    xmlns="http://www.nativescript.org/tns.xsd" 
+    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
+    xmlns:RL="nativescript-ripple" class="qsf-page" navigatingTo="onNavigatingTo" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" ios:actionBarHidden="true">
+    <!-- BEGIN action bar-->
+    <!--Remove any action bar-->
+    <sdp:DrawerPage.actionBar>
+        <ActionBar automationText="ActionBar" opacity="0"></ActionBar>
+    </sdp:DrawerPage.actionBar>
+    <!-- END  action bar-->
+    <!-- BEGIN Page Content-->
+    <GridLayout rows="*,auto,auto,auto,auto">
+        <GridLayout class="default-background" originY="0" loaded="onBackgroundLoaded"/>
+        <GridLayout class="logo-cover letter-center"/>
+        <GridLayout class="logo-img letter-center" backgroundImage="res://logo_blue_bg"/>
+        <RL:Ripple class="my-btn btn-sign-up" tap="tapSignUp" rippleColor="#c8c8c8">
+            <Label class="letter-center" text="Sign Up"/>
+        </RL:Ripple>
+        <RL:Ripple class="my-btn btn-sign-in" tap="tapSignIn" rippleColor="#c8c8c8">
+            <Label class="letter-center" text="Log In"/>
+        </RL:Ripple>
+        
+        <Label class="btn-guestmode letter-center" text="GUEST MODE" tap="onGuestModeTap"/>
+    </GridLayout>
+</Page>

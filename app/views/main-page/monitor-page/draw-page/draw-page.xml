@@ -1,0 +1,17 @@
+<Page
+    xmlns="http://www.nativescript.org/tns.xsd"
+    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
+    xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer"
+    xmlns:sdc="views/side-drawer-content"
+    loaded="pageLoaded"
+    backgroundSpanUnderStatusBar="true" 
+    class="c-page1"
+    xmlns:DrawingPad="nativescript-drawingpad" 
+    backgroundColor="#0F1866"
+    xmlns:chart="nativescript-telerik-ui-pro/chart" 
+>
+<!-- BEGIN Page Content-->
+    <StackLayout padding="20" paddingTop="5" paddingBottom="0" backgroundColor="#FFF">
+          <DrawingPad:DrawingPad tap="{{onBackTap}}" backgroundColor="#F7F7F7" id="ecgGraphFull" margin="10" penColor="4" penWidth="{{ _ecgPoints }}"/>
+    </StackLayout>
+</Page>

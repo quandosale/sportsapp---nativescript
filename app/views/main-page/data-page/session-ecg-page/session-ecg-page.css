@@ -1,0 +1,53 @@
+.c-page1 {
+    background: #Fff;
+}
+
+.h-bar {
+    height: 1;
+    background-color: #000;
+    margin: 5 0;
+}
+
+.title {
+    margin-top: 10;
+    font-size: 14;
+}
+
+.sleep-stage {}
+
+.sleep-stage .sleep-stage-item {
+    margin: 5 0;
+}
+
+.sleep-stage .sleep-stage-item .plot {
+    height: 20;
+    margin-right: 5;
+}
+
+.sleep-stage .sleep-stage-item .plot.awake {
+    background-color: #FD2503;
+}
+
+.sleep-stage .sleep-stage-item .plot.rem {
+    background-color: #FF9306;
+}
+
+.sleep-stage .sleep-stage-item .plot.shallow {
+    background-color: #FFFC06;
+}
+
+.sleep-stage .sleep-stage-item .plot.deep {
+    background-color: #9CFA06;
+}
+
+.sleep-stage .sleep-stage-item .plot.warm {
+    background-color: #ACAEAF;
+}
+
+.sleep-stage .sleep-stage-item .duration {
+    margin-right: 5;
+}
+
+.sleep-stage .sleep-stage-item .description {
+    color: gray;
+}

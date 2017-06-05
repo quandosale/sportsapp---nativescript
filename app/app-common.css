@@ -1,0 +1,311 @@
+.page-content {
+    background-color: #455B66;
+}
+
+ActionBar {
+    background-color: #151F2F;
+    color: white;
+}
+
+.content-background {
+    background-color: #E5E5E8;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+Page,
+ExamplePage,
+DrawerPage {
+    background-color: #151F2F;
+}
+
+.example-img-wrap {
+    width: 100;
+    height: 100;
+    vertical-align: top;
+    horizontal-align: center;
+    margin: 6;
+}
+
+.example-img-list {
+    width: 72;
+    height: 72;
+    vertical-align: top;
+    horizontal-align: left;
+    margin: 6;
+}
+
+.example-item {
+    padding: 6;
+    margin: 0 0 1 1;
+    background-color: white;
+}
+
+.no-image-example-item {
+    margin: 0 0 1 1;
+    background-color: white;
+}
+
+.list-example-image {
+    horzontal-align: left;
+    border-radius: 16;
+    border-color: #3D5AFE;
+    border-width: 1;
+}
+
+.list-example-image-new {
+    border-radius: 16;
+    border-color: #3D5AFE;
+    border-width: 1;
+}
+
+.example-image {
+    width: 120;
+    height: 120;
+    border-radius: 16;
+}
+
+.selected-example-border {
+    width: 120;
+    height: 120;
+    border-radius: 16;
+    border-color: #018F88;
+    border-width: 1;
+}
+
+.show-new-btn,
+.group-show-new-btn {
+    horizontal-align: right;
+    background-color: transparent;
+    margin: 0 10;
+}
+
+.show-new-btn {
+    color: #3D5AFE;
+}
+
+.new {
+    font-weight: bold;
+    vertical-align: bottom;
+    horizontal-align: left;
+}
+
+.chartExampleHolderStyle {
+    padding: 6;
+    background-color: white;
+}
+
+.chartItemInRepeaterStyle {
+    background-color: #31bcff;
+    width: 74;
+    height: 66;
+    opacity: 0.5;
+}
+
+.chartItemInRepeaterSelectedStyle {
+    background-color: #31bcff;
+    width: 74;
+    height: 66;
+    opacity: 1;
+}
+
+.repeaterItemsScrollerStyle {
+    background-color: #f1f1f1;
+}
+
+.repeaterBottomBorderStyle {
+    background-color: #d6d5d5;
+    height: 1;
+    vertical-align: bottom;
+}
+
+.galleryRepeaterItemRightBorder {
+    background-color: #31bcff;
+    width: 0;
+    horizontal-align: right;
+}
+
+.galleryRepeaterStyle {
+    margin-bottom: 0;
+    background-color: #31bcff;
+}
+
+.galleryRepeaterItemLeftBorder {
+    background-color: #31bcff;
+    width: 0;
+    horizontal-align: left;
+}
+
+.galleryRepeaterItemBottomBorder {
+    background-color: #31bcff;
+    height: 2;
+    vertical-align: bottom;
+}
+
+.galleryRepeaterItemBottomSelectedBorder {
+    background-color: #494e4a;
+    height: 2;
+    vertical-align: bottom;
+}
+
+.chart-example-tytle-style {
+    horizontal-align: center;
+}
+
+.example-menu-background {
+    background-color: white;
+}
+
+.example-menu-stack {
+    margin: 8 0;
+}
+
+.example-menu-item {
+    color: #151F2F;
+    height: 44;
+    vertical-align: center;
+    border-width: 1;
+    border-color: white;
+}
+
+.example-menu-item:highlighted {
+    background-color: #E5E5E5;
+}
+
+.repeaterImage {
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+.c-page {
+    background-color: #0F1866;
+    color: #FFFFFF;
+    /*padding: 15;*/
+}
+
+.c-button {
+    border-radius: 80;
+    background: red;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.c-textfield {
+    padding: 15;
+    outline: none;
+    border: none;
+    border-color: transparent;
+    background-color: #414A94;
+    margin-top: 4;
+    margin-bottom: 4;
+    placeholder-color: #FFFFFF;
+}
+
+.w-50-left {
+    margin-right: 1%;
+}
+
+.w-50-right {
+    margin-left: 1%;
+}
+
+.font-awesome {
+    font-family: "FontAwesome";
+}
+
+.icon {
+    font-family: 'icomoon';
+}
+
+.my-btn {
+    background-color: #535776;
+    /*background-color: #BE7BC4;*/
+    color: #FFFFFF;
+    border-radius: 25;
+    height: 50;
+    font-size: 18;
+}
+
+.my-social-btn {
+    color: #FFFFFF;
+    font-family: 'icomoon';
+    border-radius: 0;
+    height: 70;
+    font-size: 18;
+    margin-bottom: 7;
+}
+
+.my-social-btn.facebook {
+    background-color: #3B5998;
+}
+
+.my-social-btn.google {
+    background-color: #DD5044;
+}
+
+.my-social-btn Label {
+    height: 70;
+    padding-top: 20;
+}
+
+.my-social-btn .social-icon {
+    width: 80;
+    font-size: 30;
+    text-align: center;
+}
+
+.my-social-btn .v-bar {
+    height: 60;
+    width: 1;
+    background-color: #FFF;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+/* session view BEGIN */
+
+.session-header {
+    padding: 3 4 5 4;
+    background-color: #5D6064;
+    color: #fff;
+}
+
+.session-header .type-icon {
+    width: 30;
+    height: 30;
+    margin: 2;
+    margin-right: 10;
+    border-radius: 50%;
+}
+
+.session-header .value {
+    font-size: 30;
+    margin-left: 20;
+    margin-right: 5;
+    margin-top: 0;
+}
+
+.session-header .description {
+    font-size: 13;
+}
+
+.white-page {
+    background-color: #FFF;
+    color: #000;
+}
+
+.action-bar {
+    background-color: #0F1866;
+}
+
+.action-bar .action-title {
+    font-size: 20;
+}
+
+
+/* session view END */

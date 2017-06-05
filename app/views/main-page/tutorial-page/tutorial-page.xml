@@ -1,0 +1,35 @@
+<Page 
+    xmlns="http://www.nativescript.org/tns.xsd" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" class="c-page" 
+    xmlns:df="nativescript-telerik-ui-pro/dataform" 
+    xmlns:Slides="nativescript-slides">
+    <!-- BEGIN action bar-->
+    <Page.actionBar backgroundColor="#0F1866">
+        <ActionBar title="Tutorial Page" automationText="ActionBar" backgroundColor="#0F1866">
+            <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack" />
+        </ActionBar>
+    </Page.actionBar>
+    <!-- END  action bar-->
+    <!-- BEGIN Page Content-->
+    <StackLayout padding="0">
+        <GridLayout>
+            <Slides:SlideContainer id="slides" pageIndicators="true">
+                <Slides:Slide class="slide-1">
+                    <Image src="res://tutorial1" />
+                </Slides:Slide>
+                <Slides:Slide class="slide-2">
+                    <Image src="res://tutorial2" />
+                </Slides:Slide>
+                <Slides:Slide class="slide-3">
+                    <Image src="res://tutorial3" />
+                </Slides:Slide>
+                <Slides:Slide class="slide-4">
+                    <Image src="res://tutorial4" />
+                </Slides:Slide>
+                <Slides:Slide class="slide-5">
+                    <Image src="res://tutorial5" />
+                </Slides:Slide>
+            </Slides:SlideContainer>
+            <Button text="SKIP THIS STEP" height="50" width="65%" class="my-btn" marginTop="70%" tap="goScan"/>
+        </GridLayout>
+    </StackLayout>
+</Page>

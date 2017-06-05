@@ -1,0 +1,57 @@
+{
+  "nativescript": {
+    "id": "calm.sportsapp.com",
+    "tns-ios": {
+      "version": "2.5.0"
+    },
+    "tns-android": {
+      "version": "3.0.1"
+    }
+  },
+  "dependencies": {
+    "a-nativescript-ecg-sleep-analysis": "file:g:\\nativescript-plugin-seed-master",
+    "acra-telerik-analytics": "*",
+    "highlight.js": "^8.7.0",
+    "nativescript-audio": "^3.3.0",
+    "nativescript-bluetooth": "^1.1.5",
+    "nativescript-camera": "^3.0.0",
+    "nativescript-checkbox": "^1.2.8",
+    "nativescript-drawingpad": "^1.1.2",
+    "nativescript-effects": "^0.5.0",
+    "nativescript-fresco": "1.0.12",
+    "nativescript-imagepicker": "^3.0.0",
+    "nativescript-local-notifications": "^1.2.1",
+    "nativescript-pulltorefresh": "^2.0.0-rc.1",
+    "nativescript-ripple": "^1.1.0",
+    "nativescript-screen-orientation": "^2.0.0",
+    "nativescript-screenshot": "0.0.2",
+    "nativescript-slides": "^2.2.8",
+    "nativescript-social-login": "^1.5.2",
+    "nativescript-social-share": "^1.3.2",
+    "nativescript-sports-ota-dfu": "file:g:\\!work\\nativescript-plugin-seed-master",
+    "nativescript-sportsotadfu": "file:g:\\!work\\nativescript-plugin-seed-master",
+    "nativescript-telerik-analytics": "*",
+    "nativescript-telerik-ui-pro": "*",
+    "nativescript-timedatepicker": "^1.1.1",
+    "nativescript-toast": "^1.4.5",
+    "nativescript-vibrate": "^1.1.2",
+    "nativescript-yourplugin": "file:g:\\nativescript-filepicker2",
+    "tns-core-modules": "2.5.0"
+  },
+  "devDependencies": {
+    "babel-traverse": "6.9.0",
+    "babel-types": "6.9.0",
+    "babylon": "6.8.0",
+    "filewalker": "0.1.2",
+    "json-loader": "^0.5.4",
+    "lazy": "1.0.11",
+    "nativescript-dev-android-snapshot": "~0.0.6",
+    "nativescript-dev-typescript": "~0.3.7",
+    "typescript": "~2.1.5",
+    "shelljs": "^0.5.3"
+  },
+  "scripts": {
+    "postinstall": "(cd node_modules/nativescript-plugin-firebase && npm run setup)"
+  },
+  "license": "Apache-2.0"
+}

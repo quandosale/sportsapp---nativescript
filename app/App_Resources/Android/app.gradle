@@ -1,0 +1,40 @@
+// http://android-developers.blogspot.bg/2016/02/android-support-library-232.html
+android {  
+    defaultConfig {
+        minSdkVersion 19
+        generatedDensities = []
+        applicationId = "calm.sportsapp.com"
+    }
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+    dexOptions {
+        jumboMode true
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+ 
+   dependencies {
+  	classpath "com.android.tools.build:gradle:2.1.2"
+    classpath 'com.google.gms:google-services:3.0.0'
+   
+   }
+}
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+}
+dependencies {
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile 'com.google.android.gms:play-services-auth:8.4.0'
+ 
+    compile('com.twitter.sdk.android:twitter:1.13.2@aar') {
+        transitive = true
+    }
+     compile 'com.nononsenseapps:filepicker:4.1.0'
+}

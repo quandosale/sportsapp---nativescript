@@ -1,0 +1,21 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="onPageLoaded">
+    <!-- BEGIN action bar-->
+    <Page.actionBar>
+        <ActionBar title="About" automationText="ActionBar">
+            <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack" />
+        </ActionBar>
+    </Page.actionBar>
+    <!-- END  action bar-->
+    <!-- BEGIN Page Content-->
+    <GridLayout class="about-content">
+        <StackLayout>
+            <Image src="res://icon" class="about-logo" />
+            <Label class="about-text" textWrap="true" text="Sports App" fontSize="20" marginBottom="20"/>
+            <Label class="about-text" textWrap="true" text="Sports App For measure of Ecg and Sleep ...     Sports App For measure of Ecg and Sleep ...     Sports App For measure of Ecg and Sleep ...     Sports App For measure of Ecg and Sleep ...     Sports App For measure of Ecg and Sleep ...     Sports Aasure of Ecg and Sleep ...     Sports App For measure of Ecg and Sleep ...   "/>
+            <Label class="about-text" text="Detail" tag="http://13.113.35.183/" color="blue" marginTop="20" tap="tapDrawerLink" />
+            <Label class="about-text" text="Management Site" tag="http://13.112.160.235/" color="blue" marginTop="20" tap="tapDrawerLink" />
+            
+            <Label class="about-text" textWrap="true" text="Developed by CALM." marginTop="50" horizontalAlignment="right"/>
+        </StackLayout>
+    </GridLayout>
+</Page>

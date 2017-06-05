@@ -1,0 +1,52 @@
+.icon {
+    font-family: 'icomoon';
+}
+
+.slide-1 {
+    background-color: darkslateblue;
+}
+
+.slide-2 {
+    background-color: darkcyan;
+}
+
+.slide-3 {
+    background-color: darkgreen;
+}
+
+.slide-4 {
+    background-color: darkgoldenrod;
+}
+
+.slide-5 {
+    background-color: darkslategray;
+}
+
+Label {
+    text-align: center;
+    width: 100%;
+    font-size: 35;
+    margin-top: 35;
+}
+
+.slide-indicator-inactive {
+    background-color: #fff;
+    opacity: 0.0;
+    width: 10;
+    height: 10;
+    margin-left: 2.5;
+    margin-right: 2.5;
+    margin-top: 0;
+    border-radius: 5;
+}
+
+.slide-indicator-active {
+    background-color: #fff;
+    opacity: 0.0;
+    width: 10;
+    height: 10;
+    margin-left: 2.5;
+    margin-right: 2.5;
+    margin-top: 0;
+    border-radius: 5;
+}

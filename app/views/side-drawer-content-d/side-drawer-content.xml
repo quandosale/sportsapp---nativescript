@@ -1,0 +1,50 @@
+<ScrollView class="drawer-content">
+    <StackLayout loaded="onLoaded" unloaded="onUnloaded">
+        <!--<Image src="res://default_man" margin="40 0 24 20" horizontalAlignment="left" backgroundSize="100% 100%" width="100" height="100" id="photo"/>-->
+        <Image src="http://192.168.3.4:3002/assets/gravatar/default.jpg" margin="40 0 24 20" horizontalAlignment="left" backgroundSize="100% 100%" width="100" height="100" id="photo"/>
+<StackLayout backgroundColor="#DFDFDF">
+        <GridLayout class="drawer-news-link" tap="tapMonitor">
+            <GridLayout class="drawer-external-icon" columns="auto,auto">
+                <Label class="drawer-rect" col="0"/>
+                <Label text="Exercise Monitor" class="drawer-external-label" col="1"/>
+            </GridLayout>
+        </GridLayout>
+        
+        <GridLayout class="drawer-news-link " tap="tapSleep">
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Sleep Monitor" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout class="drawer-news-link highlight" tap="tapData">
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Data" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout class="drawer-external-link" tap="tapProfile">
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Profile" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout class="drawer-external-link" tap="tapSetting" >
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Settings" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+        
+        <GridLayout class="drawer-external-link" tap="tapLogout" >
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Logout" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+        
+    </StackLayout>
+    </StackLayout>
+</ScrollView>

@@ -1,0 +1,49 @@
+<ScrollView class="drawer-content">
+    <StackLayout loaded="onLoaded" unloaded="onUnloaded">
+        <Image src="res://default_man" margin="40 0 24 20" horizontalAlignment="left" backgroundSize="100% 100%" width="100" height="100"/>
+<StackLayout backgroundColor="#DFDFDF">
+        <GridLayout class="drawer-news-link" tap="tapMonitor">
+            <GridLayout class="drawer-external-icon" columns="auto,auto">
+                <Label class="drawer-rect" col="0"/>
+                <Label text="Exercise Monitor" class="drawer-external-label" col="1"/>
+            </GridLayout>
+        </GridLayout>
+        
+        <GridLayout class="drawer-news-link highlight" tap="tapSleep">
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Sleep Monitor" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout class="drawer-news-link" tap="tapData">
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Data" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout class="drawer-external-link" tap="tapProfile" tag="http://docs.nativescript.org/getting-started">
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Profile" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+        <GridLayout class="drawer-external-link" tap="tapSetting" tag="https://github.com/NativeScript/nativescript-marketplace-demo">
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Settings" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+            <GridLayout class="drawer-external-link" tap="tapLogout" >
+            <GridLayout class="drawer-external-icon"  columns="auto,auto">
+             <Label class="drawer-rect" col="0"/>
+                <Label text="Logout" class="drawer-external-label"  col="1"/>
+            </GridLayout>
+        </GridLayout>
+
+    </StackLayout>
+    </StackLayout>
+</ScrollView>

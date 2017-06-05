@@ -1,0 +1,54 @@
+<Page 
+    xmlns="http://www.nativescript.org/tns.xsd"
+    xmlns:RL="nativescript-ripple"
+    loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page" 
+    xmlns:df="nativescript-telerik-ui-pro/dataform">
+    <!-- BEGIN action bar-->
+    <Page.actionBar backgroundColor="#0F1866">
+        <ActionBar title="Sign Up" automationText="ActionBar" backgroundColor="#0F1866">
+            <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack" />
+        </ActionBar>
+    </Page.actionBar>
+    <!-- END  action bar-->
+    <!-- BEGIN Page Content-->
+    <StackLayout class="c-page" padding="20" paddingTop="8">
+        <GridLayout>
+            <StackLayout>
+                <textField hint="Email Address" text="{{email}}" class="c-textfield" keyboardType="email"/>
+                <textField hint="Create Password" text="{{password}}" class="c-textfield" secure="true"/>
+                <GridLayout orientation="horizontal" class="social-group" rows="auto" columns="*, auto, auto">
+                    <Label text="Connect with Social Media: " marginTop="3" fontSize="17" col="0"/>
+                    <Label text="&#xea90;" class="social-icon-circle facebook icon" col="1" tap="{{ onFacebookSignUpTap }}"/>
+                    <Label text="&#xea8b;" class="social-icon-circle google icon" col="2" tap="{{ onGoogleSignUpTap }}"/>
+                </GridLayout>
+                <Label text="Profile Details:" class="font-weight-bold" marginTop="7" fontSize="17"/>
+                <textField hint="Name" class="c-textfield" text="{{name}}"/>
+                <StackLayout orientation="horizontal" marginTop="5">
+                    <Label text="{{_birthday}}" width="49%" class="c-textfield w-50-left" margin="0" marginRight="1%" tap="{{onBirthday}}" fontSize="17"/>
+                    <Label text="{{_gender}}" width="49%" class="c-textfield w-50-right" margin="0" marginLeft="1%" tap="{{setGender}}" fontSize="17"/>
+                </StackLayout>
+                <StackLayout></StackLayout>
+                <StackLayout orientation="horizontal" marginTop="5">
+                    <textField text="{{height}}" hint="Height" width="49%" type="number" class="c-textfield w-50-left" keyboardType="number"/>
+                    <textField text="{{weight}}" hint="Weight" width="49%" type="number" class="c-textfield w-50-right" keyboardType="number"/>
+                </StackLayout>
+                <Label text="Privacy Option:" class="font-weight-bold" fontSize="17" marginTop="5"/>
+                <StackLayout orientation="horizontal" tap="{{onShowPasswordTapped}}" marginTop="5">
+                    <Image src="{{ isAllow ? 'res://checkbox_checked' : 'res://checkbox_unchecked' }}" cssClass="checkbox" />
+                    <StackLayout fontSize="17">
+                        <Label text="Allow my data to be anonymised and used" cssClass="field-switch-title" />
+                        <StackLayout orientation="horizontal">
+                            <Label text="for health research."/>
+                            <Label text="Find out more" class="moreLink" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+                <RL:Ripple rippleColor="#c8c8c8" tap="{{onSignUp}}" marginTop="12" class="my-btn" borderRadius="50%">
+                    <Label text="NEXT" horizontalAlignment="center" verticalAlignment="center"/>
+                </RL:Ripple>
+            </StackLayout>
+            <!--<ActivityIndicator busy="{{isLoading}}" />-->
+            <ActivityIndicator busy="{{isLoading}}" width="40"/>
+        </GridLayout>
+    </StackLayout>
+</Page>

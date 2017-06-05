@@ -1,0 +1,44 @@
+<Page 
+    xmlns="http://www.nativescript.org/tns.xsd" 
+    xmlns:lv="nativescript-telerik-ui-pro/listview" 
+    xmlns:CheckBox="nativescript-checkbox" 
+    xmlns:RL="nativescript-ripple" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" class="c-page" 
+    xmlns:df="nativescript-telerik-ui-pro/dataform" 
+    xmlns:chart="nativescript-telerik-ui-pro/chart">
+    <!-- BEGIN action bar-->
+    <Page.actionBar backgroundColor="#0F1866">
+        <ActionBar title="Pairing New Device" automationText="ActionBar" backgroundColor="#0F1866">
+            <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack" />
+        </ActionBar>
+    </Page.actionBar>
+    <!-- END  action bar-->
+    <!-- BEGIN Page Content-->
+    <StackLayout padding="20" paddingTop="90" paddingBottom="0">
+        <RL:Ripple rippleColor="#c8c8c8" tap="{{ doStartScanning }}" marginBottom="30" width="70" height="70">
+            <GridLayout class="intro-logo-n-intro" backgroundImage="res://scan" borderRadius="0" horizontalAlignment="center" verticalAlignment="center" style=" background-repeat: no-repeat;background-size:100% 100%;"/>
+        </RL:Ripple>
+        <ActivityIndicator busy="{{ isLoading }}" />
+        <Label text="{{tip}}" horizontalAlignment="center" marginBottom="10"/>
+        <StackLayout>
+            <ScrollView height="115">
+                <lv:RadListView items="{{ dataItems }}" itemTap="{{ onItemTap }}" row="1" id="ls" selectionBehavior="Press" multipleSelection="true" itemSelected="{{itemSelected}}" itemDeselected="{{itemDeselected}}">
+                    <lv:RadListView.listViewLayout>
+                        <lv:ListViewLinearLayout scrollDirection="Vertical"/>
+                    </lv:RadListView.listViewLayout>
+                    <lv:RadListView.itemTemplate>
+                        <GridLayout padding="13 20" backgroundColor="#FFF" color="#000">
+                            <Label text="{{ _name }}" color="#000"/>
+                            <Image src="{{ _isSelect ? 'res://checkbox_checked' : 'res://checkbox_unchecked' }}" cssClass="checkbox" horizontalAlignment="right"/>
+                        </GridLayout>
+                    </lv:RadListView.itemTemplate>
+                </lv:RadListView>
+            </ScrollView>
+            <RL:Ripple rippleColor="#c8c8c8" row="3" class="button my-btn" colSpan="2" tap="{{onPairTap}}" marginTop="30" borderRadius="50%">
+                <Button text="PAIR" backgroundColor="#494D51" borderRadius="80"/>
+            </RL:Ripple>
+            <RL:Ripple rippleColor="#c8c8c8" row="4" class="button my-btn" colSpan="2" tap="goMonitor" marginTop="30" borderRadius="50%">
+                <Button text="CANCEL" class="button my-btn" borderRadius="80" backgroundColor="#494D51"/>
+            </RL:Ripple>
+        </StackLayout>
+    </StackLayout>
+</Page>

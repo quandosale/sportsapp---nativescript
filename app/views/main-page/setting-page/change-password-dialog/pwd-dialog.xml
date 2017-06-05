@@ -1,0 +1,11 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" shownModally="onShownModally" loaded="onLoaded" unloaded="onUnloaded" backgroundColor="#0F1866">
+  <!-- BEGIN Page Content-->
+  <StackLayout backgroundColor="#FFF" margin="1" paddingBottom="10" width="250">
+    <TextField id="pre" hint="Current Password" secure="true"/>
+    <TextField id="new" hint="New Password" secure="true"/>
+    <TextField id="confirm" hint="Confirm Password" secure="true"/>
+    
+      <Button text="OK" tap="onOKButtonTap"  width="50%" horizontalAlignment="right"/>
+    
+  </StackLayout>
+</Page>

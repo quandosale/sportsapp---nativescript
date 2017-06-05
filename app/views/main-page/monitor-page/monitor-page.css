@@ -1,0 +1,25 @@
+.c-page1 {
+    background: #Fff;
+}
+
+.btn-control {
+    border-radius: 50%;
+    height: 25;
+    width: 25;
+    margin: 7;
+}
+
+.btn-record {
+    background-color: #fff;
+}
+
+.btn-zoom {
+    background-color: #000;
+}
+
+.inner-circle {
+    width: 110;
+    height: 110;
+    border-radius: 100;
+    margin-top: 7;
+}

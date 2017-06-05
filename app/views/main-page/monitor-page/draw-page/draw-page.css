@@ -1,0 +1,15 @@
+.c-page1{
+    background:#Fff;
+}
+.btn-control{
+    border-radius:50%;
+    height:30;
+    width:30;
+    margin:10;
+}
+.btn-record{
+    background-color:#f00;
+}
+.btn-zoom{
+    background-color:#000;
+}

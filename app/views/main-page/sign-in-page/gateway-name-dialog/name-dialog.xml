@@ -1,0 +1,9 @@
+<Page 
+  xmlns="http://schemas.nativescript.org/tns.xsd" shownModally="onShownModally" loaded="onLoaded" unloaded="onUnloaded">
+  <!-- BEGIN Page Content-->
+  <StackLayout backgroundColor="#FFF" margin="1"  padding="10" paddingBottom="10" width="250">
+    <Label text="Input Gateway Name" horizontalAlignment="center"/>
+    <TextField id="gateway_name" hint="Gateway Name"/>
+    <Button text="OK" tap="onOKButtonTap" width="30%" horizontalAlignment="right"/>
+  </StackLayout>
+</Page>

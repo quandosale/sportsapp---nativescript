@@ -1,0 +1,38 @@
+.icon {
+    font-family: 'icomoon';
+}
+
+.sleep-page {
+    background-color: #FFFFFF;
+}
+
+.title {
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+.time {
+    margin-top: 30px;
+    font-size: 60px;
+    font-weight: 500;
+}
+
+.sleep {
+    margin-top: 60px;
+    font-size: 35px;
+}
+
+.circle {
+    width: 150;
+    height: 150;
+    background-color: #009A00;
+    border-radius: 100;
+}
+
+.inner-circle {
+    width: 140;
+    height: 140;
+    background-color: #FFFFFF;
+    border-radius: 100;
+    margin-top: 5;
+}

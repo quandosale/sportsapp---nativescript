@@ -1,0 +1,1 @@
+tns build android --release --key-store-path './debug.keystore' --key-store-password "" --key-store-alias <your-alias-name> --key-store-alias-password <your-alias-password> 

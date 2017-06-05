@@ -1,0 +1,139 @@
+<Page 
+    xmlns="http://www.nativescript.org/tns.xsd" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" class="c-page" 
+    xmlns:DrawingPad="nativescript-drawingpad">
+    <!-- BEGIN action bar-->
+    <Page.actionBar>
+        <ActionBar automationText="ActionBar" class="action-bar">
+            <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack"/>
+            <ActionBar.actionItems>
+                <ActionItem tap="{{onSnapShotTap}}" automationText="SidebarMenu">
+                    <ActionItem.actionView>
+                        <Label text="&#xf045;" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
+                    </ActionItem.actionView>
+                </ActionItem>
+            </ActionBar.actionItems>
+            <ActionBar.titleView>
+                <GridLayout>
+                    <Label text="Exercise Session" horizontalAlignment="center" class="action-title"/>
+                </GridLayout>
+            </ActionBar.titleView>
+        </ActionBar>
+    </Page.actionBar>
+    <!-- END  action bar-->
+    <!-- BEGIN Page Content-->
+    <StackLayout padding="0" paddingBottom="0" class="white-page" id="content">
+        <StackLayout orientation="horizontal" class="session-header">
+            <Image src="res://type_activity" class="type-icon"/>
+            <StackLayout paddingTop="3">
+                <Label text="{{_datetime}}"/>
+                <Label text="{{_datetimeampm}}"/>
+            </StackLayout>
+            <StackLayout>
+                <Label text="64" class="value"/>
+            </StackLayout>
+            <StackLayout paddingTop="3">
+                <Label text="Resting"/>
+                <Label text="Heart Rate"/>
+            </StackLayout>
+            <StackLayout>
+                <Label text="154" class="value"/>
+            </StackLayout>
+            <StackLayout paddingTop="3">
+                <Label text="Maximum"/>
+                <Label text="Heart Rate"/>
+            </StackLayout>
+        </StackLayout>
+        <!--<ActivityIndicator busy="{{ isLoading }}" />-->
+        <ScrollView>
+            <StackLayout padding="5 10">
+                <Label text="Time in heart rate zones" fontSize="14"/>
+                <Label class="h-bar"/>
+                <StackLayout class="sleep-stage">
+                    <StackLayout orientation="horizontal" class="sleep-stage-item">
+                        <Label class="plot awake" width="33"/>
+                        <Label class="duration" text="2 minutes"/>
+                        <Label class="description" text="Max"/>
+                    </StackLayout>
+                    <StackLayout orientation="horizontal" class="sleep-stage-item">
+                        <Label class="plot rem" width="200"/>
+                        <Label class="duration" text="24 minutes"/>
+                        <Label class="description" text="Hard"/>
+                    </StackLayout>
+                    <StackLayout orientation="horizontal" class="sleep-stage-item">
+                        <Label class="plot shallow" width="130"/>
+                        <Label class="duration" text="3 minutes"/>
+                        <Label class="description" text="Cardio"/>
+                    </StackLayout>
+                    <StackLayout orientation="horizontal" class="sleep-stage-item">
+                        <Label class="plot deep" width="120"/>
+                        <Label class="duration" text="2 minutes"/>
+                        <Label class="description" text="Fat Burn"/>
+                    </StackLayout>
+                    <StackLayout orientation="horizontal" class="sleep-stage-item">
+                        <Label class="plot warm" width="16"/>
+                        <Label class="duration" text="1 minutes"/>
+                        <Label class="description" text="Warm Up"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label text="Heart rate" class="title"/>
+                <Label class="h-bar"/>
+                <android:ScrollView>
+                    <StackLayout>
+                        <DrawingPad:DrawingPad backgroundColor="#fff" id="hrtGraph" margin="10" height="150" penColor="3" />
+                    </StackLayout>
+                </android:ScrollView>
+                <ios:ScrollView orientation="horizontal" android:height="0">
+                    <StackLayout height="150" id="calm" orientation="horizontal" verticalAlignment="top">
+                        <Repeater items="{{ hrtGraph }}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <Label height="2" width="1" backgroundColor="{{color}}" marginTop="{{value}}" marginBottom="{{remain}}"/>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ios:ScrollView>
+                <Label text="CALMness" class="title"/>
+                <Label class="h-bar"/>
+                <android:ScrollView>
+                    <StackLayout>
+                        <DrawingPad:DrawingPad backgroundColor="#FFF" id="calmGraph" margin="10" height="150" penColor="1" penWidth="{{ plotPoint }}"/>
+                    </StackLayout>
+                </android:ScrollView>
+                <ScrollView orientation="horizontal" android:height="0">
+                    <StackLayout height="150" id="calm" loaded="onCALMBackgroundLoaded" orientation="horizontal" verticalAlignment="top">
+                        <Repeater items="{{ calmGraph }}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <Label height="{{value}}" width="10" backgroundColor="#FFF" marginBottom="{{remain}}" />
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ScrollView>
+                <Label text="Motion intensity" class="title"/>
+                <Label class="h-bar"/>
+                <android:ScrollView>
+                    <StackLayout>
+                        <DrawingPad:DrawingPad backgroundColor="#FFF" id="motionGraph" margin="10" height="150" penColor="2" penWidth="{{ plotPoint }}"/>
+                    </StackLayout>
+                </android:ScrollView>
+                <ios:ScrollView orientation="horizontal" android:height="0">
+                    <StackLayout height="150" id="motion" loaded="onMotionBackgroundLoaded" orientation="horizontal" verticalAlignment="top">
+                        <Repeater items="{{ calmGraph }}">
+                            <Repeater.itemsLayout>
+                                <StackLayout orientation="horizontal" />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <Label height="{{value}}" width="10" backgroundColor="#FFF" margin="0" marginBottom="{{remain}}" />
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>
+                </ios:ScrollView>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+    <!--Page Content END-->
+</Page>

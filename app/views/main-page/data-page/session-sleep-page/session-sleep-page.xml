@@ -1,0 +1,88 @@
+<Page 
+    xmlns="http://www.nativescript.org/tns.xsd" 
+    xmlns:DrawingPad="nativescript-drawingpad" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" class="c-page">
+   <!-- BEGIN action bar-->
+    <Page.actionBar>
+        <ActionBar automationText="ActionBar" class="action-bar">
+            <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack"/>
+            <ActionBar.actionItems>
+                <ActionItem tap="{{onSnapShotTap}}" automationText="SidebarMenu">
+                    <ActionItem.actionView>
+                        <Label text="&#xf045;" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
+                    </ActionItem.actionView>
+                </ActionItem>
+            </ActionBar.actionItems>
+            <ActionBar.titleView>
+                <GridLayout>
+                    <Label text="Sleep Analysis" horizontalAlignment="center" class="action-title"/>
+                </GridLayout>
+            </ActionBar.titleView>
+        </ActionBar>
+    </Page.actionBar>
+    <!-- END  action bar-->
+    <!-- BEGIN Page Content-->
+    <StackLayout padding="0" paddingBottom="0" backgroundColor="#fff" color="#000" id="content">
+        <StackLayout orientation="horizontal" class="session-header">
+            <Image src="res://type_activity" class="type-icon"/>
+            <StackLayout paddingTop="3" class="description">
+                <Label text="{{_datetime}}"/>
+                <Label text="{{_datetimeampm}}"/>
+            </StackLayout>
+            <StackLayout>
+                <Label text="{{_resting_heart_rate}}" class="value"/>
+            </StackLayout>
+            <StackLayout paddingTop="3" class="description">
+                <Label text="Resting"/>
+                <Label text="Heart Rate"/>
+            </StackLayout>
+            <StackLayout>
+                <Label text="{{_duration}}" class="value"/>
+            </StackLayout>
+            <StackLayout paddingTop="3" class="description">
+                <Label text="Total Sleep"/>
+                <Label text="Duration"/>
+            </StackLayout>
+        </StackLayout>
+        <!--<ActivityIndicator busy="{{ isLoading }}" />-->
+        <ScrollView>
+            <StackLayout padding="5 10">
+                <Label text="Sleep quality score" fontSize="14"/>
+                <Label class="h-bar"/>
+                <StackLayout>
+                    <DrawingPad:DrawingPad backgroundColor="#FFF" id="spiderGraph" margin="10" height="240" penColor="5" penWidth="{{ _sleepPoints }}" marginBottom="-50"/>
+                    <Label text="Sleep Map" fontSize="14" class="chart-description"/>
+                    <Label class="h-bar"/>
+                    <StackLayout orientation="horizontal">
+                        <DrawingPad:DrawingPad backgroundColor="#FFF" id="sleepmapGraph" margin="10" height="120" penColor="6" penWidth="{{ _sleepMapPoints }}"/>
+                        <!--<StackLayout width="27%" marginLeft="2%" paddingTop="3" class="description"><Label text="Awake" marginBottom="10"/><Label text="REM" marginBottom="10"/><Label text="Shallow Sleep" marginBottom="10"/><Label text="Deep Sleep" marginBottom="10"/></StackLayout><ScrollView orientation="horizontal"><StackLayout height="120" id="motion" loaded="onSleepMapBackgroundLoaded" orientation="horizontal" verticalAlignment="top"><Repeater items="{{ hrtGraph }}"><Repeater.itemsLayout><StackLayout orientation="horizontal" /></Repeater.itemsLayout><Repeater.itemTemplate><Label height="{{value}}" width="10" backgroundColor="#FFF" marginBottom="{{remain}}" /></Repeater.itemTemplate></Repeater></StackLayout></ScrollView>-->
+                    </StackLayout>
+                    <Label text="Time in sleep stages" fontSize="14" class="chart-description"/>
+                    <Label class="h-bar"/>
+                    <StackLayout class="sleep-stage">
+                        <StackLayout orientation="horizontal" class="sleep-stage-item">
+                            <Label class="plot awake" width="{{_awake_w}}"/>
+                            <Label class="duration" text="{{_awake}}"/>
+                            <Label class="description" text="Awake"/>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal" class="sleep-stage-item">
+                            <Label class="plot rem" width="{{_rem_w}}"/>
+                            <Label class="duration" text="{{_rem}}"/>
+                            <Label class="description" text="REM"/>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal" class="sleep-stage-item">
+                            <Label class="plot shallow" width="{{_shallow_sleep_w}}"/>
+                            <Label class="duration" text="{{_shallow_sleep}}"/>
+                            <Label class="description" text="Shallow Sleep"/>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal" class="sleep-stage-item">
+                            <Label class="plot deep" width="{{_deep_sleep_w}}"/>
+                            <Label class="duration" text="{{_deep_sleep}}"/>
+                            <Label class="description" text="Deep Sleep"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+    <!--Page Content END-->
+</Page>

@@ -1,0 +1,36 @@
+.sign-up {
+    background-color: #FFFFFF;
+    padding: 15px;
+}
+
+.social-group {
+    margin-top: 7;
+}
+
+.social-icon-circle {
+    width: 40;
+    height: 40;
+    border-radius: 50;
+    text-align: center;
+    padding-top: 10;
+    margin-left: 10;
+    font-size: 16;
+}
+
+.social-icon-circle.facebook {
+    background-color: #3B5998;
+}
+
+.social-icon-circle.google {
+    background-color: #DD5044;
+}
+
+.checkbox {
+    width: 18;
+    height: 18;
+    margin: 10 10 10 0;
+}
+
+.moreLink {
+    color: #3D3D43;
+}

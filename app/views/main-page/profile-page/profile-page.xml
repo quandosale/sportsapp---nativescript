@@ -1,0 +1,92 @@
+<sdp:DrawerPage 
+    xmlns="http://www.nativescript.org/tns.xsd" 
+    xmlns:RL="nativescript-ripple" 
+    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
+    xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
+    xmlns:sdc="views/side-drawer-content-p" loaded="onPageLoaded"
+    backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866">
+    <!-- BEGIN action bar-->
+    <sdp:DrawerPage.actionBar>
+        <ActionBar automationText="ActionBar" class="action-bar">
+            <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
+            <ActionBar.actionItems>
+                <ActionItem >
+                    <ActionItem.actionView>
+                        <Label text="" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
+                    </ActionItem.actionView>
+                </ActionItem>
+            </ActionBar.actionItems>
+            <ActionBar.titleView>
+                <GridLayout>
+                    <Label text="Profile" horizontalAlignment="center" class="action-title"/>
+                </GridLayout>
+            </ActionBar.titleView>
+        </ActionBar>
+    </sdp:DrawerPage.actionBar>
+    <!-- END  action bar-->
+    <!--BEGIN Side Drawer-->
+    <sdp:DrawerPage.sideDrawer>
+        <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
+            <rsd:RadSideDrawer.drawerContent>
+                <sdc:side-drawer-content />
+            </rsd:RadSideDrawer.drawerContent>
+        </rsd:RadSideDrawer>
+    </sdp:DrawerPage.sideDrawer>
+    <!-- END  Side Drawer-->
+    <!-- BEGIN Page Content-->
+    <StackLayout backgroundColor="#FFF" padding="50 15 15 15">
+        <Border borderWidth="1" borderColor="gray" width="100" height="100">
+            <Image src="res://default_man" width="100" height="100" tap="{{onTakePhotoTap}}" id="userPhoto" borderRadius="3"/>
+        </Border>
+        <GridLayout columns="100,*" rows="auto" marginTop="40">
+            <Label text="Name:" class="label" col="0"/>
+            <TextField text="{{_name}}" col="1"/>
+        </GridLayout>
+        <GridLayout columns="100,*" rows="auto" marginBottom="10">
+            <Label text="Birthday:" class="label" col="0"/>
+            <StackLayout col="1" paddingLeft="4" marginTop="5">
+                <Border borderBottomWidth="0.8" borderColor="gray" paddingBottom="6">
+                    <StackLayout paddingBottom="5" tap="{{onBirthdayTap}}">
+                        <Label text="{{_birthday}}" col="1" color="#000" paddingBottom="5"/>
+                    </StackLayout>
+                </Border>
+            </StackLayout>
+        </GridLayout>
+        <GridLayout columns="100,70,70,*" rows="auto">
+            <Label text="Height:" class="label" col="0"/>
+            <TextField text="{{_height}}" col="1" keyboardType="number"/>
+            <TextField text="{{_height2}}" col="2" keyboardType="number"/>
+            <Label class="label icon" col="3" marginLeft="17" textAlignment="right" marginRight="20" tap="{{onHeightTypeTap}}">
+                <FormattedString>
+                    <Span text="{{_height_unit}} " fontSize="18"></Span>
+                    <Span text=" &#xf0d7;" fontSize="18"></Span>
+                </FormattedString>
+            </Label>
+        </GridLayout>
+        <GridLayout columns="100,70,70,*" rows="auto">
+            <Label text="Weight:" class="label" col="0"/>
+            <TextField text="{{_weight}}" col="1" keyboardType="number"/>
+            <Label col="2"/>
+            <Label text="lbs &#xf0d7;" class="label icon" col="3" marginLeft="17" textAlignment="right" marginRight="20" tap="{{onWeightTypeTap}}">
+                <FormattedString>
+                    <Span text="{{_weight_unit}} " fontSize="18"></Span>
+                    <Span text=" &#xf0d7;" fontSize="18"></Span>
+                </FormattedString>
+            </Label>
+        </GridLayout>
+        <GridLayout columns="100,*" rows="auto">
+            <Label text="Gender" class="label" col="0"/>
+            <StackLayout col="1" paddingLeft="4" marginTop="5" tap="{{onGenderTap}}">
+                <Border borderBottomWidth="0.8" borderColor="gray">
+                    <StackLayout paddingBottom="5">
+                        <Label text="{{_gender}}" class="gender-label" color="#000"/>
+                    </StackLayout>
+                </Border>
+            </StackLayout>
+        </GridLayout>
+        <ActivityIndicator busy="{{isLoading}}" />
+        <RL:Ripple rippleColor="#c8c8c8" marginTop="40" tap="{{saveChange}}" class="my-btn" borderRadius="50%">
+            <Label text="Save" horizontalAlignment="center" verticalAlignment="center"/>
+        </RL:Ripple>
+    </StackLayout>
+</sdp:DrawerPage>

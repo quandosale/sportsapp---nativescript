@@ -1,0 +1,92 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "g:/nativescript-plugin-seed-master",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "g:/nativescript-plugin-seed-master",
+        "spec": "g:\\nativescript-plugin-seed-master",
+        "type": "directory"
+      },
+      "F:\\SportsApp"
+    ]
+  ],
+  "_from": "g:\\nativescript-plugin-seed-master",
+  "_id": "a-nativescript-ecg-sleep-analysis@1.0.0",
+  "_inCache": true,
+  "_location": "/a-nativescript-ecg-sleep-analysis",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "g:/nativescript-plugin-seed-master",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "g:/nativescript-plugin-seed-master",
+    "spec": "g:\\nativescript-plugin-seed-master",
+    "type": "directory"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "file:g:\\nativescript-plugin-seed-master",
+  "_shasum": "515f0062528b2bf4e530af5e5ccf46fd7eebfd80",
+  "_shrinkwrap": null,
+  "_spec": "g:/nativescript-plugin-seed-master",
+  "_where": "F:\\SportsApp",
+  "author": {
+    "name": "Your Name",
+    "email": "youremail@yourdomain.com"
+  },
+  "bugs": {
+    "url": "https://github.com/YourName/a-nativescript-ecg-sleep-analysis/issues"
+  },
+  "dependencies": {},
+  "description": "Your awesome NativeScript plugin.",
+  "devDependencies": {
+    "prompt": "^1.0.0",
+    "rimraf": "^2.5.0",
+    "tns-core-modules": "^2.5.1",
+    "tns-platform-declarations": "^2.5.0",
+    "typescript": "^2.1.0"
+  },
+  "homepage": "https://github.com/YourName/a-nativescript-ecg-sleep-analysis",
+  "keywords": [
+    "NativeScript",
+    "JavaScript",
+    "Android",
+    "iOS"
+  ],
+  "license": "MIT",
+  "main": "yourplugin",
+  "name": "a-nativescript-ecg-sleep-analysis",
+  "nativescript": {
+    "platforms": {
+      "android": "2.5.0",
+      "ios": "2.5.0"
+    }
+  },
+  "optionalDependencies": {},
+  "readme": "# Develop a NativeScript plugin now (w/ TypeScript)\n\n## Getting started\n\n1. `git clone https://github.com/NathanWalker/nativescript-plugin-seed.git myplugin`\n2. `cd myplugin`\n3. `npm run postclone`\n4. `npm run setup`\n5. Get to work.\n\nThis seed expands on several things [presented here](http://developer.telerik.com/featured/creating-nativescript-plugins-in-typescript/).\n\n## Usage\n\nThe seed is prepared to allow you to test and try out your plugin via the `demo` folder.\nAdditionally it provides a proper `.gitignore` to keep GitHub tidy as well as `.npmignore` to ensure everyone is happy when you publish your plugin via npm.\n\n### Linking to CocoaPod or Android Arsenal plugins\n\nYou will want to create these folders and files in the root:\n\n```\nplatforms --\n  ios --\n    Podfile\n  android --\n    include.gradle\n```\n\nDoing so will open up those native apis to your plugin :)\n\nTake a look at these existing plugins for how that can be done very simply:\n\n* [nativescript-cardview](https://github.com/bradmartin/nativescript-cardview/tree/master/platforms)\n* [nativescript-floatingactionbutton](https://github.com/bradmartin/nativescript-floatingactionbutton/tree/master/platforms)\n\n### Typical development workflow:\n\n1. Make changes to plugin files\n2. Make changes in `demo` that would test those changes out\n3. `npm run demo.ios` or `npm run demo.android`  **(must be run from the root directory)**\n\nThose `demo` tasks are just general helpers. You may want to have more granular control on the device and/or emulator you want to run. For that, you can just run things the manual way:\n\n```\ncd demo\n\n// when developing, to ensure the latest code is built into the demo, it's a guarantee to remove the plugin and add it back\ntns plugin remove a-nativescript-ecg-sleep-analysis\ntns plugin add ..\n\n// manual platform adds\ntns platform add ios\n// and/or\ntns platform add android\n```\n\nThen use any of the available options from the `tns` command line:\n\n* [Emulate your project](https://github.com/NativeScript/nativescript-cli#emulate-your-project)\n* [Run your project](https://github.com/NativeScript/nativescript-cli#run-your-project)\n* [Full list of commands](https://github.com/NativeScript/nativescript-cli#the-commands)\n\n## Unittesting\nThis plugin automatically adds Jasmine-based unittest support to your plugin.\nOpen `demo/app/tests/tests.js` and adjust its contents.\n\nYou can read more about this topic [here](https://docs.nativescript.org/tooling/testing).\n\nOnce you're ready to test your plugin's API execute one of these commands in the plugin root:\n\n```\nnpm run test.ios\nnpm run test.android\n```\n\n## Publish\n\nWhen you have everything ready to publish:\n\n* Bump the version number in `package.json`\n* `npm run build` - **very important** - ensure the latest is built **before** you publish\n* `npm publish`\n\n## Contributing - Want to make the seed better?\n\nOr at least help keep it up to date with NativeScript releases, which would be excellent.\n\n```\nnpm install -g typescript  // if you don't already have it\ngit clone https://github.com/NathanWalker/nativescript-plugin-seed\ncd nativescript-plugin-seed\n\n// Improve!\n```\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YourName/a-nativescript-ecg-sleep-analysis.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "demo.android": "npm run preparedemo && cd demo && tns run android --emulator",
+    "demo.ios": "npm run preparedemo && cd demo && tns run ios --emulator",
+    "demo.ios.device": "npm run preparedemo && cd demo && tns run ios",
+    "postclone": "npm i && node scripts/postclone.js",
+    "preparedemo": "npm run build && cd demo && tns plugin remove a-nativescript-ecg-sleep-analysis && tns plugin add .. && tns install",
+    "setup": "npm i && cd demo && npm i && cd .. && npm run build && cd demo && tns plugin add .. && cd ..",
+    "test.android": "cd demo && tns test android",
+    "test.ios": "cd demo && tns test ios --emulator",
+    "test.ios.device": "cd demo && tns test ios"
+  },
+  "typings": "index.d.ts",
+  "version": "1.0.0"
+}

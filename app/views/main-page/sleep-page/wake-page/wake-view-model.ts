@@ -5,6 +5,7 @@ import { Observable } from 'data/observable';
 import { EventData } from "data/observable";
 import pages = require("ui/page");
 import * as LocalNotifications from "nativescript-local-notifications";
+import { AppSetting } from '../../../../common/app-setting';
 import { SendSleep } from '../../send-sleep'
 import { CONFIG, BLEConfig } from '../../../../common/config';
 import navigator = require("../../../../common/navigator");
@@ -204,9 +205,12 @@ export class WakeViewModule extends Observable {
         //var let ="android.resource://" + getPackageName() + "/" + R.raw.notifysnd
         var soundPath = "file:///sdcard/noti.wav";
         soundPath = "android.resource://calm.sportsapp.com/raw/noti";
-        if (global.alarmSound) {
-            soundPath = global.alarmSound;
+        let savedAlarmSound = AppSetting.getSound();
+
+        if (savedAlarmSound && savedAlarmSound.length > 0) {
+            soundPath = savedAlarmSound;
         }
+        console.log('alarm sound -----------------', savedAlarmSound, soundPath);
         Toast.makeText(soundPath).show();
 
         LocalNotifications.schedule([{

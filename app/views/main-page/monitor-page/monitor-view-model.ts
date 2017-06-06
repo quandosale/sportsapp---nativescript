@@ -14,6 +14,9 @@ import { CalmAnalysis } from '../calm-analysis';
 import * as  orientationModule from "nativescript-screen-orientation";
 import * as gridLayoutModule from 'ui/layouts/grid-layout';
 import phoneMac = require("../../../common/phone");
+
+import { DeviceModel } from '../../../model/device-model'
+import { AppSetting } from '../../../common/app-setting';
 import { DataItem } from './dataitem';
 export class MonitorViewdModel extends Observable {
     private _ecgGraph: DrawingPad;
@@ -66,7 +69,7 @@ export class MonitorViewdModel extends Observable {
             this.isGuest = true;
             this.doStartScanning(global.mac);
         } else {
-            this.getDeviceFromServer();
+            this.getDeviceUUID();
         }
     }
 
@@ -95,45 +98,11 @@ export class MonitorViewdModel extends Observable {
         this._CalmAnalysis.stop();
     }
 
-    getDeviceFromServer() {
-        let userId = global.userId;
-        // if (global.user) {
-        let gatewayMac = phoneMac.getMacAddress();
-        var _self = this;
-        let request_url = CONFIG.SERVER_URL + '/devices/get-by-doctor-gateway/' + userId + "/" + gatewayMac;
-        HTTP.request({
-            method: "GET",
-            url: request_url,
-            headers: { "Content-Type": "application/json" },
-            timeout: CONFIG.timeout
-        }).then(function (result) {
-            var res = result.content.toJSON();
-            console.log(JSON.stringify(res));
-            _self.set('isLoading', false);
-            if (res.success) {
-
-                Toast.makeText("" + res.message + ":" + res.data[0].mac).show();
-                let length = res.data.length;
-                let mac = [];
-                for (let i = 0; i < length; i++) {
-                    mac.push(res.data[i].mac);
-                }
-                console.log('------------   success  from server     -------------- mac address', mac.length, mac, mac[0]);
-                _self.set("_mac", mac);
-
-                _self.doStartScanning(mac);
-            }
-            else {
-                console.log('fail ');
-                // Toast.makeText("" + res.message).show();
-                _self.set("tip", "" + res.message);
-            }
-
-        }, function (error) {
-            console.error(JSON.stringify(error));
-            _self.set('isLoading', false);
-            _self.set("tip", "Network error");
-        });
+    getDeviceUUID() {
+        let device: DeviceModel = AppSetting.getDevice();
+        console.log('---------------- monitor page --------------');
+        console.log(device.UUID);
+        this.doStartScanning(device.UUID);
     }
 
     onRescanTap() {
@@ -472,18 +441,19 @@ export class MonitorViewdModel extends Observable {
                 });
             },
             onDisconnected: function (peripheral) {
-                dialogs.confirm({
-                    title: "Disconnected",
-                    message: "Disconnected from peripheral: " + JSON.stringify(peripheral),
-                    okButtonText: "Rescan",
-                    cancelButtonText: 'Cancel',
-                }).then(function (result) {
-                    // result argument is boolean
-                    console.log("Dialog result: " + result);
-                    if (result == true) {
-                        _self.doStartScanning(global._mac);
-                    }
-                });
+                // dialogs.confirm({
+                //     title: "Disconnected",
+                //     message: "Disconnected from peripheral: " + JSON.stringify(peripheral),
+                //     okButtonText: "Rescan",
+                //     cancelButtonText: 'Cancel',
+                // }).then(function (result) {
+                //     // result argument is boolean
+                //     console.log("Dialog result: " + result);
+                //     if (result == true) {
+                //         _self.doStartScanning(global._mac);
+                //     }
+                // });
+                _self.doStartScanning(global._mac);
             }
         });
     }

@@ -1,3 +1,4 @@
+import bluetooth = require("nativescript-bluetooth");
 import * as Toast from "nativescript-toast";
 import * as platform from 'platform';
 import dialogs = require("ui/dialogs");
@@ -9,6 +10,7 @@ import * as  orientationModule from "nativescript-screen-orientation";
 import { CONFIG } from '../../../common/config';
 import navigator = require("../../../common/navigator");
 import phoneMac = require("../../../common/phone");
+import { AppSetting } from '../../../common/app-setting';
 import { Sportsotadfu } from 'nativescript-sportsotadfu';
 
 export class SettingPageModule extends Observable {
@@ -27,57 +29,21 @@ export class SettingPageModule extends Observable {
     }
 
     onFirmwareUpdate() {
-        // first get mac address from server
-        let userId = global.userId;
-        // if (global.user) {
-        let gatewayMac = phoneMac.getMacAddress();
-        var _self = this;
-        let request_url = CONFIG.SERVER_URL + '/devices/get-by-doctor-gateway/' + userId + "/" + gatewayMac;
-        HTTP.request({
-            method: "GET",
-            url: request_url,
-            headers: { "Content-Type": "application/json" },
-            timeout: CONFIG.timeout
-        }).then(function (result) {
-            var res = result.content.toJSON();
-            console.log(JSON.stringify(res));
-            _self.set('isLoading', false);
-            if (res.success) {
-                Toast.makeText("" + res.message + ":" + res.data.length).show();
-                let length = res.data.length;
-                let mac = [];
-                for (let i = 0; i < length; i++) {
-                    mac.push(res.data[i].mac);
-                }
-                console.log('sign in page ------   success  from server     -------------- mac address', mac.length, mac);
-                // use device of First
-                if (mac.length > 0) {
-                    _self.getDeviceFromServer(mac[0]);
-                }
-                else {
-                    Toast.makeText("No registered Devices").show();
-                    _self.set("tip", "No registered Devices");
-                }
-            }
-            else {
-                console.log('fail ');
-                // Toast.makeText("" + res.message).show();
-                _self.set("tip", "" + res.message);
-            }
-
-        }, function (error) {
-            console.error(JSON.stringify(error));
-            _self.set('isLoading', false);
-            _self.set("tip", "Network error");
+        let device = AppSetting.getDevice();
+        let dfuModule = new Sportsotadfu();
+        bluetooth.disconnect({
+            UUID: device.UUID
+        }).then(function () {
+            console.log("disconnected successfully");
+            dfuModule.start(device.UUID);
+        }).then(function (err) {
+            // in this case you're probably best off treating this as a disconnected peripheral though
+            console.log("disconnection error: " + err);
+            dfuModule.start(device.UUID);
+        }).catch(e => {
+            console.log("catch");
+            dfuModule.start(device.UUID);
         });
-    }
-
-    getDeviceFromServer(strMac) {
-        console.log('Firmware Update');
-        let dfu = new Sportsotadfu();
-
-        Toast.makeText("mac address: " + strMac).show();
-        dfu.start(strMac);
     }
 
     onLoginEveryTimeTap() {

@@ -3,13 +3,13 @@ import bluetooth = require("nativescript-bluetooth");
 import * as platform from 'platform';
 import * as Toast from "nativescript-toast";
 import * as TimeDatePicker from 'nativescript-timedatepicker';
-import HTTP = require("http");
 import { Observable } from 'data/observable';
-import { CONFIG } from '../../../common/config';
-import navigator = require("../../../common/navigator");
 import pages = require("ui/page");
 import { YourPlugin } from 'a-nativescript-ecg-sleep-analysis';
 import * as  orientationModule from "nativescript-screen-orientation";
+import { AppSetting } from '../../../common/app-setting';
+import { CONFIG } from '../../../common/config';
+import navigator = require("../../../common/navigator");
 export class SleepViewModule extends Observable {
     page: pages.Page;
     time: Date;
@@ -24,7 +24,6 @@ export class SleepViewModule extends Observable {
         this.getDevice();
         // this.onSetting();
         this.set("remain", "--:--:--");
-        this.getSoundFromServer();
     }
     onSongConfigTap() {
 
@@ -96,78 +95,7 @@ export class SleepViewModule extends Observable {
     }
     setSound(soundPath: string) {
         global.alarmSound = soundPath;
-        let userId = "";
-        if (global.userId) {
-            userId = global.userId;
-        } else {
-            return;
-        }
-        var _self = this;
-        let request_url = CONFIG.SERVER_URL + '/accounts/upgrade-alarmsound/' + userId;
-        HTTP.request({
-            method: "PUT",
-            url: request_url,
-            content: JSON.stringify({
-                alarmSound: soundPath,
-            }),
-            headers: { "Content-Type": "application/json" },
-            timeout: CONFIG.timeout
-        }).then(function (result) {
-            var res = result.content.toJSON();
-            console.log(JSON.stringify(res));
-            _self.set('isLoading', false);
-            if (res.success) {
-                console.log('success ');
-                Toast.makeText("" + res.message).show();
-            } else {
-                console.log('fail ');
-                Toast.makeText("" + res.message).show();
-                _self.set("tip", "" + res.message);
-            }
-        }, function (error) {
-            console.error(JSON.stringify(error));
-            _self.set('isLoading', false);
-            _self.set("tip", "Network error");
-        });
-    }
-    getSoundFromServer() {
-        let userId = "";
-        if (global.userId) {
-            userId = global.userId;
-        } else {
-            return;
-        }
-        var _self = this;
-        let request_url = CONFIG.SERVER_URL + '/accounts/get-alarmsound/' + userId;
-        HTTP.request({
-            method: "GET",
-            url: request_url,
-            headers: { "Content-Type": "application/json" },
-            timeout: CONFIG.timeout
-        }).then(function (result) {
-            var res = result.content.toJSON();
-            console.log(JSON.stringify(res));
-            _self.set('isLoading', false);
-            if (res.success) {
-                console.log('success ');
-                console.log(JSON.stringify(res.data, null, 2));
-                let soundPath = res.data.alarmSound;
-                if (soundPath)
-                    if (soundPath.length > 0)
-                        global.alarmSound = soundPath;
-                Toast.makeText("" + res.message).show();
-            }
-            else {
-                console.log('fail ');
-                Toast.makeText("" + res.message).show();
-                _self.set("tip", "" + res.message);
-            }
-
-        }, function (error) {
-            console.error(JSON.stringify(error));
-            _self.set('isLoading', false);
-            _self.set("tip", "Network error");
-        });
+        AppSetting.setSound(soundPath);
     }
 
     onSleepTap() {
@@ -184,52 +112,10 @@ export class SleepViewModule extends Observable {
         }
     }
     getDevice() {
-        if (!global.user) { return; }
-        let userId = global.user._id;
-
-        // get android phone mac
-        let gatewayMac = this.getMacAddress();
-        console.log('sleep page', 'get  device user id', userId, gatewayMac);
-        var _self = this;
-        _self.set('isLoading', true);
-        _self.set("tip", "get device mac from server...");
-        let request_url = CONFIG.SERVER_URL + '/devices/get-by-doctor-gateway/' + userId + "/" + gatewayMac;
-        HTTP.request({
-            method: "GET",
-            url: request_url,
-            headers: { "Content-Type": "application/json" },
-            timeout: CONFIG.timeout
-        }).then(function (result) {
-            var res = result.content.toJSON();
-            console.log(JSON.stringify(res));
-            _self.set('isLoading', false);
-            if (res.success) {
-                console.log('success ');
-
-                Toast.makeText("" + res.message).show();
-                if (res.data.length == 0) {
-                    _self.set("tip", "success for mac address, but no devices");
-                    return;
-                }
-
-                let mac = res.data[0].mac;
-                _self.set("tip", "success for mac address: " + mac);
-                _self.set("_mac", mac);
-                _self.doStartScanning(mac);
-            }
-            else {
-                _self.set("tip", "fail for mac address from server");
-                console.log('fail ');
-                Toast.makeText("" + res.message).show();
-                _self.set("tip", "" + res.message);
-            }
-
-        }, function (error) {
-            console.error(JSON.stringify(error));
-            _self.set('isLoading', false);
-            _self.set("tip", "Network error");
-        });
+        let device = AppSetting.getDevice();
+        this.doStartScanning(device.UUID);
     }
+
     public getMacAddress(): string {
         return platform.device.uuid;
     }

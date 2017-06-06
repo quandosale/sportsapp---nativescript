@@ -21,7 +21,7 @@
         <Label text="{{tip}}" horizontalAlignment="center" marginBottom="10"/>
         <StackLayout>
             <ScrollView height="115">
-                <lv:RadListView items="{{ dataItems }}" itemTap="{{ onItemTap }}" row="1" id="ls" selectionBehavior="Press" multipleSelection="true" itemSelected="{{itemSelected}}" itemDeselected="{{itemDeselected}}">
+                <lv:RadListView items="{{ dataItems }}" itemTap="{{ onItemTap }}" row="1" id="ls" selectionBehavior="Press" multipleSelection="false" itemSelected="{{itemSelected}}" itemDeselected="{{itemDeselected}}">
                     <lv:RadListView.listViewLayout>
                         <lv:ListViewLinearLayout scrollDirection="Vertical"/>
                     </lv:RadListView.listViewLayout>

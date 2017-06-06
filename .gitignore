@@ -7,9 +7,6 @@
 !/app/tns_modules/**/*.js
 
 
-
-hooks/
-
 *.tgz
 
 /keystore/

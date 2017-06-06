@@ -107,7 +107,46 @@ export class MainPageViewModel extends observable.Observable {
 		});
 	}
 	gotoMainPage() {
-		navigator.navigateToMainPage();
+		this.getDeviceFromServer();
+	}
+	getDeviceFromServer() {
+		let userId = global.userId;
+		// if (global.user) {
+		let gatewayMac = phoneMac.getMacAddress();
+		var _self = this;
+		let request_url = CONFIG.SERVER_URL + '/devices/get-by-doctor-gateway/' + userId + "/" + gatewayMac;
+		HTTP.request({
+			method: "GET",
+			url: request_url,
+			headers: { "Content-Type": "application/json" },
+			timeout: CONFIG.timeout
+		}).then(function (result) {
+			var res = result.content.toJSON();
+			console.log(JSON.stringify(res));
+			_self.set('isLoading', false);
+			if (res.success) {
+
+				Toast.makeText("" + res.message + ":" + res.data[0].mac).show();
+				let length = res.data.length;
+				let mac = [];
+				for (let i = 0; i < length; i++) {
+					mac.push(res.data[i].mac);
+				}
+				console.log('sign in page ------   success  from server     -------------- mac address', mac.length, mac, mac[0]);
+				global.mac = mac[0];
+				navigator.navigateToMainPage();
+			}
+			else {
+				console.log('fail ');
+				// Toast.makeText("" + res.message).show();
+				_self.set("tip", "" + res.message);
+			}
+
+		}, function (error) {
+			console.error(JSON.stringify(error));
+			_self.set('isLoading', false);
+			_self.set("tip", "Network error");
+		});
 	}
 	get screenWidth(): number {
 		return paltfrom.screen.mainScreen.widthDIPs;

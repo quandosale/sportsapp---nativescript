@@ -120,6 +120,7 @@ export class MonitorViewdModel extends Observable {
                 }
                 console.log('------------   success  from server     -------------- mac address', mac.length, mac, mac[0]);
                 _self.set("_mac", mac);
+
                 _self.doStartScanning(mac);
             }
             else {

@@ -28,8 +28,9 @@ export class SettingPageModule extends Observable {
     onFirmwareUpdate() {
         console.log('Firmware Update');
         let dfu = new Sportsotadfu();
-        dfu.start();
-
+        let strMac = global.mac;
+        Toast.makeText("mac address: " + strMac).show();
+        dfu.start(strMac);
     }
     onLoginEveryTimeTap() {
         this.loginEveryTime = !this.loginEveryTime;

@@ -357,7 +357,6 @@ export class MonitorViewdModel extends Observable {
         return rstE;
     }
 
-
     get arrDevice() {
         if (this._arrDevice) {
             return this._arrDevice;
@@ -366,84 +365,6 @@ export class MonitorViewdModel extends Observable {
         }
     }
 
-    public onConnect(args) {
-        var index = args.index;
-        var str = JSON.stringify(this._arrDevice.getItem(index));
-        var device: any = this._arrDevice.getItem(index);
-        var _self = this;
-
-        bluetooth.connect({
-            UUID: device.UUID,
-            // NOTE: we could just use the promise as this cb is only invoked once
-            onConnected: function (peripheral) {
-                // console.log(JSON.stringify(peripheral));
-                // peripheral.services.forEach(function (value) {
-                // console.log("---- ###### adding service: " + value.UUID);
-                clearInterval(_self.timeInterValID);
-                bluetooth.startNotifying({
-                    peripheralUUID: device.UUID,
-                    serviceUUID: BLEConfig.serviceUUID,
-                    characteristicUUID: BLEConfig.characteristicUUID,
-                    onNotify: function (result) {
-                        // result.value is an ArrayBuffer. Every service has a different encoding.
-                        // fi. a heartrate monitor value can be retrieved by:
-                        var data = new Uint8Array(result.value);
-                        var strData = [];
-                        if (data[0] == 1) {
-                            _self.set('isConnected', true);
-                        } else {
-                            _self.set('isConnected', false);
-                        }
-                        let ecgSize = data[1];
-
-                        for (let i = 0; i < ecgSize; i++) {
-                            let ecgValue = data[2 + 2 * i] + data[2 + 2 * i + 1] * 255;
-                            if (ecgValue > 2500) continue;
-                            strData.push(ecgValue);
-                            _self.enQueue(ecgValue);
-                            if (data[0] == 1) { // hand connected
-                                _self._CalmAnalysis.addEcg((ecgValue - 1200) / 800);
-                                _self._sendEcg.enQueue(ecgValue);
-                                // _self.queueSize = _self._sendEcg.queue.length;
-                                _self.set('queueSize', _self._sendEcg.queue.length);
-                                console.log('queueSize', _self._sendEcg.queue.length);
-                                _self.nPacketNumber = _self._sendEcg.nPacketIndex;
-
-                            }
-                        }
-
-                        // for (let i = 0; i < data.length; i++) {
-                        //     var data1 = ("00" + data[i]).slice(-3);
-                        // }
-                        // var str = JSON.stringify(strData);
-                    }
-                }).then(function (result) {
-                    console.log('end', result);
-                });
-            },
-            onDisconnected: function (peripheral) {
-                if (_self.isSend) {
-                    _self.onRecordTap();// stop record;
-                }
-                dialogs.confirm({
-                    title: "Disconnected",
-                    message: "Disconnected from peripheral: " + JSON.stringify(peripheral),
-                    okButtonText: "Rescan",
-                    cancelButtonText: 'Cancel',
-                }).then(function (result) {
-                    // result argument is boolean
-                    console.log("Dialog result: " + result);
-                    if (result == true) {
-                        _self.doStartScanning(global._mac);
-                    }
-                });
-            }
-        });
-    }
-
-    pullTest() {
-        alert();
-    }
     public doStartScanning(_mac) {
 
         if (!_mac) return;
@@ -494,14 +415,13 @@ export class MonitorViewdModel extends Observable {
                 console.log('has permision catch', e);
                 _self.doStartScanning(_mac);
             });
-
     }
 
     public ConnectDevice(index) {
         var str = JSON.stringify(this._arrDevice.getItem(index));
         var device: any = this._arrDevice.getItem(index);
         var _self = this;
-
+        console.log("deviceUUID", device.UUID)
         bluetooth.connect({
             UUID: device.UUID,
             // NOTE: we could just use the promise as this cb is only invoked once

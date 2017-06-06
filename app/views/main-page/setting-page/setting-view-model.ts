@@ -71,6 +71,7 @@ export class SettingPageModule extends Observable {
             _self.set("tip", "Network error");
         });
     }
+
     getDeviceFromServer(strMac) {
         console.log('Firmware Update');
         let dfu = new Sportsotadfu();
@@ -78,6 +79,7 @@ export class SettingPageModule extends Observable {
         Toast.makeText("mac address: " + strMac).show();
         dfu.start(strMac);
     }
+
     onLoginEveryTimeTap() {
         this.loginEveryTime = !this.loginEveryTime;
         let _self = this;

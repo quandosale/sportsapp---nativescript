@@ -38,7 +38,6 @@
     <!-- BEGIN Page Content-->
     <rsd:RadSideDrawer.mainContent>
         <ScrollView backgroundColor="#FFF">
-            <!--<PullRefresh:PullToRefresh refresh="{{pullTest}}">-->
             <StackLayout padding="20" paddingTop="0" paddingBottom="0">
                 <StackLayout height="{{isZoom? 0: '100%'}}">
                     <GridLayout>

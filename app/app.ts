@@ -13,6 +13,8 @@ import "./bundle-modules";
 import * as utils from "utils/utils";
 import { isIOS } from "platform";
 
+import { AppSetting } from './common/app-setting';
+
 // The location of this import is important. iOS swizzles the app delegate.
 
 application.on("uncaughtError", args => {
@@ -81,7 +83,11 @@ if (application.ios) {
 }
 
 prof.start("main-page");
-application.mainModule = "views/main-page/main-page";
+
+if (AppSetting.getUserData() == null)
+    application.mainModule = "views/main-page/main-page";
+else
+    application.mainModule = "views/main-page/monitor-page/monitor-page";
 // application.mainModule = "views/main-page/profile-page/profile-page";
 
 // application.mainModule = "profile-main";

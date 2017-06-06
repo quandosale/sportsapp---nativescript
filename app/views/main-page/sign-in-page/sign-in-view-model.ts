@@ -11,7 +11,7 @@ import pages = require("ui/page");
 import { CONFIG } from '../../../common/config';
 import navigator = require("../../../common/navigator");
 import phoneMac = require("../../../common/phone");
-
+import { AppSetting } from '../../../common/app-setting';
 import { User } from './user';
 export class SignInPageModule extends Observable {
     public user: User = new User("khs0618@yandex.com", "12345");
@@ -140,30 +140,25 @@ export class SignInPageModule extends Observable {
     onLoginTap() {
         this.set('isLoading', true);
         var _self = this;
-        let request_url = CONFIG.SERVER_URL + '/gateways/auth/';
+        let request_url = CONFIG.SERVER_URL + '/auth/login';
         HTTP.request({
             method: "POST",
             url: request_url,
             content: JSON.stringify({
                 username: this.user.email,
-                password: this.user.password,
-                mac: phoneMac.getMacAddress()
+                password: this.user.password
             }),
             headers: { "Content-Type": "application/json" },
             timeout: CONFIG.timeout
         }).then(function (result) {
             var res = result.content.toJSON();
             _self.set('isLoading', false);
+            console.log(JSON.stringify(res));
             if (res.success) {
-                if (res.bLink) {
-                    global.userId = res.data._id;
-                    global.user = res.data;
-                    _self.gotoMainPage();
-                } else {
-                    global.userId = res.data._id;
-                    global.user = res.data;
-                    _self.openGateWayNameDialog(res.data._id);
-                }
+                global.userId = res.data._id;
+                global.user = res.data;
+                AppSetting.setUserData(res.data);
+                _self.gotoMainPage();
             }
             else {
                 _self._toast('Your email or password is invalid.');

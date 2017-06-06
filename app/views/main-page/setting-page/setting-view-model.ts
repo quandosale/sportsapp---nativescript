@@ -25,10 +25,56 @@ export class SettingPageModule extends Observable {
         this.set("backgroundTransfer", true);
         this.loginEveryTime = global.login_everytime
     }
+
     onFirmwareUpdate() {
+        // first get mac address from server
+        let userId = global.userId;
+        // if (global.user) {
+        let gatewayMac = phoneMac.getMacAddress();
+        var _self = this;
+        let request_url = CONFIG.SERVER_URL + '/devices/get-by-doctor-gateway/' + userId + "/" + gatewayMac;
+        HTTP.request({
+            method: "GET",
+            url: request_url,
+            headers: { "Content-Type": "application/json" },
+            timeout: CONFIG.timeout
+        }).then(function (result) {
+            var res = result.content.toJSON();
+            console.log(JSON.stringify(res));
+            _self.set('isLoading', false);
+            if (res.success) {
+                Toast.makeText("" + res.message + ":" + res.data.length).show();
+                let length = res.data.length;
+                let mac = [];
+                for (let i = 0; i < length; i++) {
+                    mac.push(res.data[i].mac);
+                }
+                console.log('sign in page ------   success  from server     -------------- mac address', mac.length, mac);
+                // use device of First
+                if (mac.length > 0) {
+                    _self.getDeviceFromServer(mac[0]);
+                }
+                else {
+                    Toast.makeText("No registered Devices").show();
+                    _self.set("tip", "No registered Devices");
+                }
+            }
+            else {
+                console.log('fail ');
+                // Toast.makeText("" + res.message).show();
+                _self.set("tip", "" + res.message);
+            }
+
+        }, function (error) {
+            console.error(JSON.stringify(error));
+            _self.set('isLoading', false);
+            _self.set("tip", "Network error");
+        });
+    }
+    getDeviceFromServer(strMac) {
         console.log('Firmware Update');
         let dfu = new Sportsotadfu();
-        let strMac = global.mac;
+
         Toast.makeText("mac address: " + strMac).show();
         dfu.start(strMac);
     }

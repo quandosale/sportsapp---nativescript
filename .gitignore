@@ -6,7 +6,6 @@
 /app/**/*.map
 !/app/tns_modules/**/*.js
 
-
 *.tgz
 
 /keystore/

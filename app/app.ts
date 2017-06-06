@@ -14,7 +14,6 @@ import * as utils from "utils/utils";
 import { isIOS } from "platform";
 
 // The location of this import is important. iOS swizzles the app delegate.
-import "./common/firebase";
 
 application.on("uncaughtError", args => {
     var error = args.android || args.ios;

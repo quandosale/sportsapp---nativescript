@@ -4,12 +4,12 @@ import * as Toast from "nativescript-toast";
 import { Observable } from 'data/observable';
 import { EventData } from "data/observable";
 import pages = require("ui/page");
-import * as LocalNotifications from "nativescript-local-notifications";
 import { AppSetting } from '../../../../common/app-setting';
 import { SendSleep } from '../../send-sleep'
 import { CONFIG, BLEConfig } from '../../../../common/config';
 import navigator = require("../../../../common/navigator");
 
+import * as NotificationMudule from '../notification';
 export class WakeViewModule extends Observable {
     page: pages.Page;
     time;
@@ -22,7 +22,7 @@ export class WakeViewModule extends Observable {
         if (global.wakeuptime) {
             let time = new Date(global.wakeuptime);
             this.time = new Date(global.wakeuptime)
-            this.checkNotificationEnable(time);
+            NotificationMudule.setNotification(this.time);
         }
         if (global.mac) {
             this.doStartScanning(global.mac);
@@ -37,23 +37,11 @@ export class WakeViewModule extends Observable {
         navigator.navigateBack();
     }
     onWakeUpTap() {
-        LocalNotifications.getScheduledIds().then(
-            function (ids) {
-                console.log("ID's: " + ids);
-            });
-        LocalNotifications.cancel(1).then(
-            function (foundAndCanceled) {
-                if (foundAndCanceled) {
-                    Toast.makeText("Notifciation Canceled").show();
-                } else {
-                    Toast.makeText("Notifciation cannot Canceled").show();
-                }
-            });
+        NotificationMudule.clear();
         setTimeout(() => this._sendsleep.stop(), 3 * 60 * 1000);
     }
     onCancelTap() {
-        LocalNotifications.cancelAll();
-        Toast.makeText("All of Notifciation Canceled").show();
+        NotificationMudule.clearAll();
     }
 
     public doStartScanning(mac) {
@@ -179,75 +167,6 @@ export class WakeViewModule extends Observable {
         }
     }
 
-    checkNotificationEnable(_time) {
-        var _self = this;
-        LocalNotifications.hasPermission().then(
-            function (granted) {
-                console.log("Permission granted? " + granted);
-                if (!granted) {
-                    LocalNotifications.requestPermission().then(
-                        function (granted) {
-                            console.log("request Permission granted? " + granted);
-                            if (granted) {
-                                _self.setNotification(_time);
-                            } else {
-                                Toast.makeText('permission denied').show();
-                            }
-                        });
-                } else {
-                    _self.setNotification(_time);
-                }
-            });
-    }
-
-    setNotification(_time: Date) {
-        this.setRemainTime();
-        //var let ="android.resource://" + getPackageName() + "/" + R.raw.notifysnd
-        var soundPath = "file:///sdcard/noti.wav";
-        soundPath = "android.resource://calm.sportsapp.com/raw/noti";
-        let savedAlarmSound = AppSetting.getSound();
-
-        if (savedAlarmSound && savedAlarmSound.length > 0) {
-            soundPath = savedAlarmSound;
-        }
-        console.log('alarm sound -----------------', savedAlarmSound, soundPath);
-        Toast.makeText(soundPath).show();
-
-        LocalNotifications.schedule([{
-            id: 1,
-            title: 'Wake Up Time',
-            body: 'created' + this.time,
-            ticker: 'The ticker',
-            badge: 1,
-            groupedMessages: ["Wake up time"], //android only
-            groupSummary: "Wake up " + _time.toString(), //android only
-            ongoing: true, // makes the notification ongoing (Android only)
-            smallIcon: 'res://ic_menu_main',
-            interval: 'second',
-            sound: soundPath,
-            at: new Date(_time)
-        }]).then(
-            function () {
-                Toast.makeText('Notification scheduled').show();
-                console.log("Notification scheduled");
-                LocalNotifications.addOnMessageReceivedCallback(
-                    function (notification) {
-                        Toast.makeText("Title: " + notification.title).show();
-                        console.log("ID: " + notification.id);
-                        console.log("Title: " + notification.title);
-                        console.log("Body: " + notification.body);
-
-                    }
-                ).then(
-                    function () {
-                        console.log("Listener added");
-                    });
-            },
-            function (error) {
-                console.log("scheduling error: " + error);
-            });
-    }
-
     timeFormat(date: Date, isSemicolon) {
         var hour = date.getHours();
         var minutes = date.getMinutes();
@@ -275,37 +194,5 @@ export class WakeViewModule extends Observable {
         let hours = x;
         let hoursStr = ('00' + hours).substr(-2);
         return hoursStr + ':' + minsStr + ':' + secsStr;
-    }
-}
-export class DataItem extends Observable {
-    constructor(uuid: string, name: string, isSelect: boolean) {
-        super();
-        this.UUID = uuid;
-        this.name = name;
-        this.isSelect = isSelect;
-    }
-
-    get UUID(): string {
-        return this.get("_UUID");
-    }
-
-    set UUID(value: string) {
-        this.set("_UUID", value);
-    }
-
-    get name(): string {
-        return this.get("_name");
-    }
-
-    set name(value: string) {
-        this.set("_name", value);
-    }
-
-    get isSelect(): boolean {
-        return this.get("_isSelect");
-    }
-
-    set isSelect(value: boolean) {
-        this.set("_isSelect", value);
     }
 }

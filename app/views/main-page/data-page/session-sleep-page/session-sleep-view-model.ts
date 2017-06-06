@@ -15,7 +15,7 @@ import { Page } from 'ui/page';
 import * as  orientationModule from "nativescript-screen-orientation";
 import { CONFIG } from '../../../../common/config';
 import navigator = require("../../../../common/navigator");
-
+import { DataItem } from './data-item'
 export class SessionViewModel extends Observable {
     sleepPoints = [];
     private _items: ObservableArray<DataItem>;
@@ -223,65 +223,4 @@ export class SessionViewModel extends Observable {
         this._items.push(new DataItem(id, "Excercise session " + id + " at 10:00 AM", "Duration 8:12:34 | Resting HR 64", false, 1));
     }
 
-}
-
-export class DataItem extends Observable {
-    constructor(id: number, name: string, description: string, isStartOfDate: boolean, dataType: number) {
-        super();
-        this.id = id;
-        this.itemName = name;
-        this.itemDescription = description;
-        this.isStartOfDate = isStartOfDate;
-        this.dataType = dataType;
-    }
-
-    get id(): number {
-        return this.get("_id");
-    }
-
-    set id(value: number) {
-        this.set("_id", value);
-    }
-
-    get itemName(): string {
-        return this.get("_itemName");
-    }
-
-    set itemName(value: string) {
-        this.set("_itemName", value);
-    }
-
-    get itemDescription(): string {
-        return this.get("_itemDescription");
-    }
-
-    set itemDescription(value: string) {
-        this.set("_itemDescription", value);
-    }
-
-    get isStartOfDate(): boolean {
-        return this.get("_isStartOfDate");
-    }
-
-    set isStartOfDate(value: boolean) {
-        this.set("_isStartOfDate", value);
-    }
-    get dataType(): number {
-        return this.get("_dataType");
-    }
-
-    set dataType(value: number) {
-        this.set("_dataType", value);
-        this.set("_dataTypeImage", this.dataTypeToImage(value));
-
-    }
-    dataTypeToImage(value: number): string {
-        if (value == 0) {
-            return "res://type_activity";
-        }
-        if (value == 1) {
-            return "res://type_sleep";
-        }
-        return "res://type_sleep";
-    }
 }

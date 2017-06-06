@@ -3,7 +3,6 @@ import { TNSPlayer } from 'nativescript-audio';
 import dialogs = require("ui/dialogs");
 import bluetooth = require("nativescript-bluetooth");
 import observableArray = require("data/observable-array");
-import * as platform from 'platform';
 import * as Toast from "nativescript-toast";
 import HTTP = require("http");
 import { Observable } from 'data/observable';
@@ -12,10 +11,13 @@ import * as LocalNotifications from "nativescript-local-notifications";
 import * as vibrator from "nativescript-vibrate";
 import * as ButtonModel from 'ui/button';
 import * as  orientationModule from "nativescript-screen-orientation";
+import { AppSetting } from '../../../../common/app-setting';
 import { SendSleep } from '../../send-sleep'
 import { SendEcg } from '../../send-ecg';
 import { CONFIG, BLEConfig } from '../../../../common/config';
 import navigator = require("../../../../common/navigator");
+import { DataItem } from './data-item';
+import * as NotificationMudule from '../notification';
 export class SnoozeViewModule extends Observable {
     page: pages.Page;
     private _player: TNSPlayer;
@@ -61,7 +63,6 @@ export class SnoozeViewModule extends Observable {
             this._player.play();
             console.log('play');
         }
-
     }
 
     private _trackComplete(info: any) {
@@ -79,72 +80,22 @@ export class SnoozeViewModule extends Observable {
     }
     onWakeUpTap() {
         vibrator.vibration(2000);
-
-        // this.togglePlay();
-        console.log();
-        LocalNotifications.getScheduledIds().then(
-            function (ids) {
-                console.log("ID's: " + ids);
-            });
-        LocalNotifications.cancel(1).then(
-            function (foundAndCanceled) {
-                if (foundAndCanceled) {
-                    Toast.makeText("Notifciation Canceled").show();
-                } else {
-                    Toast.makeText("Notifciation cannot Canceled").show();
-                }
-            });
-        setTimeout(() => this.sendsleep.start(), 3 * 60 * 1000);
-
+        NotificationMudule.clear();
+        setTimeout(() => this.sendsleep.stop(), 3 * 60 * 1000);
     }
     onSnoozeTap() {
         let after5Minutes: Date = new Date();
         this.time = after5Minutes;
-        after5Minutes.setMinutes(after5Minutes.getMinutes() + 10);
-        // this.checkNotification(after5Minutes);
+        after5Minutes.setMinutes(after5Minutes.getMinutes() + 5);
+        NotificationMudule.setNotification(after5Minutes);
 
         global.wakeuptime = after5Minutes;
         navigator.navigateToWakeUp();
-
     }
+
     getDevice() {
-        let userId = "5901f65483755e3701856c4e";
-        // if (global.user) {
-        let gatewayMac = this.getMacAddress();
-        var _self = this;
-        let request_url = CONFIG.SERVER_URL + '/devices/get-by-doctor-gateway/' + userId + "/" + gatewayMac;
-        HTTP.request({
-            method: "GET",
-            url: request_url,
-            headers: { "Content-Type": "application/json" },
-            timeout: CONFIG.timeout
-        }).then(function (result) {
-            var res = result.content.toJSON();
-            console.log(JSON.stringify(res));
-            _self.set('isLoading', false);
-            if (res.success) {
-                console.log('success ');
-                Toast.makeText("" + res.message).show();
-                if (res.data.length == 0) return;
-                let mac = res.data[0].mac;
-                _self.set("_mac", mac);
-                _self.doStartScanning(mac);
-            }
-            else {
-                console.log('fail ');
-                Toast.makeText("" + res.message).show();
-                _self.set("tip", "" + res.message);
-            }
-
-        }, function (error) {
-            console.error(JSON.stringify(error));
-            _self.set('isLoading', false);
-            _self.set("tip", "Network error");
-        });
-        // }
-    }
-    public getMacAddress(): string {
-        return platform.device.uuid;
+        let device = AppSetting.getDevice();
+        this.doStartScanning(device.UUID);
     }
 
     public doStartScanning(mac) {
@@ -177,8 +128,6 @@ export class SnoozeViewModule extends Observable {
                                 _self.ConnectDevice(i);
                                 break;
                             }
-                            // _self.ConnectDevice(i);
-                            // break;
                         }
                     }
                 },
@@ -238,67 +187,6 @@ export class SnoozeViewModule extends Observable {
         }
     }
 
-    checkNotification(_time) {
-        var _self = this;
-        LocalNotifications.hasPermission().then(
-            function (granted) {
-                console.log("Permission granted? " + granted);
-                if (!granted) {
-                    LocalNotifications.requestPermission().then(
-                        function (granted) {
-                            console.log("request Permission granted? " + granted);
-                            if (granted) {
-                                _self.setNotification(_time);
-                            } else {
-                                Toast.makeText('permission denied').show();
-                            }
-                        });
-                } else {
-                    _self.setNotification(_time);
-                }
-            });
-    }
-
-    setNotification(_time: Date) {
-        let _self = this;
-        //var let ="android.resource://" + getPackageName() + "/" + R.raw.notifysnd
-        var soundPath = "file:///sdcard/noti.wav";
-        soundPath = "android.resource://org.nativescript.examples/raw/noti";
-        LocalNotifications.schedule([{
-            id: 1,
-            title: 'Wake Up Time',
-            body: 'created' + this.time,
-            ticker: 'The ticker',
-            badge: 1,
-            groupedMessages: ["Wake up time"], //android only
-            groupSummary: "Wake up " + _time.toString(), //android only
-            ongoing: true, // makes the notification ongoing (Android only)
-            smallIcon: 'res://ic_menu_main',
-            interval: 'second',
-            sound: soundPath,
-            at: new Date(_time)
-        }]).then(
-            function () {
-                Toast.makeText('Notification scheduled').show();
-                console.log("Notification scheduled");
-                _self.setRemainTime();
-                LocalNotifications.addOnMessageReceivedCallback(
-                    function (notification) {
-                        Toast.makeText("Title: " + notification.title).show();
-                        console.log("ID: " + notification.id);
-                        console.log("Title: " + notification.title);
-                        console.log("Body: " + notification.body);
-                    }
-                ).then(
-                    function () {
-                        console.log("Listener added");
-                    });
-            },
-            function (error) {
-                console.log("scheduling error: " + error);
-            });
-    }
-
     timeFormat(date: Date, isSemicolon) {
         var hour = date.getHours();
         var minutes = date.getMinutes();
@@ -326,37 +214,5 @@ export class SnoozeViewModule extends Observable {
         let hours = x;
         let hoursStr = ('00' + hours).substr(-2);
         return hoursStr + ':' + minsStr + ':' + secsStr;
-    }
-}
-export class DataItem extends Observable {
-    constructor(uuid: string, name: string, isSelect: boolean) {
-        super();
-        this.UUID = uuid;
-        this.name = name;
-        this.isSelect = isSelect;
-    }
-
-    get UUID(): string {
-        return this.get("_UUID");
-    }
-
-    set UUID(value: string) {
-        this.set("_UUID", value);
-    }
-
-    get name(): string {
-        return this.get("_name");
-    }
-
-    set name(value: string) {
-        this.set("_name", value);
-    }
-
-    get isSelect(): boolean {
-        return this.get("_isSelect");
-    }
-
-    set isSelect(value: boolean) {
-        this.set("_isSelect", value);
     }
 }

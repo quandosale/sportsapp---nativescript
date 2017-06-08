@@ -11,6 +11,7 @@ import * as imagepickerModule from "nativescript-imagepicker";
 import imageAsset = require("image-asset");
 import { CONFIG } from '../../../common/config';
 import { AppSetting } from '../../../common/app-setting';
+var icModule = require("nativescript-imagecropper");
 
 // global variable
 var imageBase64: string = "";
@@ -42,6 +43,7 @@ export class ProfileModel extends Observable {
 
         this.imgUserPhoto = mainPage.getViewById<Image>("userPhoto");
         this.getUserInfo();
+        console.log('takephoto', takePhoto);
         if (takePhoto == 1) {
             this.imgUserPhoto.src = imageBase64;
             takePhoto = 0;
@@ -83,14 +85,22 @@ export class ProfileModel extends Observable {
                 return _contex.present();
             })
             .then(function (selection) {
-                takePhoto = 2;
+                takePhoto = 1;
                 selection.forEach(function (selected) {
                     console.log("uri: " + selected.uri);
                     console.log("fileUri: " + selected.fileUri);
                     imageUrl = selected.fileUri;
                     var img = imageSource.fromFile(imageUrl);
 
-                    imageBase64 = 'data:image/png;base64,' + img.toBase64String("jpg");
+                    var cropper = new icModule.ImageCropper();
+                    cropper.show(img, { width: 100, height: 100 }).then(function (res) {
+                        takePhoto = 1;
+                        var m: imageSource.ImageSource = res.image;
+                        imageBase64 = 'data:image/png;base64,' + m.toBase64String("jpg");
+                    })
+                        .catch(function (e) {
+                            console.log('crop err', e);
+                        });
                 });
 
                 let result = selection;
@@ -98,7 +108,6 @@ export class ProfileModel extends Observable {
             }).catch(function (e) {
                 console.log(e);
             });
-        this.imgUserPhoto.src = "asdf";
     }
     onTakePhoto() {
         takePhoto = 1;
@@ -108,15 +117,24 @@ export class ProfileModel extends Observable {
         camera.takePicture({ width: 100, height: 100, keepAspectRatio: false }).
             then((imageAsset: imageAsset.ImageAsset) => {
                 console.log("Result is an image asset instance");
-                var __self = _self;
+                var __self = this;
                 imageSource.fromAsset(imageAsset)
                     .then(e => {
                         var t: imageSource.ImageSource = e;
                         console.log('w', t.width);
                         console.log('h', t.height);
-
                         imageBase64 = 'data:image/png;base64,' + t.toBase64String("jpg");
                         this.imgUserPhoto.src = imageBase64;
+                        var cropper = new icModule.ImageCropper();
+                        cropper.show(t, { width: 100, height: 100 }).then(function (res) {
+                            takePhoto = 1;
+                            var m: imageSource.ImageSource = res.image;
+                            imageBase64 = 'data:image/png;base64,' + m.toBase64String("jpg");
+                            _self.imgUserPhoto.src = imageBase64;
+                        })
+                            .catch(function (e) {
+                                console.log('crop err', e);
+                            });
                     });
             }).catch((err) => {
                 console.log("Error -> " + err.message);

@@ -3,7 +3,7 @@
     xmlns:RL="nativescript-ripple" 
     xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
     xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
-    xmlns:sdc="views/side-drawer-content-s" loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866">
+    xmlns:sdc="views/side-drawer/side-drawer-content-s" loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866">
     <!-- BEGIN action bar-->
     <sdp:DrawerPage.actionBar>
         <ActionBar automationText="ActionBar" class="action-bar">

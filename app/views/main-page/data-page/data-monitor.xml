@@ -2,7 +2,7 @@
     xmlns="http://www.nativescript.org/tns.xsd" 
     xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
     xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
-    xmlns:sdc="views/side-drawer-content-d" 
+    xmlns:sdc="views/side-drawer/side-drawer-content-d" 
     xmlns:lv="nativescript-telerik-ui-pro/listview" loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page">
    <!-- BEGIN action bar-->
     <sdp:DrawerPage.actionBar>

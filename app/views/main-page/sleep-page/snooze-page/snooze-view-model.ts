@@ -95,6 +95,10 @@ export class SnoozeViewModule extends Observable {
 
     getDevice() {
         let device = AppSetting.getDevice();
+        if (device == null) {
+            Toast.makeText("Device is not registered").show();
+            return;
+        }
         this.doStartScanning(device.UUID);
     }
 

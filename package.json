@@ -19,6 +19,7 @@
     "nativescript-drawingpad": "^1.1.2",
     "nativescript-effects": "^0.5.0",
     "nativescript-fresco": "1.0.12",
+    "nativescript-imagecropper": "0.0.7",
     "nativescript-imagepicker": "^3.0.0",
     "nativescript-local-notifications": "^1.2.1",
     "nativescript-pulltorefresh": "^2.0.0-rc.1",

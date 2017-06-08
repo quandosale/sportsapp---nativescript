@@ -3,7 +3,7 @@
     xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
     xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
     xmlns:PullRefresh="nativescript-pulltorefresh" 
-    xmlns:sdc="views/side-drawer-content-m" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866" 
+    xmlns:sdc="views/side-drawer/side-drawer-content-m" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866" 
     xmlns:DrawingPad="nativescript-drawingpad" 
     xmlns:drawer="nativescript-telerik-ui-pro/sidedrawer" 
     xmlns:gauge="nativescript-telerik-ui-pro/gauges" loaded="pageLoaded" unloaded="onUnloaded">
@@ -13,7 +13,7 @@
             <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
             <ActionBar.actionItems>
                 <ActionItem >
-                    <ActionItem.actionView>
+                    <ActionItem.actionView> 
                         <Label text="" class="icon" height="22" margin="0, 8, 4, -8" fontSize="25" width="32"/>
                     </ActionItem.actionView>
                 </ActionItem>

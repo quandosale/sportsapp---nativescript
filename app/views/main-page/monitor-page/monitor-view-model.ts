@@ -101,8 +101,12 @@ export class MonitorViewdModel extends Observable {
     getDeviceUUID() {
         let device: DeviceModel = AppSetting.getDevice();
         console.log(device);
-        if(device != null)
-            this.doStartScanning(device.UUID);
+        if (device == null) {
+            Toast.makeText("Device is not registered").show();
+            return;
+        }
+        this.doStartScanning(device.UUID);
+
     }
 
     onRescanTap() {

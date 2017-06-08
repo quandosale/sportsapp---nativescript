@@ -29,7 +29,13 @@ export class SettingPageModule extends Observable {
     }
 
     onFirmwareUpdate() {
+        console.log('Firmware Up');
         let device = AppSetting.getDevice();
+        if (device == null) {
+            Toast.makeText("Device is not registered").show();
+            return;
+        }
+
         let dfuModule = new Sportsotadfu();
         bluetooth.disconnect({
             UUID: device.UUID

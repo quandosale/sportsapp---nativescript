@@ -3,6 +3,7 @@ android {
     defaultConfig {
         minSdkVersion 19
         generatedDensities = []
+        multiDexEnabled true
         applicationId = "calm.sportsapp.com"
     }
     aaptOptions {

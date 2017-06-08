@@ -1,0 +1,9 @@
+@import {
+    url('~/views/side-drawer/side-drawer-content-common.css')
+}
+
+;
+.drawer-button,
+.drawer-button-external {
+    font-size: 14;
+}

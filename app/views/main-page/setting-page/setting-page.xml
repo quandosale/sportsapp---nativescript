@@ -3,7 +3,7 @@
     xmlns:RL="nativescript-ripple" 
     xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
     xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
-    xmlns:sdc="views/side-drawer-content-st" 
+    xmlns:sdc="views/side-drawer/side-drawer-content-st" 
     xmlns:lv="nativescript-telerik-ui-pro/listview" loaded="onPageLoaded" 
     xmlns:f="nativescript-fresco" backgroundSpanUnderStatusBar="true" class="c-page1" 
     xmlns:df="nativescript-telerik-ui-pro/dataform" backgroundColor="#0F1866">

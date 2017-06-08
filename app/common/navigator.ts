@@ -92,6 +92,7 @@ export function navigateToMonitor() {
     var topmost = frame.topmost();
     if (topmost.currentEntry.moduleName !== "views/main-page/monitor-page/monitor-page") {
         frame.topmost().navigate({
+            clearHistory: true,
             moduleName: traceNavigateTo("views/main-page/monitor-page/monitor-page"), animated: true, transition: {
                 name: 'fade',
                 duration: 780,
@@ -163,6 +164,7 @@ export function navigateToDataPage() {
     var topmost = frame.topmost();
     if (topmost.currentEntry.moduleName !== "views/main-page/data-page/data-monitor") {
         frame.topmost().navigate({
+            clearHistory: true,
             moduleName: traceNavigateTo("views/main-page/data-page/data-monitor"), animated: true, transition: {
                 name: 'fade',
                 duration: 380,
@@ -201,6 +203,7 @@ export function navigateToProfilePage() {
     var topmost = frame.topmost();
     if (topmost.currentEntry.moduleName !== "views/main-page/profile-page/profile-page") {
         frame.topmost().navigate({
+            clearHistory: true,
             moduleName: traceNavigateTo("views/main-page/profile-page/profile-page"), animated: true, transition: {
                 name: 'fade',
                 duration: 380,
@@ -214,6 +217,7 @@ export function navigateToSettingPage() {
     var topmost = frame.topmost();
     if (topmost.currentEntry.moduleName !== "views/main-page/setting-page/setting-page") {
         frame.topmost().navigate({
+            clearHistory: true,
             moduleName: traceNavigateTo("views/main-page/setting-page/setting-page"), animated: true,
             transition: {
                 name: 'fade',
@@ -225,34 +229,8 @@ export function navigateToSettingPage() {
 }
 
 
-export function navigateToWhatIsNew() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/what-is-new") {
-        frame.topmost().navigate(traceNavigateTo("views/what-is-new"));
-    }
-}
-
 export function navigateBack() {
     frame.goBack();
-}
-
-export function navigateBackWithContext(context: any) {
-    var topmostFrame = frame.topmost();
-    var backstackEntry = topmostFrame.backStack[topmostFrame.backStack.length - 1];
-    backstackEntry.entry.context = context;
-    topmostFrame.goBack(backstackEntry);
-}
-
-export function navigateBackFromExample() {
-    var topmostFrame = frame.topmost();
-    var stack = topmostFrame.backStack;
-    for (var top = stack.length - 1; top >= 0; --top) {
-        var backStackEntry = stack[top];
-        if (!/^examples\//.test(backStackEntry.entry.moduleName)) {
-            topmostFrame.goBack(backStackEntry);
-            break;
-        }
-    }
 }
 
 export function openLink(view: any) {

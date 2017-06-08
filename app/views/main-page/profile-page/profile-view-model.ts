@@ -4,15 +4,18 @@ import { Observable } from 'data/observable';
 import { Page } from 'ui/page';
 import dialogs = require("ui/dialogs");
 import HTTP = require("http");
-
 import { Image } from "ui/image";
 import * as imageSource from "image-source";
 import * as camera from "nativescript-camera";
-var imagepickerModule = require("nativescript-imagepicker");
+import * as imagepickerModule from "nativescript-imagepicker";
 import imageAsset = require("image-asset");
 import { CONFIG } from '../../../common/config';
+import { AppSetting } from '../../../common/app-setting';
+
 // global variable
 var imageBase64: string = "";
+var takePhoto: number = 0;
+var imageUrl: string = "";
 export class ProfileModel extends Observable {
     dateTest = new Date();
     imgUserPhoto: Image;
@@ -20,23 +23,33 @@ export class ProfileModel extends Observable {
     heightMeter = 0;
     weightKg = 0;
 
+
     constructor(mainPage: Page) {
         super();
         // orientationModule.setCurrentOrientation("portrait", function () {
         //     console.log("landscape orientation set");
-        // });
+        // })
+
         this.page = mainPage;
         this.name = "john";
         this.birthday = this.dateFormat(this.dateTest);
         this.gender = "Male";
-        this.height = '0 ft';
-        this.height2 = '0 in';
+        this.height = 0;
+        this.height2 = 0;
         this.height_unit = "feet";
         this.weight = 0;
         this.weight_unit = "lbs";
 
         this.imgUserPhoto = mainPage.getViewById<Image>("userPhoto");
         this.getUserInfo();
+        if (takePhoto == 1) {
+            this.imgUserPhoto.src = imageBase64;
+            takePhoto = 0;
+        }
+        if (takePhoto == 2) {
+            this.imgUserPhoto.src = imageUrl;
+            takePhoto = 0;
+        }
     }
     onTakePhotoTap() {
 
@@ -62,6 +75,7 @@ export class ProfileModel extends Observable {
         this.startSelection(context);
     }
     startSelection(_contex: any) {
+        let _self = this;
         _contex
             .authorize()
             .then(function () {
@@ -69,108 +83,105 @@ export class ProfileModel extends Observable {
                 return _contex.present();
             })
             .then(function (selection) {
+                takePhoto = 2;
                 selection.forEach(function (selected) {
                     console.log("uri: " + selected.uri);
                     console.log("fileUri: " + selected.fileUri);
+                    imageUrl = selected.fileUri;
+                    var img = imageSource.fromFile(imageUrl);
+
+                    imageBase64 = 'data:image/png;base64,' + img.toBase64String("jpg");
                 });
+
                 let result = selection;
+
             }).catch(function (e) {
                 console.log(e);
             });
-
+        this.imgUserPhoto.src = "asdf";
     }
     onTakePhoto() {
+        takePhoto = 1;
         console.log('camera on');
         var _self = this;
         camera.requestPermissions();
-        camera.takePicture({ width: 100, height: 100, keepAspectRatio: true }).
+        camera.takePicture({ width: 100, height: 100, keepAspectRatio: false }).
             then((imageAsset: imageAsset.ImageAsset) => {
                 console.log("Result is an image asset instance");
-                this.imgUserPhoto.src = imageAsset;
-                this.imgUserPhoto.height = 100;
                 var __self = _self;
                 imageSource.fromAsset(imageAsset)
                     .then(e => {
                         var t: imageSource.ImageSource = e;
                         console.log('w', t.width);
                         console.log('h', t.height);
-                        imageBase64 = t.toBase64String("PNG");
-                    });
 
+                        imageBase64 = 'data:image/png;base64,' + t.toBase64String("jpg");
+                        this.imgUserPhoto.src = imageBase64;
+                    });
             }).catch((err) => {
                 console.log("Error -> " + err.message);
             });
     }
 
     getUserInfo() {
-        if (!global.userId) return;
-        this.set('isLoading', true);
-        var _self = this;
+        console.log('getUserInfo');
+        let user = AppSetting.getUserData();
+        if (user != null)
+            this.initUserData(user);
+        else {
 
-        let request_url = CONFIG.SERVER_URL + '/accounts/get/' + global.userId;
-        HTTP.request({
-            method: "GET",
-            url: request_url,
-            timeout: 3000,
-            headers: { "Content-Type": "application/json" },
-        }).then(function (result) {
-            _self.set('isLoading', false);
-            var res = result.content.toJSON();
-            if (res.success) {
-                // console.log(JSON.stringify(res, null, 2));
-                _self.initUserData(res.data);
-            }
-            else {
-                Toast.makeText(res.message).show();
-            }
-        }, function (error) {
-            _self.set('isLoading', false);
-            Toast.makeText('Network error').show();
-        });
+        }
     }
     setHeight() {
         if (this.height_unit == 'feet') {
             let feet = this.meterTofeet(this.heightMeter);
-            this.height = feet.feet + ' ft';
-            this.height2 = feet.inch + ' in';
+            this.height = Math.round(feet.feet);// unit ft
+            this.height2 = Math.round(feet.inch);// unit in
+            this.height_unit1 = 'ft';
+            this.height_unit2 = 'in';
         } else {
-            this.height = this.heightMeter + ' cm'
-            this.height2 = "";
+            this.heightMeter = this.meterTofeet(this.height, this.height2);
+            this.height = Math.round(this.heightMeter);
+            this.height2 = 0;
+            this.height_unit1 = 'm';
+            this.height_unit2 = '';
         }
     }
     setWeight() {
-
-
-
-
-
-
         if (this.weight_unit.toLocaleLowerCase() == 'lbs') {
             let lbs = this.kgToLbs(this.weightKg);
-            this.weight = lbs;
+            this.weight = Math.round(lbs);
         } else {
-            this.weight = this.weightKg;
+            this.weight = Math.round(this.weightKg);
 
         }
     }
 
-    meterTofeet(v) {
-        let foot = 3.2808399 * v / 100;
-        let _f = Math.floor(foot);
-        let _distance = foot - _f;
-        let inch = _distance * 12;
-        inch = Math.round(inch);
-        return { feet: _f, inch: inch };
+    meterTofeet(val1: number, val2: number = undefined): any {
+        if (val2 == undefined) {
+            let foot = val1 * 3.2808399;
+            let _f = Math.floor(foot);
+            let _distance = foot - _f;
+            let inch = _distance * 12;
+            inch = Math.round(inch);
+            return { feet: _f, inch: inch };
+        } else {
+            let meter = val1 * 0.3048 + val2 * 0.3048 / 12;
+            return meter;
+        }
     }
-    kgToLbs(v) {
-        let res = v * 2.20462262185;
-        return Math.round(res);
+    kgToLbs(v, isKg: Boolean = true) {
+        let res;
+        if (isKg)
+            res = v * 2.20462262185;
+        else
+            res = v * 0.45359237;
+        return res;
 
     }
 
     initUserData(data) {
         console.log('---------- photo --------------')
-        console.log(data.photo);
 
         this.name = data.firstname;
         this.birthday = this.dateFormat(data.birthday);
@@ -184,53 +195,62 @@ export class ProfileModel extends Observable {
         this.setWeight();
         var pSrc: string = data.photo;
         this.photoSrc = pSrc;
-
-        imageSource.fromUrl(pSrc)
-            .then(e => {
-                var t: imageSource.ImageSource = e;
-                console.log('w', t.width);
-                console.log('h', t.height);
-                this.imgUserPhoto.src = t;
-            });
+        if (data.photo != "")
+            this.imgUserPhoto.src = data.photo;
+        else
+            this.imgUserPhoto.src = "res://default_man";
     }
     saveChange() {
-        if (!global.userId) {
-            return;
-        }
+        let user = AppSetting.getUserData();
         this.set('isLoading', true);
         if (imageBase64.length == 0) {
             imageBase64 = this.photoSrc;
         }
+        if (this.height_unit == "feet") {
+            this.heightMeter = this.meterTofeet(this.height, this.height2);
+        } else {
+            this.heightMeter = this.height;
+        }
+
+        if (this.weight_unit.toLocaleLowerCase() == "lbs") {
+            this.weightKg = this.kgToLbs(this.weight, false);
+        } else {
+            this.weightKg = this.weight;
+        }
+        console.log(this.weightKg);
+        user.photo = imageBase64;
+        user.firstname = this.name;
+        user.birthday = this.birthday;
+        user.gender = this.gender;
+        user.height = this.heightMeter;
+        user.height_unit = this.height_unit;
+        user.weight = this.weightKg;
+        user.weight_unit = this.weight_unit;
+        user.photo = imageBase64;
+        AppSetting.setUserData(user);
+
         var _self = this;
-        let request_url = CONFIG.SERVER_URL + '/accounts/update/' + global.userId;
+        let request_url = CONFIG.SERVER_URL + '/accounts/update/' + user._id;
         HTTP.request({
             method: "PUT",
             url: request_url,
-            content: JSON.stringify({
-                photo: imageBase64,
-                firstname: this.name,
-                birthday: this.birthday,
-                gender: this.gender,
-                height: this.heightMeter,
-                height_unit: this.height_unit,
-                weight: this.weightKg,
-                weight_unit: this.weight_unit
-            }),
+            content: JSON.stringify(user),
             timeout: CONFIG.timeout,
             headers: { "Content-Type": "application/json" },
         }).then(function (result) {
             _self.set('isLoading', false);
             var res = result.content.toJSON();
             if (res.success) {
-                _self.getUserInfo();
+                Toast.makeText("Profile has been saved successfully on cloud").show();
             }
             else {
                 Toast.makeText(res.message).show();
             }
         }, function (error) {
             _self.set('isLoading', false);
-            Toast.makeText('Network error').show();
+            Toast.makeText('Profile will be synced later due to bad network traffic.').show();
         });
+        _self.getUserInfo();
     }
     onBirthdayTap0() {
         var modalPageModule = "views/main-page/sign-up-page/birthday/birthday";
@@ -337,6 +357,7 @@ export class ProfileModel extends Observable {
     set name(value: string) {
         this.set("_name", value);
     }
+
     get birthday(): string {
         return this.get("_birthday");
     }
@@ -351,18 +372,18 @@ export class ProfileModel extends Observable {
     set gender(value: string) {
         this.set("_gender", value);
     }
-    get height(): string {
+    get height(): number {
         return this.get("_height");
     }
 
-    set height(value: string) {
+    set height(value: number) {
         this.set("_height", value);
     }
-    get height2(): string {
+    get height2(): number {
         return this.get("_height2");
     }
 
-    set height2(value: string) {
+    set height2(value: number) {
         this.set("_height2", value);
     }
     get height_unit(): string {
@@ -371,6 +392,20 @@ export class ProfileModel extends Observable {
 
     set height_unit(value: string) {
         this.set("_height_unit", value);
+    }
+    get height_unit1(): string {
+        return this.get("_height_unit1");
+    }
+
+    set height_unit1(value: string) {
+        this.set("_height_unit1", value);
+    }
+    get height_unit2(): string {
+        return this.get("_height_unit2");
+    }
+
+    set height_unit2(value: string) {
+        this.set("_height_unit2", value);
     }
 
     get weight(): number {

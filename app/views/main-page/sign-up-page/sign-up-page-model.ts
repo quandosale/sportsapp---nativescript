@@ -10,6 +10,8 @@ import { CONFIG } from '../../../common/config';
 import navigator = require("../../../common/navigator");
 import dialogs = require("ui/dialogs");
 import pages = require("ui/page");
+import { AppSetting } from '../../../common/app-setting';
+
 export class SignUpPageModule extends Observable {
     page: pages.Page;
     constructor(page) {
@@ -244,13 +246,12 @@ export class SignUpPageModule extends Observable {
             console.log(JSON.stringify(res));
             if (res.success) {
                 _self._toast(res.message);
-                // global.myId = res.data._id;
+                console.log(res.data);
+                AppSetting.setUserData(res.data);
                 navigator.navigateToTutorial();
             } else {
                 _self._toast(res.message);
             }
-            navigator.navigateToTutorial();
-
         }, function (error) {
             console.error(JSON.stringify(error));
             _self._toast('Network error');

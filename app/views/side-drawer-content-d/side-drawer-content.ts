@@ -8,6 +8,7 @@ import { Observable } from "data/observable";
 import imageModule = require("ui/image");
 import drawerModule = require("nativescript-telerik-ui-pro/sidedrawer");
 import * as pages from "ui/page";
+import {AppSetting} from '../../common/app-setting';
 var image: imageModule.Image;
 var page: pages.Page;
 class SidedrawerViewModel extends Observable {
@@ -80,6 +81,7 @@ export function tapSetting(args) {
 
 export function tapLogout(args) {
     closeDrawer();
+    AppSetting.logout();
     navigator.navigateToHome();
 }
 

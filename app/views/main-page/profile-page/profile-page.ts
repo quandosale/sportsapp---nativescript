@@ -16,6 +16,7 @@ export function onPageLoaded(args: EventData) {
 
 export function onContentLoaded(args: EventData) {
     let view = <View>args.object;
+    console.log('oncontentloaded');
 }
 
 export function onBackgroundLoaded(args: EventData) {
@@ -25,7 +26,6 @@ export function onBackgroundLoaded(args: EventData) {
 export function onProfilePictureTapped(args: EventData) {
     notify("Change Image Tapped!");
 }
-
 export function onUpdateButtonTapped(args: EventData) {
     notify("Update Tapped!");
 }

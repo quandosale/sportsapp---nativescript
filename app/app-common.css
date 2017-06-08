@@ -203,6 +203,62 @@ DrawerPage {
     placeholder-color: #FFFFFF;
 }
 
+#profile-content {
+    background-color: #FFF;
+    padding: 50 30 15;
+}
+
+#profile-content .withoutborder {
+    outline: none;
+    border: none;
+    border-color: transparent;
+    background-color: white;
+    padding: 0;
+}
+
+#profile-content .info-row {
+    margin-top: 15;
+}
+
+#profile-content .label {
+    color: #363636;
+    font-size: 16;
+    vertical-align: center;
+}
+
+#profile-content Border {
+    padding-bottom: 2;
+    border-color: #a6a5a5;
+}
+
+#profile-content Border TextField,
+Label.label-gray {
+    color: #a6a5a5;
+}
+
+#profile-content Image {
+    border-radius: 50;
+}
+
+#profile-content .avatar {
+    background-color: #ffffff;
+    width: 100;
+    height: 100;
+}
+
+#profile-content .circle-wrapper {
+    background-color: #666666;
+    border-radius: 50;
+    border-width: 1;
+    border-color: #666666;
+    width: 100px;
+    height: 100px;
+}
+
+#profile-content .common-font {
+    font-size: 16;
+}
+
 .w-50-left {
     margin-right: 1%;
 }

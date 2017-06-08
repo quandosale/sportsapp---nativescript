@@ -100,9 +100,9 @@ export class MonitorViewdModel extends Observable {
 
     getDeviceUUID() {
         let device: DeviceModel = AppSetting.getDevice();
-        console.log('---------------- monitor page --------------');
-        console.log(device.UUID);
-        this.doStartScanning(device.UUID);
+        console.log(device);
+        if(device != null)
+            this.doStartScanning(device.UUID);
     }
 
     onRescanTap() {

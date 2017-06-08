@@ -9,7 +9,7 @@
             </GridLayout>
         </GridLayout>
         
-        <GridLayout class="drawer-news-link " tap="tapSleep">
+        <GridLayout class="drawer-news-link" tap="tapSleep">
             <GridLayout class="drawer-external-icon"  columns="auto,auto">
              <Label class="drawer-rect" col="0"/>
                 <Label text="Sleep Monitor" class="drawer-external-label"  col="1"/>

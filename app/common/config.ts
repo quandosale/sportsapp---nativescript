@@ -1,5 +1,6 @@
 export const CONFIG = {
     SERVER_URL: 'http://13.113.160.171',
+    // SERVER_URL: 'http://192.168.3.31',
     timeout: 6000,
     COOKIE_FILE: 'calm_tmp.dat'
 };

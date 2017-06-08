@@ -2,7 +2,6 @@
 // trace.setCategories(trace.categories.Style);
 // trace.enable();
 
-import SocialLogin = require("nativescript-social-login");
 import application = require("application");
 import frame = require("ui/frame");
 
@@ -83,12 +82,11 @@ if (application.ios) {
 }
 
 prof.start("main-page");
-
 if (AppSetting.getUserData() == null)
     application.mainModule = "views/main-page/main-page";
 else
-    application.mainModule = "views/main-page/monitor-page/monitor-page";
-// application.mainModule = "views/main-page/profile-page/profile-page";
+    // application.mainModule = "views/main-page/monitor-page/monitor-page";
+application.mainModule = "views/main-page/profile-page/profile-page";
 
 // application.mainModule = "profile-main";
 // http://52.33.117.221/phr/get-latest-data/58d8c6852e4f16270c827ee3
@@ -109,12 +107,5 @@ else
 // application.mainModule = "views/main-page/data-page/session-sleep-page/session-sleep-page";
 
 // application.mainModule = "views/main-page/tutorial-page/tutorial-page";
-if (application.android) {
-    application.android.onActivityCreated = (activity) => {
-        var result = SocialLogin.init({
-            activity: activity
-        });
-        // alert(JSON.stringify(result));
-    };
-}
+
 application.start();

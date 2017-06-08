@@ -4,19 +4,17 @@ export class AppSetting {
     static setUserData(user: any) {
         appSetting.setString('user', JSON.stringify(user));
     }
-    static getUserData(): Object {
+    static getUserData(): any {
         let user = appSetting.getString('user');
         if (user == undefined)
             return null;
         return JSON.parse(user);
     }
     static setDevice(device: DeviceModel) {
-        console.log('setDevice', JSON.stringify(device, null, 2));
         appSetting.setString('device', JSON.stringify(device));
     }
     static getDevice(): DeviceModel {
         let device = appSetting.getString('device');
-        console.log('getDevice', JSON.stringify(JSON.parse(device), null, 2));
         if (device == undefined)
             return null;
         return JSON.parse(device);
@@ -31,5 +29,8 @@ export class AppSetting {
         if (sound == undefined)
             return null;
         return sound;
+    }
+    static logout() {
+        appSetting.remove('user');
     }
 }

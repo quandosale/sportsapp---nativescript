@@ -14,7 +14,7 @@ import phoneMac = require("../../../common/phone");
 import { AppSetting } from '../../../common/app-setting';
 import { User } from './user';
 export class SignInPageModule extends Observable {
-    public user: User = new User("khs0618@yandex.com", "12345");
+    public user: User = new User("a@a.com", "11111");
     // public user: User = new User("", "");
     page: pages.Page;
     constructor(_page: pages.Page) {
@@ -156,8 +156,8 @@ export class SignInPageModule extends Observable {
             console.log(JSON.stringify(res));
             if (res.success) {
                 global.userId = res.data._id;
-                global.user = res.data;
-                AppSetting.setUserData(res.data);
+                global.user = res.data.user;
+                AppSetting.setUserData(res.data.user);
                 _self.gotoMainPage();
             }
             else {

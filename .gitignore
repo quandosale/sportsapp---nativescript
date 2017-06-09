@@ -7,7 +7,7 @@
 !/app/tns_modules/**/*.js
 
 *.tgz
-*.bat
+!*.bat
 /keystore/
 *.apk
 *.ipa

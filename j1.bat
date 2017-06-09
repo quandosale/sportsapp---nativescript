@@ -1,2 +1,2 @@
 @echo Calm Analysis module
-@copy G:\SportAnalysisTester\analysis\build\outputs\aar\analysis-release.aar F:\SportsApp\node_modules\a-nativescript-ecg-sleep-analysis\platforms\android\analysis-release.aar
+@copy G:\SportAnalysisTester\analysis\build\outputs\aar\analysis-release.aar G:\work\nativescript\sportsapp---nativescript\node_modules\a-nativescript-ecg-sleep-analysis\platforms\android\analysis-release.aar

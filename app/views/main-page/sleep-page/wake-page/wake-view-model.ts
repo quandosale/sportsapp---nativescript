@@ -5,7 +5,9 @@ import { Observable } from 'data/observable';
 import { EventData } from "data/observable";
 import pages = require("ui/page");
 import { AppSetting } from '../../../../common/app-setting';
-import { SendSleep } from '../../send-sleep'
+import { SendSleep } from '../../send-sleep';
+import { SendEcg } from '../../send-ecg';
+
 import { CONFIG, BLEConfig } from '../../../../common/config';
 import navigator = require("../../../../common/navigator");
 
@@ -13,7 +15,7 @@ import * as NotificationMudule from '../notification';
 export class WakeViewModule extends Observable {
     page: pages.Page;
     time;
-    _sendsleep: SendSleep = new SendSleep();
+    _sendEcg: SendEcg = new SendEcg();
     constructor(page) {
         super();
         this.setTimeForDisplay();
@@ -24,21 +26,26 @@ export class WakeViewModule extends Observable {
             this.time = new Date(global.wakeuptime)
             NotificationMudule.setNotification(this.time);
         }
-        if (global.mac) {
-            this.doStartScanning(global.mac);
-            this._sendsleep.start();
+        this.getDevice();
+    }
+    getDevice() {
+        let device = AppSetting.getDevice();
+        if (device != null) {
+            this.doStartScanning(device.UUID);
+            this._sendEcg.start();
         } else {
             this.set("tip", "global mac not set");
             console.log('mac address not set');
         }
     }
+
     goBack() {
-        this._sendsleep.stop();
+        this._sendEcg.stop();
         navigator.navigateBack();
     }
     onWakeUpTap() {
         NotificationMudule.clear();
-        setTimeout(() => this._sendsleep.stop(), 3 * 60 * 1000);
+        setTimeout(() => this._sendEcg.stop(), 3 * 60 * 1000);
     }
     onCancelTap() {
         NotificationMudule.clearAll();
@@ -57,42 +64,43 @@ export class WakeViewModule extends Observable {
                 console.log(granted);
                 if (!granted) {
                     bluetooth.requestCoarseLocationPermission().then(e => {
-                        _self.doStartScanning(mac);
+                        setTimeout(() => _self.doStartScanning(mac), 1000);
                     });
-                }
-                _self.set('isLoading', true);
+                } else {
+                    _self.set('isLoading', true);
 
-                bluetooth.startScanning({
-                    serviceUUIDs: [], // pass an empty array to scan for all services
-                    seconds: 4, // passing in seconds makes the plugin stop scanning after <seconds> seconds
-                    onDiscovered: function (peripheral: bluetooth.Peripheral) {
-                        if (peripheral.UUID == mac) {
-                            _self.isFound = true;
-                            _self.set('isLoading', false);
-                            bluetooth.stopScanning()
-                                .then(e => {
-                                    _self.ConnectDevice(mac);
-                                })
-                                .catch(e => {
-                                    _self.set("tip", "disconnecting error");
-                                })
+                    bluetooth.startScanning({
+                        serviceUUIDs: [], // pass an empty array to scan for all services
+                        seconds: 4, // passing in seconds makes the plugin stop scanning after <seconds> seconds
+                        onDiscovered: function (peripheral: bluetooth.Peripheral) {
+                            if (peripheral.UUID == mac) {
+                                _self.isFound = true;
+                                _self.set('isLoading', false);
+                                bluetooth.stopScanning()
+                                    .then(e => {
+                                        _self.ConnectDevice(mac);
+                                    })
+                                    .catch(e => {
+                                        _self.set("tip", "disconnecting error");
+                                    })
+                            }
                         }
-                    }
-                }).then(function () {
-                    _self.set('isLoading', false);
-                    if (_self.isFound) {
-
-                    } else {
-                        // if device is not found then again
-                        _self.set("tip", "Cannot found device");
-                        setTimeout(() => _self.doStartScanning(mac), 1000);
-                    }
-                },
-                    function (err) {
+                    }).then(function () {
                         _self.set('isLoading', false);
-                        _self.set("tip", "Device Scanning error");
-                        setTimeout(() => _self.doStartScanning(mac), 1000);
-                    });
+                        if (_self.isFound) {
+
+                        } else {
+                            // if device is not found then again
+                            _self.set("tip", "Cannot found device");
+                            setTimeout(() => _self.doStartScanning(mac), 1000);
+                        }
+                    },
+                        function (err) {
+                            _self.set('isLoading', false);
+                            _self.set("tip", "Device Scanning error");
+                            setTimeout(() => _self.doStartScanning(mac), 1000);
+                        });
+                }
             });
     }
     isFound = false;
@@ -125,12 +133,12 @@ export class WakeViewModule extends Observable {
                             if (ecgValue > 2500) continue;
 
                             if (data[0] == 1) { // hand connected
-                                _self._sendsleep.addEcg(ecgSize);
+                                _self._sendEcg.enQueue(ecgSize);
                             } else {
-                                _self._sendsleep.addEcg(ecgSize);
+                                _self._sendEcg.enQueue(ecgSize);
                             }
                         }
-                        _self.set('tip', "packetNumber: " + _self._sendsleep.nPacketIndex + "  ,queue size: " + _self._sendsleep.queue.length);
+                        _self.set('tip', "packetNumber: " + _self._sendEcg.nPacketIndex + "  ,queue size: " + _self._sendEcg.queue.length);
                     }
                 }).then(function (result) {
                     console.log('end', result);

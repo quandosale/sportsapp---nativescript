@@ -428,7 +428,7 @@ export class MonitorViewdModel extends Observable {
                                 _self._CalmAnalysis.addEcg((ecgValue - 1200) / 800);
                                 _self._sendEcg.enQueue(ecgValue);
 
-                                _self.set('queueSize', 'queue size: ' + _self._sendEcg.queue.length);
+                                _self.set('queueSize', 'calm size: ' + _self._CalmAnalysis.queue.length + ',ecg ' + _self._sendEcg.queue.length);
                                 _self.set('nPacketNumber', 'packet index: ' + _self._sendEcg.nPacketIndex);
 
                             }
@@ -445,6 +445,8 @@ export class MonitorViewdModel extends Observable {
                 });
             },
             onDisconnected: function (peripheral) {
+                _self.set('isConnected', false);
+                Toast.makeText("Device disconnected").show();
                 // dialogs.confirm({
                 //     title: "Disconnected",
                 //     message: "Disconnected from peripheral: " + JSON.stringify(peripheral),

@@ -1,6 +1,7 @@
 import { YourPlugin } from 'a-nativescript-ecg-sleep-analysis';
 import * as Toast from "nativescript-toast";
 import HTTP = require("http");
+import { AppSetting } from '../../common/app-setting';
 import { CONFIG } from '../../common/config';
 export class SendSleep {
 
@@ -12,10 +13,19 @@ export class SendSleep {
     constructor() {
         this.nnDateTime = new Date();
     }
+    userId = "";
     public init() {
         this.nPacketIndex = 1;
         this.queue = [];
         this.nnDateTime = new Date();
+        let user = AppSetting.getUserData();
+        if (user != null) {
+            // this.userId = user._id;
+            console.log(JSON.stringify(user, null, 2));
+        }
+        else {
+            console.log(' user not sett -----------------------');
+        }
     }
     public start() {
         this.init();
@@ -25,7 +35,7 @@ export class SendSleep {
     public stop() {
         this.isSend = false;
     }
-    public addEcg(ecg: number) {
+    public enQueue(ecg: number) {
         if (this.isSend)
             this.queue.push(ecg);
     }
@@ -52,10 +62,11 @@ export class SendSleep {
     }
 
     send(_arrResult) {
-        if (!global.user._id) {
+        if (this.userId.length == 0) {
+            console.log('user no set');
             return;
         }
-        let ownerId = global.user._id;
+        let ownerId = this.userId;
         console.log('owner', ownerId);
 
         let request_url = CONFIG.SERVER_URL + '/phr/datasets/add';

@@ -260,6 +260,7 @@ export class ProfileModel extends Observable {
             var res = result.content.toJSON();
             if (res.success) {
                 Toast.makeText("Profile has been saved successfully on cloud").show();
+                _self.getUserInfo();
             }
             else {
                 Toast.makeText(res.message).show();
@@ -268,7 +269,6 @@ export class ProfileModel extends Observable {
             _self.set('isLoading', false);
             Toast.makeText('Profile will be synced later due to bad network traffic.').show();
         });
-        _self.getUserInfo();
     }
     onBirthdayTap0() {
         var modalPageModule = "views/main-page/sign-up-page/birthday/birthday";

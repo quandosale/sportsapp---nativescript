@@ -85,8 +85,9 @@ prof.start("main-page");
 if (AppSetting.getUserData() == null)
     application.mainModule = "views/main-page/main-page";
 else
-    // application.mainModule = "views/main-page/monitor-page/monitor-page";
-application.mainModule = "views/main-page/profile-page/profile-page";
+    application.mainModule = "views/main-page/monitor-page/monitor-page";
+// application.mainModule = "views/main-page/profile-page/profile-page";
+
 
 // application.mainModule = "profile-main";
 // http://52.33.117.221/phr/get-latest-data/58d8c6852e4f16270c827ee3

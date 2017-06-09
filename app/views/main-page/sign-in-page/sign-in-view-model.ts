@@ -5,8 +5,6 @@ import { Observable } from 'data/observable';
 import { EventData } from "data/observable";
 // Social Login Module
 import SocialLogin = require("nativescript-social-login");
-import * as fs from "file-system";
-import { File, Folder, path } from "file-system";
 import pages = require("ui/page");
 import { CONFIG } from '../../../common/config';
 import navigator = require("../../../common/navigator");
@@ -169,94 +167,11 @@ export class SignInPageModule extends Observable {
             _self._toast('Network error');
         });
     }// login
-    openGateWayNameDialog(userId) {
-        var modalPageModule = "views/main-page/sign-in-page/gateway-name-dialog/name-dialog";
-        var context = "some custom context";
-        let _self = this;
-        this.page.showModal(modalPageModule, context, function (_gatewayName: string) {
-            if (!_gatewayName) return;
-            _self.register(userId, _gatewayName);
-        }, false);
-    }
-    register(userId, _gatewayName) {
-        var _self = this;
-        let request_url = CONFIG.SERVER_URL + "/gateways/register/";
-        HTTP.request({
-            method: "POST",
-            url: request_url,
-            content: JSON.stringify({
-                name: _gatewayName,
-                type: "android " + _gatewayName + ", " + phoneMac.getMacAddress(),
-                mac: phoneMac.getMacAddress(),
-                upload_freq: 10,
-                polling_freq: 10,
-                login_everytime: true,
-                owner: userId
-            }),
-            headers: { "Content-Type": "application/json" },
-            timeout: CONFIG.timeout
-        }).then(function (result) {
-            var res = result.content.toJSON();
-            _self.set('isLoading', false);
-            if (res.success) {
-                _self.gotoMainPage();
-            }
-            else {
-                _self._toast('Cannot register Your Gateway');
-            }
-        }, function (error) {
-            _self.set('isLoading', false);
-            console.error('login error:', JSON.stringify(error), error);
-            _self._toast('Network error');
-        });
-        //*/
-    }
 
     gotoMainPage() {
-        // save current state to the file(id , pawword)
-        this.writeCookie();
         navigator.navigateToMainPage();
-        // this.getDeviceFromServer();
     }
-    writeCookie() {
-        if (!global.userId) {
-            Toast.makeText('User Data not set').show();
-            return;
-        }
-        let user = {
-            username: this.user.email,
-            password: this.user.password,
-            userId: global.userId
-        };
 
-
-        let strUserinfo = JSON.stringify(user);
-        var documents = fs.knownFolders.documents();
-        var file = documents.getFile(CONFIG.COOKIE_FILE);
-
-        // Writing text to the file.
-        file.writeText(strUserinfo)
-            .then(function () {
-                // Succeeded writing to the file.
-                console.log('Success for save cookie');
-            }, function (error) {
-                // Failed to write to the file.
-                console.log('Fail for save cookie');
-            });
-    }
-    readCookie() {
-        var documents = fs.knownFolders.documents();
-        var file = documents.getFile(CONFIG.COOKIE_FILE);
-        file.readText()
-            .then(function (result) {
-                // Succeeded writing to the file.
-                let res = JSON.parse(result);
-                console.log('Success for READ cookie ' + JSON.stringify(res, null, 2));
-            }, function (error) {
-                // Failed to write to the file.
-                console.log('Fail for READ cookie');
-            });
-    }
     _toast(_msg) {
         Toast.makeText(_msg).show();
     }

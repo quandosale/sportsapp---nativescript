@@ -32,13 +32,13 @@ function checkNotificationEnable(_time: Date) {
                     function (granted) {
                         console.log("request Permission granted? " + granted);
                         if (granted) {
-                            setNotification(_time);
+                            setTimeout(() => checkNotificationEnable(_time), 1000);
                         } else {
                             Toast.makeText('permission denied').show();
                         }
                     });
             } else {
-                setNotification(_time);
+                setTimeout(() => _setNotification(_time), 10);
             }
         });
 }

@@ -22,7 +22,6 @@ export class SleepViewModule extends Observable {
         this.page = page;
         this.setTimeForDisplay();
         this.getDevice();
-        // this.onSetting();
         this.set("remain", "--:--:--");
     }
     onSongConfigTap() {
@@ -113,7 +112,7 @@ export class SleepViewModule extends Observable {
     }
     getDevice() {
         let device = AppSetting.getDevice();
-        if(device != null)
+        if (device != null)
             this.doStartScanning(device.UUID);
     }
 
@@ -142,7 +141,6 @@ export class SleepViewModule extends Observable {
                         onDiscovered: function (peripheral: bluetooth.Peripheral) {
                             if (peripheral.UUID == mac) {
                                 _self.isFound = true;
-                                global.mac = mac;
                             }
                         }
                     }).then(function () {

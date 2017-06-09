@@ -1,5 +1,6 @@
 import * as Toast from "nativescript-toast";
 import HTTP = require("http");
+import { AppSetting } from '../../common/app-setting';
 import { CONFIG } from '../../common/config';
 
 export class SendEcg {
@@ -12,11 +13,20 @@ export class SendEcg {
         this.queue = [];
         this.nnDateTime = new Date();
         this.nPacketIndex = 1;
+        let user = AppSetting.getUserData();
+        if (user != null) {
+            this.userId = user._id;
+        }
+        else {
+            console.log(' user not sett -----------------------');
+        }
     }
+    userId = "";
     public init() {
         this.nPacketIndex = 1;
         this.queue = [];
         this.nnDateTime = new Date();
+
     }
     public start() {
         this.isSend = true;
@@ -44,16 +54,18 @@ export class SendEcg {
     }
 
     send() {
-        if (!global.user._id) {
+        if (this.userId.length == 0) {
             return;
         }
-        let ownerId = global.user._id;
+        let ownerId = this.userId;
 
         if (this.queue.length > this.SizeUpload) {
             let request_url = CONFIG.SERVER_URL + '/phr/datasets/add';
 
             var _self = this;
-            let ecg = this.queue;
+            console.log('queue size ', this.queue.length);
+            let ecg = this.queue.splice(0, this.SizeUpload);
+            console.log('queue size after ', this.queue.length);
             let heartRate = [0, ecg.length];
             let acc = [0, 0, 0, ecg.length]
             let value = {
@@ -93,13 +105,10 @@ export class SendEcg {
                 }
 
             }, function (error) {
-
-                console.error(JSON.stringify(error));
                 Toast.makeText('Network error').show();
             });
-            this.queue = [];
         } else {
-            setTimeout(() => this.send(), 10);
+            setTimeout(() => this.send(), 1000);
         }
 
     }

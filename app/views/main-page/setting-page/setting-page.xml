@@ -1,162 +1,152 @@
-<sdp:DrawerPage 
-    xmlns="http://www.nativescript.org/tns.xsd" 
-    xmlns:RL="nativescript-ripple" 
-    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
-    xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
-    xmlns:sdc="views/side-drawer/side-drawer-content-st" 
-    xmlns:lv="nativescript-telerik-ui-pro/listview" loaded="onPageLoaded" 
-    xmlns:f="nativescript-fresco" backgroundSpanUnderStatusBar="true" class="c-page1" 
-    xmlns:df="nativescript-telerik-ui-pro/dataform" backgroundColor="#0F1866">
-    <!-- BEGIN action bar-->
-    <sdp:DrawerPage.actionBar>
-        <ActionBar automationText="ActionBar" class="action-bar">
-            <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
-            <ActionBar.actionItems>
-                <ActionItem >
-                    <ActionItem.actionView>
-                        <Label text="" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
-                    </ActionItem.actionView>
-                </ActionItem>
-            </ActionBar.actionItems>
-            <ActionBar.titleView>
-                <GridLayout>
-                    <Label text="Settings" horizontalAlignment="center" class="action-title"/>
-                </GridLayout>
-            </ActionBar.titleView>
-        </ActionBar>
-    </sdp:DrawerPage.actionBar>
-    <!-- END  action bar-->
-    <!--BEGIN Side Drawer-->
-    <sdp:DrawerPage.sideDrawer>
-        <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
-            <rsd:RadSideDrawer.drawerContent>
-                <sdc:side-drawer-content />
-            </rsd:RadSideDrawer.drawerContent>
-        </rsd:RadSideDrawer>
-    </sdp:DrawerPage.sideDrawer>
-    <!-- END  Side Drawer-->
-    <!-- BEGIN Page Content-->
-    <StackLayout padding="20" id="content" backgroundColor="#FFF" class="setting-content">
-        <Label text="ACCOUNT" class="group setting-item"/>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="{{ChangePasswordDialog}}">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Change Password" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20" verticalAlignment="center">
-                        <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right" />
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="{{CloseAccountDialog}}">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Close Account" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <Label text="APP SETTINGS" class="group setting-item"/>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="onPairNewDevice">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Pair New Device" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="{{onUnitSettingTap}}">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Unit Settings" horizontalAlignment="left" width="50%" verticalAlignment="center" marginLeft="10" />
-                    <StackLayout horizontalAlignment="right" width="60%" paddingRight="20" tap="{{onUnitSettingTap}}">
-                        <Label class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right">
-                            <FormattedString>
-                                <Span text="{{_unit}}" fontSize="18"></Span>
-                                <Span text=" &#xf105;" fontSize="18"></Span>
-                            </FormattedString>
-                        </Label>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Background Data Transfer" tap="{{onAddItemClick}}" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Switch checked="{{ backgroundTransfer }}" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Login Every Time" tap="{{onLoginEveryTimeTap}}" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Switch checked="{{ _loginEveryTime }}" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right" tap="{{onLoginEveryTimeTap}}"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="{{onFirmwareUpdate}}">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Firmware Update" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <Label text="SUPPORT" class="group setting-item"/>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="onPrivacy">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Privacy" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="onAboutPage">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="About" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="onLogout">
-            <StackLayout orientation="vertical">
-                <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
-                    <Label text="Logout" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
-                    <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
-                        <Label text="&#xf08b;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <Label class="h-bar"/>
-    </StackLayout>
+<sdp:DrawerPage
+  xmlns="http://www.nativescript.org/tns.xsd"
+  xmlns:RL="nativescript-ripple"
+  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
+  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer"
+  xmlns:sdc="views/side-drawer/side-drawer-content-st"
+  xmlns:lv="nativescript-telerik-ui-pro/listview" loaded="onPageLoaded"
+  xmlns:f="nativescript-fresco" backgroundSpanUnderStatusBar="true" class="c-page1"
+  xmlns:df="nativescript-telerik-ui-pro/dataform" backgroundColor="#0F1866">
+  <!-- BEGIN action bar-->
+  <sdp:DrawerPage.actionBar>
+    <ActionBar automationText="ActionBar" class="action-bar">
+      <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
+      <ActionBar.actionItems>
+        <ActionItem>
+          <ActionItem.actionView>
+            <Label text="" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
+          </ActionItem.actionView>
+        </ActionItem>
+      </ActionBar.actionItems>
+      <ActionBar.titleView>
+        <GridLayout>
+          <Label text="Settings" horizontalAlignment="center" class="action-title"/>
+        </GridLayout>
+      </ActionBar.titleView>
+    </ActionBar>
+  </sdp:DrawerPage.actionBar>
+  <!-- END  action bar-->
+  <!--BEGIN Side Drawer-->
+  <sdp:DrawerPage.sideDrawer>
+    <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
+      <rsd:RadSideDrawer.drawerContent>
+        <sdc:side-drawer-content />
+      </rsd:RadSideDrawer.drawerContent>
+    </rsd:RadSideDrawer>
+  </sdp:DrawerPage.sideDrawer>
+  <!-- END  Side Drawer-->
+  <!-- BEGIN Page Content-->
+  <StackLayout padding="20" id="content" backgroundColor="#FFF" class="setting-content">
+    <Label text="ACCOUNT" class="group setting-item"/>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="{{ChangePasswordDialog}}">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Change Password" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20" verticalAlignment="center">
+            <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right" />
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="{{CloseAccountDialog}}">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Close Account" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
+            <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+    <Label text="APP SETTINGS" class="group setting-item"/>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="onPairNewDevice">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Pair New Device" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
+            <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="{{onUnitSettingTap}}">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Unit Settings" horizontalAlignment="left" width="50%" verticalAlignment="center" marginLeft="10" />
+          <StackLayout horizontalAlignment="right" width="60%" paddingRight="20" tap="{{onUnitSettingTap}}">
+            <Label class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right">
+              <FormattedString>
+                <Span text="{{_unit}}" fontSize="18"/>
+                <Span text=" &#xf105;" fontSize="18"/>
+              </FormattedString>
+            </Label>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Background Data Transfer" tap="{{onAddItemClick}}" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
+            <Switch checked="{{ backgroundTransfer }}" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+
+    <RL:Ripple rippleColor="#c8c8c8" tap="{{onFirmwareUpdate}}">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Firmware Update" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
+            <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+    <Label text="SUPPORT" class="group setting-item"/>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="onPrivacy">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Privacy" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
+            <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="onAboutPage">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="About" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
+            <Label text="&#xf105;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="onLogout">
+      <StackLayout orientation="vertical">
+        <StackLayout row="0" orientation="horizontal" class="setting-item" verticalAlignment="center" verticalAligment="center">
+          <Label text="Logout" horizontalAlignment="left" width="70%" verticalAlignment="center" marginLeft="10"/>
+          <StackLayout horizontalAlignment="right" width="40%" paddingRight="20">
+            <Label text="&#xf08b;" class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right"/>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <Label class="h-bar"/>
+  </StackLayout>
 </sdp:DrawerPage>

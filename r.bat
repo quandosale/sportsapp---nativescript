@@ -1,1 +1,0 @@
-tns platform remove android 

@@ -1,1 +1,0 @@
- tns plugin add g:/!work/nativescript-plugin-seed-master

@@ -1,3 +1,0 @@
-tns platform add android
-
- 

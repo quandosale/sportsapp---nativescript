@@ -94,7 +94,7 @@ else
 // application.mainModule = "views/main-page/data-page/data-monitor";
 
 // application.mainModule = "views/main-page/monitor-page/monitor-page";
-// application.mainModule = "views/main-page/sleep-page/ss-page";
+application.mainModule = "views/main-page/sleep-page/sleep-page";
 // application.mainModule = "views/main-page/snooze-page/snooze-page";
 
 // application.mainModule = "views/main-page/draw-page/draw-page";

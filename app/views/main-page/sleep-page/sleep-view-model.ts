@@ -112,8 +112,11 @@ export class SleepViewModule extends Observable {
     }
     getDevice() {
         let device = AppSetting.getDevice();
-        if (device != null)
-            this.doStartScanning(device.UUID);
+        if (device == null) {
+            this.set("tip", "Device not set");
+            return;
+        }
+        this.doStartScanning(device.UUID);
     }
 
     public getMacAddress(): string {

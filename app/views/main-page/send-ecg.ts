@@ -110,6 +110,5 @@ export class SendEcg {
         } else {
             setTimeout(() => this.send(), 1000);
         }
-
     }
 }

@@ -23,11 +23,14 @@ export class WakeViewModule extends Observable {
 
         if (global.wakeuptime) {
             let time = new Date(global.wakeuptime);
-            this.time = new Date(global.wakeuptime)
+            this.time = new Date(global.wakeuptime);
+            this.setRemainTime();
+
             NotificationMudule.setNotification(this.time);
         }
         this.getDevice();
     }
+
     getDevice() {
         let device = AppSetting.getDevice();
         if (device != null) {

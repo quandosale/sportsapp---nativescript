@@ -1,71 +1,71 @@
-<sdp:DrawerPage 
-    xmlns="http://www.nativescript.org/tns.xsd" 
-    xmlns:RL="nativescript-ripple" 
-    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
-    xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
-    xmlns:sdc="views/side-drawer/side-drawer-content-s" loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866">
-    <!-- BEGIN action bar-->
-    <sdp:DrawerPage.actionBar>
-        <ActionBar automationText="ActionBar" class="action-bar">
-            <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="GoBack"/>
-            <ActionBar.actionItems>
-                <ActionItem >
-                    <ActionItem.actionView>
-                        <Label text="" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
-                    </ActionItem.actionView>
-                </ActionItem>
-            </ActionBar.actionItems>
-            <ActionBar.titleView>
-                <GridLayout>
-                    <Label text="Sleep Monitor" horizontalAlignment="center" class="action-title"/>
-                </GridLayout>
-            </ActionBar.titleView>
-        </ActionBar>
-    </sdp:DrawerPage.actionBar>
-    <!-- END  action bar-->
-    <!--BEGIN Side Drawer-->
-    <sdp:DrawerPage.sideDrawer>
-        <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
-            <rsd:RadSideDrawer.drawerContent>
-                <sdc:side-drawer-content />
-            </rsd:RadSideDrawer.drawerContent>
-        </rsd:RadSideDrawer>
-    </sdp:DrawerPage.sideDrawer>
-    <!-- END  Side Drawer-->
-    <!-- BEGIN Page Content-->
-    <StackLayout padding="20" class="sleep-page" backgroundColor="#FFFFFF">
-        <StackLayout textAlgin="right">
-            <StackLayout orientation="horizontal" textAlign="right" horizontalAlignment="right">
-                <Label text="Device Connect" margin="10"/>
-                <Button text="" backgroundColor="{{isFound?'green':'gray'}}" borderRadius="50%" height="20" width="20" margin="3"/>
-            </StackLayout>
-        </StackLayout>
-        <ActivityIndicator busy="{{isLoading}}" marginTop="-50"/>
-        <Label text="{{tip}}" horizontalAlignment="center"/>
-        <RL:Ripple rippleColor="#c8c8c8" tap="{{setWakeUpTime}}">
-            <StackLayout>
-                <Label text="Set Wake Up Time" class="title" horizontalAlignment="center"/>
-                <Label text="{{displayTime}}" class="time" horizontalAlignment="center"/>
-            </StackLayout>
-        </RL:Ripple>
-        <Label text="Sleep" class="sleep" horizontalAlignment="center"/>
-        <RL:Ripple rippleColor="#c8c8c8" borderRadius="50%" tap="{{onSleepTap}}">
-            <StackLayout class="circle" horizontalAlignment="center" >
-                <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
-                    <Button class="icon" height="100%" borderRadius="50%">
-                        <FormattedString>
-                            <Span text="&#xf236;" horizontalAlign="center" foregroundColor="#006800" fontSize="40"></Span>
-                        </FormattedString>
-                    </Button>
-                </StackLayout>
-            </StackLayout>
-        </RL:Ripple>
-        <StackLayout orientation="horizontal" horizontalAlignment="right" tap="{{onSetting}}">
-            <Label text="&#xe950; " class="icon" verticalAlignment="center" horizontalAlignment="right" />
-            <Label text="{{remain}}" horizontalAlignment="right"/>
-        </StackLayout>
-        <StackLayout marginTop="-30" width="70" horizontalAlignment="left">
-            <Button text="&#xe911;" class="icon" verticalAlignment="center" width="50" height="70" fontSize="90" tap="{{onSongConfigTap}}"/>
-        </StackLayout>
+<sdp:DrawerPage
+  xmlns="http://www.nativescript.org/tns.xsd"
+  xmlns:RL="nativescript-ripple"
+  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
+  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer"
+  xmlns:sdc="views/side-drawer/side-drawer-content-s" loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866">
+  <!-- BEGIN action bar-->
+  <sdp:DrawerPage.actionBar>
+    <ActionBar automationText="ActionBar" class="action-bar">
+      <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="GoBack"/>
+      <ActionBar.actionItems>
+        <ActionItem>
+          <ActionItem.actionView>
+            <Label text="" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
+          </ActionItem.actionView>
+        </ActionItem>
+      </ActionBar.actionItems>
+      <ActionBar.titleView>
+        <GridLayout>
+          <Label text="Sleep Monitor" horizontalAlignment="center" class="action-title"/>
+        </GridLayout>
+      </ActionBar.titleView>
+    </ActionBar>
+  </sdp:DrawerPage.actionBar>
+  <!-- END  action bar-->
+  <!--BEGIN Side Drawer-->
+  <sdp:DrawerPage.sideDrawer>
+    <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
+      <rsd:RadSideDrawer.drawerContent>
+        <sdc:side-drawer-content />
+      </rsd:RadSideDrawer.drawerContent>
+    </rsd:RadSideDrawer>
+  </sdp:DrawerPage.sideDrawer>
+  <!-- END  Side Drawer-->
+  <!-- BEGIN Page Content-->
+  <StackLayout padding="20" class="sleep-page" backgroundColor="#FFFFFF">
+    <StackLayout textAlgin="right">
+      <StackLayout orientation="horizontal" textAlign="right" horizontalAlignment="right">
+        <Label text="Device Connect" margin="10"/>
+        <Button text="" backgroundColor="{{isFound?'green':'gray'}}" borderRadius="50%" height="20" width="20" margin="3"/>
+      </StackLayout>
     </StackLayout>
+    <ActivityIndicator busy="{{isLoading}}" marginTop="-50"/>
+    <Label text="{{tip}}" horizontalAlignment="center"/>
+    <RL:Ripple rippleColor="#c8c8c8" tap="{{setWakeUpTime}}">
+      <StackLayout>
+        <Label text="Set Wake Up Time" class="title" horizontalAlignment="center"/>
+        <Label text="{{displayTime}}" class="time" horizontalAlignment="center"/>
+      </StackLayout>
+    </RL:Ripple>
+    <Label text="Sleep" class="sleep" horizontalAlignment="center"/>
+    <RL:Ripple rippleColor="#c8c8c8" borderRadius="50%" tap="{{onSleepTap}}">
+      <StackLayout class="circle" horizontalAlignment="center">
+        <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+          <Button class="icon" height="100%" borderRadius="50%">
+            <FormattedString>
+              <Span text="&#xf236;" horizontalAlign="center" foregroundColor="#006800" fontSize="40"/>
+            </FormattedString>
+          </Button>
+        </StackLayout>
+      </StackLayout>
+    </RL:Ripple>
+    <StackLayout orientation="horizontal" horizontalAlignment="right" tap="{{onSetting}}">
+      <Label text="&#xe950; " class="icon" verticalAlignment="center" horizontalAlignment="right" />
+      <Label text="{{remain}}" horizontalAlignment="right"/>
+    </StackLayout>
+    <StackLayout marginTop="-30" width="70" horizontalAlignment="left">
+      <Button text="&#xe911;" class="icon" verticalAlignment="center" width="50" height="70" fontSize="90" tap="{{onSongConfigTap}}"/>
+    </StackLayout>
+  </StackLayout>
 </sdp:DrawerPage>

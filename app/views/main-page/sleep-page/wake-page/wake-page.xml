@@ -1,60 +1,58 @@
-<Page 
-    xmlns="http://www.nativescript.org/tns.xsd" backgroundSpanUnderStatusBar="true" 
-    xmlns:df="nativescript-telerik-ui-pro/dataform" 
-    xmlns:RL="nativescript-ripple" loaded="onPageLoaded">
-    <!-- BEGIN action bar-->
-    <Page.actionBar backgroundColor="#0F1866">
-        <ActionBar title="Sleep Monitor" automationText="ActionBar" backgroundColor="#0F1866">
-            <NavigationButton icon="res://ic_back" tap="{{goBack}}" automationText="GoBack" />
-        </ActionBar>
-    </Page.actionBar>
-    <!-- END  action bar-->
-    <!-- BEGIN Page Content-->
-    <StackLayout padding="20" class="sleep-page" backgroundColor="#333450" color="#FFF">
-        
-        <Label text="Wake Up Time" class="title" horizontalAlignment="center"/>
-        <ActivityIndicator busy="{{isLoading}}" />
-        <Label text="{{tip}}" horizontalAlignment="center" color="#FFF"/>
-        <Label text="{{remain}}" class="time" horizontalAlignment="center"/>
-        <Label text="Please Keep your phone charged" class="plz-keep" horizontalAlignment="center"/>
-        <StackLayout orientation="horizontal">
-            <Label text="Wake Now" class="title" width="60%"/>
-            <Label text="Cancel" class="title" width="40%"/>
-        </StackLayout>
-        
-        <StackLayout orientation="horizontal" marginTop="7">
-            
-                <StackLayout width="50%">
-                    <StackLayout class="circle wake" horizontalAlignment="center" marginRight="6">
-                        <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
-                        <RL:Ripple rippleColor="#f00" tap="{{onWakeUpTap}}">
-                            <Button class="icon" height="100%" borderRadius="50%" fontSize="40">
-                                <FormattedString>
-                                    <Span text="&#xe950;" horizontalAlign="center" foregroundColor="#162491" fontSize="40"></Span>
-                                </FormattedString>
-                            </Button>
-                            </RL:Ripple>
-                        </StackLayout>
-                    </StackLayout>
-                </StackLayout>
-            
-            <StackLayout width="50%">
-                <StackLayout class="circle sleep" horizontalAlignment="right">
-                    <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
-                    <RL:Ripple rippleColor="#f00" tap="{{onCancelTap}}">
-                        <Button class="icon" height="100%" borderRadius="50%" fontSize="40">
-                            <FormattedString>
-                                <Span text="&#xf236;" horizontalAlign="center" foregroundColor="#8B0404" fontSize="40"></Span>
-                            </FormattedString>
-                        </Button>
-                        </RL:Ripple>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </StackLayout>
-        <!--<StackLayout orientation="horizontal" horizontalAlignment="right" marginTop="5">
-            <Label text="&#xe950; " class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right" />
-            <Label text="{{remain}}" horizontalAlignment="right"/>
-        </StackLayout>-->
+<Page
+  xmlns="http://www.nativescript.org/tns.xsd" backgroundSpanUnderStatusBar="true"
+  xmlns:df="nativescript-telerik-ui-pro/dataform"
+  xmlns:RL="nativescript-ripple" loaded="onPageLoaded">
+  <!-- BEGIN action bar-->
+  <Page.actionBar backgroundColor="#0F1866">
+    <ActionBar title="Sleep Monitor" automationText="ActionBar" backgroundColor="#0F1866">
+      <NavigationButton icon="res://ic_back" tap="{{goBack}}" automationText="GoBack" />
+    </ActionBar>
+  </Page.actionBar>
+  <!-- END  action bar-->
+  <!-- BEGIN Page Content-->
+  <StackLayout class="wake-page">
+    <Label text="Wake Up Time" class="title"/>
+    <ActivityIndicator busy="{{isLoading}}" />
+    <Label text="{{tip}}" horizontalAlignment="center"/>
+    <Label text="{{remain}}" class="time" horizontalAlignment="center"/>
+    <Label text="Please Keep your phone charged" class="plz-keep" horizontalAlignment="center"/>
+    <StackLayout orientation="horizontal">
+      <Label text="Wake Now" class="title" width="60%"/>
+      <Label text="Cancel" class="title" width="40%"/>
     </StackLayout>
+
+    <StackLayout orientation="horizontal" marginTop="7">
+      <StackLayout width="50%">
+        <StackLayout class="circle wake" horizontalAlignment="center" marginRight="6">
+          <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+            <RL:Ripple rippleColor="#f00" tap="{{onWakeUpTap}}">
+              <Button class="icon" height="100%" borderRadius="50%" fontSize="40">
+                <FormattedString>
+                  <Span text="&#xe950;" horizontalAlign="center" foregroundColor="#162491" fontSize="40"/>
+                </FormattedString>
+              </Button>
+            </RL:Ripple>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+
+      <StackLayout width="50%">
+        <StackLayout class="circle sleep" horizontalAlignment="right">
+          <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+            <RL:Ripple rippleColor="#f00" tap="{{onCancelTap}}">
+              <Button class="icon" height="100%" borderRadius="50%" fontSize="40">
+                <FormattedString>
+                  <Span text="&#xf236;" horizontalAlign="center" foregroundColor="#8B0404" fontSize="40"/>
+                </FormattedString>
+              </Button>
+            </RL:Ripple>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+    <!--<StackLayout orientation="horizontal" horizontalAlignment="right" marginTop="5">
+      <Label text="&#xe950; " class="icon spin-arrow" verticalAlignment="center" horizontalAlignment="right" />
+      <Label text="{{remain}}" horizontalAlignment="right"/>
+    </StackLayout>-->
+  </StackLayout>
 </Page>

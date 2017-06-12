@@ -14,6 +14,9 @@ export function pageLoaded(args: EventData) {
     let page = <Page>args.object;
     page.bindingContext = new MonitorViewdModel(page);
 }
+export function onUnloaded() {
+
+}
 export function goBack(args: observable.EventData) {
     navigator.navigateBack();
 }

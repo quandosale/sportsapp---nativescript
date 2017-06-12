@@ -6,7 +6,7 @@ import HTTP = require("http");
 import { Observable } from 'data/observable';
 import observableModule = require("data/observable");
 import { EventData } from "data/observable";
-import { CONFIG } from '../../../common/config';
+import { CONFIG, SNS_GOOGLE_serverClientId } from '../../../common/config';
 import navigator = require("../../../common/navigator");
 import dialogs = require("ui/dialogs");
 import pages = require("ui/page");
@@ -50,7 +50,7 @@ export class SignUpPageModule extends Observable {
         try {
             // Social Login Init(google)
             SocialLogin.init({
-                google: { serverClientId: "369911498027-hm2orsu1neb2npr58icv3p965edcag2q.apps.googleusercontent.com" },
+                google: { serverClientId: SNS_GOOGLE_serverClientId },
             });
             SocialLogin.loginWithGoogle(function (result) {
                 if (result.id)
@@ -84,8 +84,7 @@ export class SignUpPageModule extends Observable {
             var res = result.content.toJSON();
             _self.set('isLoading', false);
             if (res.success) {
-                global.userId = res.data.user._id;
-                global.user = res.data.user;
+                AppSetting.setUserData(res.data.user);
                 navigator.navigateToMonitor();
             }
             else {
@@ -139,8 +138,7 @@ export class SignUpPageModule extends Observable {
             _self.set('isLoading', false);
 
             if (res.success) {
-                global.userId = res.data.user._id;
-                global.user = res.data.user;
+                AppSetting.setUserData(res.data.user);
                 navigator.navigateToMonitor();
             }
             else {

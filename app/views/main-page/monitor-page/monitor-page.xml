@@ -6,7 +6,7 @@
     xmlns:sdc="views/side-drawer/side-drawer-content-m" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866" 
     xmlns:DrawingPad="nativescript-drawingpad" 
     xmlns:drawer="nativescript-telerik-ui-pro/sidedrawer" 
-    xmlns:gauge="nativescript-telerik-ui-pro/gauges" loaded="pageLoaded" unloaded="onUnloaded">
+    loaded="pageLoaded" unloaded="onUnloaded">
     <!-- BEGIN action bar-->
     <sdp:DrawerPage.actionBar>
         <ActionBar automationText="ActionBar" class="action-bar">
@@ -72,7 +72,7 @@
                                             </StackLayout>
                                         </ListView.itemTemplate>
                                     </ListView>
-                                </GridLayout>>
+                                </GridLayout>
                             </StackLayout>
                         </ScrollView>
                         <DrawingPad:DrawingPad backgroundColor="#000" id="ecgGraph" margin="10" marginTop="0" height="120" penColor="0" penWidth="{{ _ecgPoints }}" tap="{{onRescanTap}}"/>

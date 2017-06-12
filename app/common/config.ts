@@ -27,4 +27,5 @@ export const LEVEL = [{
     numberOfPatient: 99999,
     sizeOfStorage: 100 * 1024 * 1024 * 1024
 },
-]
+];
+export const SNS_GOOGLE_serverClientId = "369911498027-hm2orsu1neb2npr58icv3p965edcag2q.apps.googleusercontent.com";

@@ -5,8 +5,8 @@ import { Observable } from 'data/observable';
 import { EventData } from "data/observable";
 // Social Login Module
 import SocialLogin = require("nativescript-social-login");
-import pages = require("ui/page");
-import { CONFIG } from '../../../common/config';
+import { Page } from "ui/page";
+import { CONFIG, SNS_GOOGLE_serverClientId } from '../../../common/config';
 import navigator = require("../../../common/navigator");
 import phoneMac = require("../../../common/phone");
 import { AppSetting } from '../../../common/app-setting';
@@ -14,8 +14,8 @@ import { User } from './user';
 export class SignInPageModule extends Observable {
     public user: User = new User("a@a.com", "11111");
     // public user: User = new User("", "");
-    page: pages.Page;
-    constructor(_page: pages.Page) {
+    page: Page;
+    constructor(_page: Page) {
         super();
         this.page = _page;
         SocialLogin.addLogger(function (msg, tag) {            // console.log('[nativescript-social-login]: (' + tag + '): ' + msg);
@@ -28,10 +28,11 @@ export class SignInPageModule extends Observable {
         try {
             // Social Login Init(google)
             SocialLogin.init({
-                google: { serverClientId: "369911498027-hm2orsu1neb2npr58icv3p965edcag2q.apps.googleusercontent.com" },
+                google: { serverClientId: SNS_GOOGLE_serverClientId },
             });
             SocialLogin.loginWithGoogle(function (result) {
                 _self.set('isLoading', false);
+                console.log(JSON.stringify(result, null, 2));
                 if (result.id)
                     _self._googlelogin(result);
                 else {
@@ -63,11 +64,7 @@ export class SignInPageModule extends Observable {
             var res = result.content.toJSON();
             _self.set('isLoading', false);
             if (res.success) {
-                global.userId = res.data.user._id;
-                global.user = res.data.user;
-                if (res.data.user.alarmSound) {
-                    global.alarmSound = res.data.user.alarmSound;
-                }
+                AppSetting.setUserData(res.data.user);
                 _self.gotoMainPage();
             }
             else {
@@ -121,8 +118,7 @@ export class SignInPageModule extends Observable {
             _self.set('isLoading', false);
 
             if (res.success) {
-                global.userId = res.data.user._id;
-                global.user = res.data.user;
+                AppSetting.setUserData(res.data.user);
                 _self.gotoMainPage();
             }
             else {
@@ -153,8 +149,6 @@ export class SignInPageModule extends Observable {
             _self.set('isLoading', false);
             console.log(JSON.stringify(res));
             if (res.success) {
-                global.userId = res.data._id;
-                global.user = res.data.user;
                 AppSetting.setUserData(res.data.user);
                 _self.gotoMainPage();
             }

@@ -40,9 +40,10 @@ export class MonitorViewdModel extends Observable {
 
     constructor(mainPage: Page) {
         super();
-        orientationModule.setCurrentOrientation("portrait", function () {
-            console.log("landscape orientation set");
-        });
+        // orientationModule.setCurrentOrientation("portrait", function () {
+        //     console.log("landscape orientation set");
+        // });
+
 
         this._ecgGraph = <DrawingPad>mainPage.getViewById('ecgGraph');
         this._ecgZoomGraph = <DrawingPad>mainPage.getViewById('ecgGraphFull');

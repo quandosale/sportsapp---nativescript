@@ -1,7 +1,6 @@
 // import trace = require("trace");
 // trace.setCategories(trace.categories.Style);
 // trace.enable();
-
 import application = require("application");
 import frame = require("ui/frame");
 
@@ -85,7 +84,7 @@ prof.start("main-page");
 if (AppSetting.getUserData() == null)
     application.mainModule = "views/main-page/main-page";
 else
-    application.mainModule = "views/main-page/monitor-page/monitor-page";
+    application.mainModule = "views/main-page/setting-page/setting-page";
 // application.mainModule = "views/main-page/profile-page/profile-page";
 
 

@@ -21,11 +21,12 @@ export function NEXT(args: observable.EventData) {
 }
 export function showSlideout(args: EventData) {
     let sideDrawer: drawerModule.RadSideDrawer = <drawerModule.RadSideDrawer>(frameModule.topmost().getViewById("side-drawer"));
-    sideDrawer.showDrawer();
+    if (sideDrawer != undefined)
+        sideDrawer.showDrawer();
 }
 function setDrawerTransition(transition: drawerModule.DrawerTransitionBase) {
-    let drawer: drawerModule.RadSideDrawer = <drawerModule.RadSideDrawer>frameModule.topmost().getViewById("sideDrawer");
-    drawer.drawerTransition = transition;
+    let sideDrawer: drawerModule.RadSideDrawer = <drawerModule.RadSideDrawer>frameModule.topmost().getViewById("sideDrawer");
+    sideDrawer.drawerTransition = transition;
 }// << sidedrawer-setting-transition
 
 export function onPairNewDevice(args: EventData) {

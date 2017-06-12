@@ -1,5 +1,5 @@
 .c-page1 {
-    background: #Fff;
+    background: #0F1866;
 }
 
 .btn-control {
@@ -22,4 +22,8 @@
     height: 110;
     border-radius: 100;
     margin-top: 7;
+}
+
+.monitor-content {
+    /*padding-top: 60;*/
 }

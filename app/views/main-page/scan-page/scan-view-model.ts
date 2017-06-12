@@ -100,7 +100,7 @@ export class ScanViewdModel extends observableModule.Observable {
         } else {
             AppSetting.setDevice(new DeviceModel(this._items.getItem(index).UUID, this._items.getItem(index).name));
         }
-        navigator.navigateToMonitor();
+        navigator.navigateToMainPage();
     }
 
     public itemSelected(args: listViewModule.ListViewEventData) {

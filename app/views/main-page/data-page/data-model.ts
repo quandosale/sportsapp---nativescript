@@ -6,10 +6,11 @@ import timer = require("timer");
 import * as  orientationModule from "nativescript-screen-orientation";
 import * as dialogs from "ui/dialogs";
 var http = require("http");
+import * as Toast from "nativescript-toast";
 import navigator = require("../../../common/navigator");
 import { CONFIG, LEVEL } from '../../../common/config';
 import { DataItem } from './data-item';
-import * as Toast from "nativescript-toast";
+import { AppSetting } from '../../../common/app-setting';
 export class ViewModel extends observableModule.Observable {
     _dataItems: ObservableArray<DataItem>;
     datatypeFilter: string = "all";
@@ -22,8 +23,8 @@ export class ViewModel extends observableModule.Observable {
         });
         this._dataItems = new ObservableArray<DataItem>();
         this.set('menuEditText', 'Edit    ')
-        this.initDataItemsForTest();
-        // this.getDatas();
+        // this.initDataItemsForTest();
+        this.getDatas();
     }
 
     initDataItemsForTest() {
@@ -40,6 +41,7 @@ export class ViewModel extends observableModule.Observable {
 
     onPullToRefreshInitiated(args: listViewModule.ListViewEventData) {
         var that = new WeakRef(this);
+        var _self = this;
         timer.setTimeout(function () {
             // var initialNumberOfItems = that.get()._numberOfAddedItems;
             // for (var i = that.get()._numberOfAddedItems; i < initialNumberOfItems + 2; i++) {
@@ -51,27 +53,34 @@ export class ViewModel extends observableModule.Observable {
             //     that.get()._items.splice(0, 0, new DataItem(posts.names[i], posts.titles[i], posts.text[i], "res://" + imageUri));
             //     that.get()._numberOfAddedItems++;
             // }
+            _self.getDatas();
             var listView = args.object;
             listView.notifyPullToRefreshFinished();
         }, 1000);
     }
 
     getDatas() {
-        if (global.user) {
-            // console.log(JSON.stringify(global.user, null, 2));
-            let user = global.user;
-            let level = user.level;
-
-            let totalStorage = LEVEL[level].sizeOfStorage;
-            let totalStorageFormat = this.storageInfoFormat(totalStorage);
-
-            let used: string = this.storageInfoFormat(user.size_of_storage);
-            // 1.2GB of 5.0GB used
-            let storageInfor: string = `${used} of ${totalStorageFormat} used`;
-            this.set('_storageInfor', storageInfor);
+        let user = AppSetting.getUserData();
+        if (user == null) {
+            Toast.makeText("User Data No set.").show();
+            return;
+        } else {
+            console.log('User Id', user._id);
         }
-        var ownerIDs = ["5901f65483755e3701856c4e"];
-        if (global.userId) ownerIDs = [global.userId];
+        while (this._dataItems.length) {
+            this._dataItems.pop();
+        }
+        let level = user.level;
+
+        let totalStorage = LEVEL[level].sizeOfStorage;
+        let totalStorageFormat = this.storageInfoFormat(totalStorage);
+
+        let used: string = this.storageInfoFormat(user.size_of_storage);
+        // 1.2GB of 5.0GB used
+        let storageInfor: string = `${used} of ${totalStorageFormat} used`;
+        this.set('_storageInfor', storageInfor);
+
+        var ownerIDs = [user._id];
         let request_url = CONFIG.SERVER_URL + '/phr/datasets/get';
         var datefrom: Date = new Date();
         datefrom.setFullYear(0);
@@ -257,6 +266,7 @@ export class ViewModel extends observableModule.Observable {
     }
 
     durationFormat(x: number): string {
+        if (x == undefined) x = 0;
         // let ms = x % 1000;
         x = x / 1000;
         x = Math.floor(x);

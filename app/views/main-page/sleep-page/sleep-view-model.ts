@@ -100,7 +100,7 @@ export class SleepViewModule extends Observable {
     onSleepTap() {
         console.log('wakeup time', this.time);
         if (!this.isFound) {
-            Toast.makeText("Device not Founded").show();
+            Toast.makeText("Device not Found").show();
             return;
         }
         if (this.time) {
@@ -113,7 +113,7 @@ export class SleepViewModule extends Observable {
     getDevice() {
         let device = AppSetting.getDevice();
         if (device == null) {
-            this.set("tip", "Device not set");
+            this.set("tip", "Device not registered");
             return;
         }
         this.doStartScanning(device.UUID);

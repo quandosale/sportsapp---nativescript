@@ -59,7 +59,7 @@ export class WakeViewModule extends Observable {
             this.set("tip", "mac not set");
             return;
         }
-        this.set("tip", "device scanning" + mac);
+        this.set("tip", "device scanning: " + mac);
         var _self = this;
         // On Android 6 we need this permission to be able to scan for peripherals in the background.
         bluetooth.hasCoarseLocationPermission().then(
@@ -149,7 +149,8 @@ export class WakeViewModule extends Observable {
             },
             onDisconnected: function (peripheral) {
                 _self.set("isConnected", false);
-                _self.set("tip", "Device disconnected");;
+                _self.set("tip", "Device disconnected");
+                _self.getDevice();
             }
         });
     }

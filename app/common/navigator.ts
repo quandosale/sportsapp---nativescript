@@ -15,8 +15,7 @@ function traceNavigateTo(to: string, context?: string): string {
     return to;
 }
 export function navigateToMainPage() {
-    navigateToMonitor();
-
+    navigateToSettingPage();
 }
 export function navigateToHome() {
     var topmost = frame.topmost();

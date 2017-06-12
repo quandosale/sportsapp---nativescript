@@ -1,147 +1,148 @@
-<sdp:DrawerPage 
-    xmlns="http://www.nativescript.org/tns.xsd" 
-    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
-    xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
-    xmlns:PullRefresh="nativescript-pulltorefresh" 
-    xmlns:sdc="views/side-drawer/side-drawer-content-m" backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866" 
-    xmlns:DrawingPad="nativescript-drawingpad" 
-    xmlns:drawer="nativescript-telerik-ui-pro/sidedrawer" 
-    loaded="pageLoaded" unloaded="onUnloaded">
-    <!-- BEGIN action bar-->
-    <sdp:DrawerPage.actionBar>
-        <ActionBar automationText="ActionBar" class="action-bar">
-            <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
-            <ActionBar.actionItems>
-                <ActionItem >
-                    <ActionItem.actionView> 
-                        <Label text="" class="icon" height="22" margin="0, 8, 4, -8" fontSize="25" width="32"/>
-                    </ActionItem.actionView>
-                </ActionItem>
-            </ActionBar.actionItems>
-            <ActionBar.titleView>
-                <GridLayout>
-                    <Label text="Exercise Monitor" horizontalAlignment="center" class="action-title"/>
-                </GridLayout>
-            </ActionBar.titleView>
-        </ActionBar>
-    </sdp:DrawerPage.actionBar>
-    <!-- END  action bar-->
-    <!--BEGIN Side Drawer-->
-    <sdp:DrawerPage.sideDrawer>
-        <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
-            <rsd:RadSideDrawer.drawerContent>
-                <sdc:side-drawer-content />
-            </rsd:RadSideDrawer.drawerContent>
-        </rsd:RadSideDrawer>
-    </sdp:DrawerPage.sideDrawer>
-    <!-- END  Side Drawer-->
-    <!-- BEGIN Page Content-->
-    <rsd:RadSideDrawer.mainContent>
-        <ScrollView backgroundColor="#FFF">
-            <StackLayout padding="20" paddingTop="0" paddingBottom="0">
-                <StackLayout height="{{isZoom? 0: '100%'}}">
-                    <GridLayout>
-                        <StackLayout textAlgin="right">
-                            <StackLayout orientation="horizontal" textAlign="right" horizontalAlignment="right">
-                                <Label text="Device Connect" margin="10"/>
-                                <Button text="" backgroundColor="{{isConnected?'green':'gray'}}" borderRadius="50%" height="20" width="20" margin="3"/>
-                            </StackLayout>
-                        </StackLayout>
-                        <Label text="Electrocardiograph" fontSize="14" margin="10"/>
-                    </GridLayout>
-                    <StackLayout>
-                        <ScrollView height="{{isGuest? 0:0}}">
-                            <StackLayout>
-                                <StackLayout orientation="horizontal">
-                                    <Button tap="{{doStartScanning}}" text="scan"/>
-                                    <Button tap="{{doStartScanning}}" text="disconnect"/>
-                                </StackLayout>
-                                <Label text="{{debug}}"/>
-                                <GridLayout>
-                                    <ActivityIndicator busy="{{ isLoading }}" />
-                                    <ListView items="{{ _arrDevice}}" itemTap="{{ onConnect }}" separatorColor="#90c3d4">
-                                        <ListView.itemTemplate>
-                                            <StackLayout orientation="horizontal" cssClass="padded-label" backgroundColor="#FFF" color="#000" padding="10">
-                                                <StackLayout col="0" cssClass="padded-label-stack">
-                                                    <Label horizontalAlignment="right" width="30" text="{{ RSSI }}" cssClass="rssi-label" />
-                                                </StackLayout>
-                                                <StackLayout col="1" cssClass="padded-label-stack">
-                                                    <Label text="{{ name }}" cssClass="title-label" textWrap="true" />
-                                                    <Label text="{{ UUID }}" cssClass="uuid-label" textWrap="true" />
-                                                </StackLayout>
-                                            </StackLayout>
-                                        </ListView.itemTemplate>
-                                    </ListView>
-                                </GridLayout>
-                            </StackLayout>
-                        </ScrollView>
-                        <DrawingPad:DrawingPad backgroundColor="#000" id="ecgGraph" margin="10" marginTop="0" height="120" penColor="0" penWidth="{{ _ecgPoints }}" tap="{{onRescanTap}}"/>
-                        <StackLayout textAlgin="center" paddingLeft="10" paddingRight="10">
-                            <GridLayout>
-                                <StackLayout orientation="horizontal" textAlignment="center" width="100%" horizontalAlignment="center">
-                                    <Image src="{{isSend? 'res://btnrecordstop' :'res://btnrecord'}}" horizontalAlignment="center" verticalAlignment="center" width="40" height="40" tap="{{onRecordTap}}" marginRight="10"/>
-                                    <Image src="res://btnzoom" horizontalAlignment="center" verticalAlignment="center" width="40" height="40" marginLeft="10" tap="{{onZoomTap}}"/>
-                                </StackLayout>
-                                <StackLayout>
-                                    <Label text="{{ queueSize }}"/>
-                                    <Label text="{{ nPacketNumber }}"/>
-                                    
-                                </StackLayout>
-                            </GridLayout>
-                        </StackLayout>
-                        <StackLayout backgroundColor="gray" height="1" marginBottom="3" marginTop="7"/>
-                        <Label text="Heart Rate" fontSize="14"/>
-                        <StackLayout orientation="horizontal">
-                            <DrawingPad:DrawingPad backgroundColor="#F7F7F7" id="hrtGraph" margin="10" height="120" penColor="3" penWidth="{{ _hrtPoints }}" width="67%"/>
-                            <StackLayout width="32%" paddingTop="20" fontSize="7">
-                                <StackLayout orientation="horizontal">
-                                    <Label text="&#xf056;" class="icon" color="#FE3724"/>
-                                    <Label text=" HR Zone" fontSize="12"/>
-                                </StackLayout>
-                                <StackLayout orientation="horizontal" marginTop="12">
-                                    <Label text="&#xf05a;" class="icon" color="#E5E506"/>
-                                    <Label text=" HR Variance" fontSize="12"/>
-                                </StackLayout>
-                                <StackLayout orientation="horizontal" marginTop="12">
-                                    <Label text="&#xf058;" class="icon" color="#0676FF"/>
-                                    <Label text=" Beat Rythm" fontSize="12"/>
-                                </StackLayout>
-                            </StackLayout>
-                        </StackLayout>
-                        <StackLayout orientation="horizontal">
-                            <StackLayout width="50%">
-                                <Label text="Motion" fontSize="10"/>
-                                <Label text="intensity" fontSize="10"/>
-                            </StackLayout>
-                            <Label text="CALMness" width="50%" fontSize="10"/>
-                        </StackLayout>
-                        <StackLayout orientation="horizontal" height="160" marginTop="-26">
-                            <GridLayout width="50%" id="motionGraph">
-                                <DrawingPad:DrawingPad penColor="7" penWidth="{{ _motionPoints }}"/>
-                                <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
-                                    <StackLayout orientation="horizontal">
-                                        <Label text="1.3" fontSize="40" marginLeft="10"/>
-                                        <Image src="res://type_activity" width="40" marginLeft="10"/>
-                                    </StackLayout>
-                                    <Label text="G" fontSize="30" horizontalAlignment="center" color="gray"/>
-                                </StackLayout>
-                            </GridLayout>
-                            <GridLayout width="50%" id="calmGraph">
-                                <DrawingPad:DrawingPad penColor="8" penWidth="{{ _calmPoints }}"/>
-                                <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
-                                    <StackLayout orientation="horizontal">
-                                        <Label text=" " fontSize="40" width="45" marginLeft="10"/>
-                                        <Image src="res://calm_icon" width="40" marginLeft="10" borderRadius="50%"/>
-                                    </StackLayout>
-                                    <Label text="%" fontSize="30" horizontalAlignment="center" color="gray"/>
-                                </StackLayout>
-                            </GridLayout>
-                        </StackLayout>
-                    </StackLayout>
-                </StackLayout>
-                <DrawingPad:DrawingPad tap="{{onZoomTap}}" height="{{isZoom?  '300':0}}" backgroundColor="#F7F7F7" id="ecgGraphFull" margin="10" marginBottom="0" penColor="4" penWidth="{{ _ecgPoints }}"/>
+<sdp:DrawerPage
+  xmlns="http://www.nativescript.org/tns.xsd"
+  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
+  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer"
+  xmlns:sdc="views/side-drawer/side-drawer-content-m"
+  backgroundSpanUnderStatusBar="true"
+  class="c-page1"
+  xmlns:DrawingPad="nativescript-drawingpad"
+  xmlns:drawer="nativescript-telerik-ui-pro/sidedrawer"
+  loaded="pageLoaded"
+  unloaded="onUnloaded">
+  <!-- BEGIN action bar-->
+  <sdp:DrawerPage.actionBar>
+    <ActionBar automationText="ActionBar" class="action-bar">
+      <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
+      <ActionBar.actionItems>
+        <ActionItem>
+          <ActionItem.actionView>
+            <Label text="" class="icon" height="22" margin="0, 8, 4, -8" fontSize="25" width="32"/>
+          </ActionItem.actionView>
+        </ActionItem>
+      </ActionBar.actionItems>
+      <ActionBar.titleView>
+        <GridLayout>
+          <Label text="Exercise Monitor" horizontalAlignment="center" class="action-title"/>
+        </GridLayout>
+      </ActionBar.titleView>
+    </ActionBar>
+  </sdp:DrawerPage.actionBar>
+  <!-- END  action bar-->
+  <!--BEGIN Side Drawer-->
+  <sdp:DrawerPage.sideDrawer>
+    <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
+      <rsd:RadSideDrawer.drawerContent>
+        <sdc:side-drawer-content />
+      </rsd:RadSideDrawer.drawerContent>
+    </rsd:RadSideDrawer>
+  </sdp:DrawerPage.sideDrawer>
+  <!-- END  Side Drawer-->
+  <!-- BEGIN Page Content-->
+  <rsd:RadSideDrawer.mainContent>
+    <ScrollView backgroundColor="#FFF" class="monitor-content">
+      <StackLayout padding="20" paddingTop="0" paddingBottom="0">
+        <StackLayout height="{{isZoom? 0: '100%'}}">
+          <GridLayout>
+            <StackLayout textAlgin="right">
+              <StackLayout orientation="horizontal" textAlign="right" horizontalAlignment="right">
+                <Label text="Device Connect" margin="10"/>
+                <Button text="" backgroundColor="{{isConnected?'green':'gray'}}" borderRadius="50%" height="20" width="20" margin="3"/>
+              </StackLayout>
             </StackLayout>
-            <!--</PullRefresh:PullToRefresh>-->
-        </ScrollView>
-    </rsd:RadSideDrawer.mainContent>
+            <Label text="Electrocardiograph" fontSize="14" margin="10"/>
+          </GridLayout>
+          <StackLayout>
+            <ScrollView height="{{isGuest? 0:0}}">
+              <StackLayout>
+                <StackLayout orientation="horizontal">
+                  <Button tap="{{doStartScanning}}" text="scan"/>
+                  <Button tap="{{doStartScanning}}" text="disconnect"/>
+                </StackLayout>
+                <Label text="{{debug}}"/>
+                <GridLayout>
+                  <ActivityIndicator busy="{{ isLoading }}" />
+                  <ListView items="{{ _arrDevice}}" itemTap="{{ onConnect }}" separatorColor="#90c3d4">
+                    <ListView.itemTemplate>
+                      <StackLayout orientation="horizontal" cssClass="padded-label" backgroundColor="#FFF" color="#000" padding="10">
+                        <StackLayout col="0" cssClass="padded-label-stack">
+                          <Label horizontalAlignment="right" width="30" text="{{ RSSI }}" cssClass="rssi-label" />
+                        </StackLayout>
+                        <StackLayout col="1" cssClass="padded-label-stack">
+                          <Label text="{{ name }}" cssClass="title-label" textWrap="true" />
+                          <Label text="{{ UUID }}" cssClass="uuid-label" textWrap="true" />
+                        </StackLayout>
+                      </StackLayout>
+                    </ListView.itemTemplate>
+                  </ListView>
+                </GridLayout>
+              </StackLayout>
+            </ScrollView>
+            <DrawingPad:DrawingPad backgroundColor="#000" id="ecgGraph" margin="10" marginTop="0" height="120" penColor="0" penWidth="{{ _ecgPoints }}" tap="{{onRescanTap}}"/>
+            <StackLayout textAlgin="center" paddingLeft="10" paddingRight="10">
+              <GridLayout>
+                <StackLayout orientation="horizontal" textAlignment="center" width="100%" horizontalAlignment="center">
+                  <Image src="{{isSend? 'res://btnrecordstop' :'res://btnrecord'}}" horizontalAlignment="center" verticalAlignment="center" width="40" height="40" tap="{{onRecordTap}}" marginRight="10"/>
+                  <Image src="res://btnzoom" horizontalAlignment="center" verticalAlignment="center" width="40" height="40" marginLeft="10" tap="{{onZoomTap}}"/>
+                </StackLayout>
+                <StackLayout>
+                  <Label text="{{ queueSize }}"/>
+                  <Label text="{{ nPacketNumber }}"/>
+
+                </StackLayout>
+              </GridLayout>
+            </StackLayout>
+            <StackLayout backgroundColor="gray" height="1" marginBottom="3" marginTop="7"/>
+            <Label text="Heart Rate" fontSize="14"/>
+            <StackLayout orientation="horizontal">
+              <DrawingPad:DrawingPad backgroundColor="#F7F7F7" id="hrtGraph" margin="10" height="120" penColor="3" penWidth="{{ _hrtPoints }}" width="67%"/>
+              <StackLayout width="32%" paddingTop="20" fontSize="7">
+                <StackLayout orientation="horizontal">
+                  <Label text="&#xf056;" class="icon" color="#FE3724"/>
+                  <Label text=" HR Zone" fontSize="12"/>
+                </StackLayout>
+                <StackLayout orientation="horizontal" marginTop="12">
+                  <Label text="&#xf05a;" class="icon" color="#E5E506"/>
+                  <Label text=" HR Variance" fontSize="12"/>
+                </StackLayout>
+                <StackLayout orientation="horizontal" marginTop="12">
+                  <Label text="&#xf058;" class="icon" color="#0676FF"/>
+                  <Label text=" Beat Rythm" fontSize="12"/>
+                </StackLayout>
+              </StackLayout>
+            </StackLayout>
+            <StackLayout orientation="horizontal">
+              <StackLayout width="50%">
+                <Label text="Motion" fontSize="10"/>
+                <Label text="intensity" fontSize="10"/>
+              </StackLayout>
+              <Label text="CALMness" width="50%" fontSize="10"/>
+            </StackLayout>
+            <StackLayout orientation="horizontal" height="160" marginTop="-26">
+              <GridLayout width="50%" id="motionGraph">
+                <DrawingPad:DrawingPad penColor="7" penWidth="{{ _motionPoints }}"/>
+                <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+                  <StackLayout orientation="horizontal">
+                    <Label text="1.3" fontSize="40" marginLeft="10"/>
+                    <Image src="res://type_activity" width="40" marginLeft="10"/>
+                  </StackLayout>
+                  <Label text="G" fontSize="30" horizontalAlignment="center" color="gray"/>
+                </StackLayout>
+              </GridLayout>
+              <GridLayout width="50%" id="calmGraph">
+                <DrawingPad:DrawingPad penColor="8" penWidth="{{ _calmPoints }}"/>
+                <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+                  <StackLayout orientation="horizontal">
+                    <Label text=" " fontSize="40" width="45" marginLeft="10"/>
+                    <Image src="res://calm_icon" width="40" marginLeft="10" borderRadius="50%"/>
+                  </StackLayout>
+                  <Label text="%" fontSize="30" horizontalAlignment="center" color="gray"/>
+                </StackLayout>
+              </GridLayout>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+        <DrawingPad:DrawingPad tap="{{onZoomTap}}" height="{{isZoom?  '300':0}}" backgroundColor="#F7F7F7" id="ecgGraphFull" margin="10" marginBottom="0" penColor="4" penWidth="{{ _ecgPoints }}"/>
+      </StackLayout>
+    </ScrollView>
+  </rsd:RadSideDrawer.mainContent>
 </sdp:DrawerPage>

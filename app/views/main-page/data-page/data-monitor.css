@@ -6,3 +6,20 @@
     text-align: right;
     font-size: 20;
 }
+
+.item-name {
+    color: #636569;
+}
+
+.item-description {
+    color: #bbb;
+}
+
+.item-date {
+    color: #4D4F53;
+}
+
+.storage-info {
+    color: #B0B3B4;
+    background-color: #f8f8f8;
+}

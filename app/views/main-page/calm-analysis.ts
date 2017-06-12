@@ -5,8 +5,10 @@ import { CONFIG } from '../../common/config';
 export class CalmAnalysis {
     queueResult = []; // sleep Analysis Result Queue
     queue = [];
-    ecgLib: YourPlugin = new YourPlugin();
-    constructor() { }
+    ecgLib: YourPlugin;
+    constructor() {
+        this.ecgLib = new YourPlugin();
+    }
     public init() {
         this.queue = [];
         this.queueResult = [];

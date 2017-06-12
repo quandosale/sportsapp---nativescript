@@ -34,12 +34,17 @@ export class MonitorViewdModel extends Observable {
     timeInterValID = 0;
     ecgPoints = [];
     hrtPoints = [];
-    _sendEcg: SendEcg = new SendEcg();
-    _CalmAnalysis: CalmAnalysis = new CalmAnalysis();
+    _sendEcg: SendEcg;
+    _CalmAnalysis: CalmAnalysis;
     isPageLoaded = true;
 
     constructor(mainPage: Page) {
         super();
+
+        this._sendEcg = new SendEcg();
+
+        this._CalmAnalysis = new CalmAnalysis();
+
         // orientationModule.setCurrentOrientation("portrait", function () {
         //     console.log("landscape orientation set");
         // });
@@ -72,6 +77,7 @@ export class MonitorViewdModel extends Observable {
         } else {
             this.getDeviceUUID();
         }
+        //*/
     }
 
     i = 0;

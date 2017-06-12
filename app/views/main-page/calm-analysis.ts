@@ -3,15 +3,17 @@ import * as Toast from "nativescript-toast";
 import HTTP = require("http");
 import { CONFIG } from '../../common/config';
 export class CalmAnalysis {
-    queueResult = []; // sleep Analysis Result Queue
+    queueResult = []; // sleep Analysis Result Queue(calmness)
+    queueHr = []; // heart rate
     queue = [];
-    ecgLib: YourPlugin;
+    calmLib: YourPlugin;
     constructor() {
-        this.ecgLib = new YourPlugin();
+        this.calmLib = new YourPlugin();
     }
     public init() {
         this.queue = [];
         this.queueResult = [];
+        this.queueHr = [];
     }
 
     public addEcg(data) {
@@ -19,14 +21,18 @@ export class CalmAnalysis {
         var _self = this;
         this.queue.push(data);
         // console.log('calm queue length', this.queue.length);
+
         if (this.queue.length >= 10000) {
-            this._sendEcgData();
+            // let preTime = new Date().getTime();
+            var arrTmp = this.queue;
+            setTimeout(() => this._sendEcgData(arrTmp), 0);
+            this.queue = [];
+            // console.log('delta', new Date().getTime() - preTime);
         }
     }
 
-    _sendEcgData() {
-        this.ecgLib.addEcgData(this.queue);
-        this.queue = [];
+    _sendEcgData(arrTmp) {
+        this.calmLib.addEcgData(arrTmp);
     }
 
     public start() {
@@ -39,15 +45,24 @@ export class CalmAnalysis {
     }
 
     sendEcgToAndroid() {
-        this.ecgLib.startCalmness();
+        this.calmLib.startCalmness();
         // setTimeout(() => this._sendAgain(), 3000);
         var _self = this;
         let callback = function (v) {
-            if (v.value != 0)
-            { _self.queueResult.push(v.value); }
-
+            if (v.type == "calm") {
+                if (v.value != 0) {
+                    _self.queueResult.push(v.value);
+                }
+            }
+            if (v.type == "hr") {
+                // console.log('heartrate', v.value);
+                _self.queueHr.push(v.value);
+            }
+            else {
+                // console.log('nothing', JSON.stringify(v, null, 2));
+            }
         }
-        this.ecgLib.setCalmnessNotyfy(callback).then(
+        this.calmLib.setCalmnessNotyfy(callback).then(
             function (success) {
                 // alert('plugin callback' + success);
             });
@@ -58,5 +73,9 @@ export class CalmAnalysis {
         if (this.queueResult.length == 0) return this.preValue;
         this.preValue = this.queueResult.pop();
         return this.preValue;
+    }
+    getHrValue() {
+        if (this.queueHr.length == 0) return -1;
+        return this.queueHr.pop();
     }
 }

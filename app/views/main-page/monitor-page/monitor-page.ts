@@ -9,7 +9,6 @@ import { Page } from 'ui/page';
 import { MonitorViewdModel } from './monitor-view-model';
 import drawerModule = require("nativescript-telerik-ui-pro/sidedrawer");
 
-
 export function pageLoaded(args: EventData) {
     let page = <Page>args.object;
     page.bindingContext = new MonitorViewdModel(page);

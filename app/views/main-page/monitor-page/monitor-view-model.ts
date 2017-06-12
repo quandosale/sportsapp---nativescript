@@ -49,7 +49,6 @@ export class MonitorViewdModel extends Observable {
         //     console.log("landscape orientation set");
         // });
 
-
         this._ecgGraph = <DrawingPad>mainPage.getViewById('ecgGraph');
         this._ecgZoomGraph = <DrawingPad>mainPage.getViewById('ecgGraphFull');
 
@@ -58,15 +57,15 @@ export class MonitorViewdModel extends Observable {
         this._motionGraph = <gridLayoutModule.GridLayout>mainPage.getViewById('motionGraph');
 
         for (var i = 0; i < 400; i++)
-            this.ecgPoints.push(0);
+            this.ecgPoints.push(1200);
         for (var i = 0; i < 50; i++)
-            this.hrtPoints.push(100 + Math.sin(i) * 100);
+            this.hrtPoints.push(100);
         if (this.isPageLoaded) setTimeout(() => {
             this._ecgGraph.setPts(this.ecgPoints);
             this._ecgZoomGraph.setPts(this.ecgPoints);
         }, 1000);
 
-        this.onDrawTest();
+        this.drawEcgAndHeart();
         this.drawCalmValue();
         this._CalmAnalysis.start();
         this.set('_calmNumber', 20);
@@ -212,14 +211,27 @@ export class MonitorViewdModel extends Observable {
 
     sinXX = 0;
     cosXX = 0;
-    public onDrawTest() {
+    public drawEcgAndHeart() {
         var _self = this;
-        if (this.isPageLoaded) setTimeout(() => {
+
+        setTimeout(() => {
             _self.drawEcgChart();
         }, 1000);
-        if (this.isPageLoaded) setTimeout(() => {
-            _self._hrtGraph.setPts(_self.hrtPoints);
+
+        setTimeout(() => {
+            this._hrtGraph.setPts(this.hrtPoints);
+            _self.drawHeartRateChart();
         }, 1000);
+    }
+
+    drawHeartRateChart() {
+        var hr = this._CalmAnalysis.getHrValue();
+        if (hr != -1) {
+            this.hrtPoints.push(hr);
+            this.hrtPoints.shift();
+            this._hrtGraph.setPts(this.hrtPoints);
+        }
+        setTimeout(() => this.drawHeartRateChart(), 50);
     }
 
     public setPtTest() {

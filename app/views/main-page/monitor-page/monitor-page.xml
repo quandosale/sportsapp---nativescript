@@ -94,6 +94,7 @@
             <StackLayout backgroundColor="gray" height="1" marginBottom="3" marginTop="7"/>
             <Label text="Heart Rate" fontSize="14"/>
             <StackLayout orientation="horizontal">
+              <!--//3 = heart rage chart but-->
               <DrawingPad:DrawingPad backgroundColor="#F7F7F7" id="hrtGraph" margin="10" height="120" penColor="3" penWidth="{{ _hrtPoints }}" width="67%"/>
               <StackLayout width="32%" paddingTop="20" fontSize="7">
                 <StackLayout orientation="horizontal">

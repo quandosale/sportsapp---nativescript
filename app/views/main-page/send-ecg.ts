@@ -8,7 +8,7 @@ export class SendEcg {
     nnDateTime = new Date();
     nPacketIndex = 1;
     isSend: boolean = false;
-    SizeUpload = 1000;
+    SizeUpload = 10000;
     constructor() {
         this.queue = [];
         this.nnDateTime = new Date();
@@ -63,9 +63,7 @@ export class SendEcg {
             let request_url = CONFIG.SERVER_URL + '/phr/datasets/add';
 
             var _self = this;
-            console.log('queue size ', this.queue.length);
             let ecg = this.queue.splice(0, this.SizeUpload);
-            console.log('queue size after ', this.queue.length);
             let heartRate = [0, ecg.length];
             let acc = [0, 0, 0, ecg.length]
             let value = {

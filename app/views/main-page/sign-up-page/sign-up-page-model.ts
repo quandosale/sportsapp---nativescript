@@ -53,6 +53,7 @@ export class SignUpPageModule extends Observable {
                 google: { serverClientId: SNS_GOOGLE_serverClientId },
             });
             SocialLogin.loginWithGoogle(function (result) {
+                console.log(JSON.stringify(result, null, 2));
                 if (result.id)
                     _self._googlelogin(result);
                 else {
@@ -85,7 +86,7 @@ export class SignUpPageModule extends Observable {
             _self.set('isLoading', false);
             if (res.success) {
                 AppSetting.setUserData(res.data.user);
-                navigator.navigateToMonitor();
+                _self.gotoMainPage();
             }
             else {
                 _self._toast(res.message);
@@ -95,6 +96,9 @@ export class SignUpPageModule extends Observable {
             console.error(JSON.stringify(error));
             _self._toast('Network error');
         });
+    }
+    gotoMainPage() {
+        navigator.navigateToMainPage();
     }
     onFacebookSignUpTap(args: EventData) {
         this.set('isLoading', true);
@@ -117,7 +121,6 @@ export class SignUpPageModule extends Observable {
             console.log("ERROR: " + e);
         }
     }
-
     _facebooklogin(result) {
         var _self = this;
         let request_url = CONFIG.SERVER_URL + '/auth/sns-signin/';
@@ -139,7 +142,7 @@ export class SignUpPageModule extends Observable {
 
             if (res.success) {
                 AppSetting.setUserData(res.data.user);
-                navigator.navigateToMonitor();
+                _self.gotoMainPage();
             }
             else {
                 _self._toast(res.message);

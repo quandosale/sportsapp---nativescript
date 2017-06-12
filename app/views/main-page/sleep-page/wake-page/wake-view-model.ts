@@ -6,7 +6,6 @@ import { EventData } from "data/observable";
 import pages = require("ui/page");
 import { AppSetting } from '../../../../common/app-setting';
 import { SendSleep } from '../../send-sleep';
-import { SendEcg } from '../../send-ecg';
 
 import { CONFIG, BLEConfig } from '../../../../common/config';
 import navigator = require("../../../../common/navigator");
@@ -15,7 +14,7 @@ import * as NotificationMudule from '../notification';
 export class WakeViewModule extends Observable {
     page: pages.Page;
     time;
-    _sendEcg: SendEcg = new SendEcg();
+    _sendSleep: SendSleep = new SendSleep();
     constructor(page) {
         super();
         this.setTimeForDisplay();
@@ -35,7 +34,7 @@ export class WakeViewModule extends Observable {
         let device = AppSetting.getDevice();
         if (device != null) {
             this.doStartScanning(device.UUID);
-            this._sendEcg.start();
+            this._sendSleep.start();
         } else {
             this.set("tip", "global mac not set");
             console.log('mac address not set');
@@ -43,15 +42,16 @@ export class WakeViewModule extends Observable {
     }
 
     goBack() {
-        this._sendEcg.stop();
+        this._sendSleep.stop();
         navigator.navigateBack();
     }
     onWakeUpTap() {
         NotificationMudule.clear();
-        setTimeout(() => this._sendEcg.stop(), 3 * 60 * 1000);
+        setTimeout(() => this._sendSleep.stop(), 3 * 60 * 1000);
     }
     onCancelTap() {
         NotificationMudule.clearAll();
+        this._sendSleep.stop();
     }
 
     public doStartScanning(mac) {
@@ -136,12 +136,12 @@ export class WakeViewModule extends Observable {
                             if (ecgValue > 2500) continue;
 
                             if (data[0] == 1) { // hand connected
-                                _self._sendEcg.enQueue(ecgSize);
+                                _self._sendSleep.enQueue(ecgSize);
                             } else {
-                                _self._sendEcg.enQueue(ecgSize);
+                                _self._sendSleep.enQueue(ecgSize);
                             }
                         }
-                        _self.set('tip', "packetNumber: " + _self._sendEcg.nPacketIndex + "  ,queue size: " + _self._sendEcg.queue.length);
+                        _self.set('tip', "packetNumber: " + _self._sendSleep.nPacketIndex + "  ,queue size: " + _self._sendSleep.queue.length);
                     }
                 }).then(function (result) {
                     console.log('end', result);

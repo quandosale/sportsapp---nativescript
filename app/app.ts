@@ -90,11 +90,10 @@ else
 
 
 // application.mainModule = "profile-main";
-// http://52.33.117.221/phr/get-latest-data/58d8c6852e4f16270c827ee3
 // application.mainModule = "views/main-page/data-page/data-monitor";
 
 // application.mainModule = "views/main-page/monitor-page/monitor-page";
-application.mainModule = "views/main-page/sleep-page/sleep-page";
+// application.mainModule = "views/main-page/sleep-page/sleep-page";
 // application.mainModule = "views/main-page/snooze-page/snooze-page";
 
 // application.mainModule = "views/main-page/draw-page/draw-page";

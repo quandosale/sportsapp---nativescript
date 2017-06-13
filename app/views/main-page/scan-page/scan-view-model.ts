@@ -22,15 +22,20 @@ import { DeviceModel } from '../../../model/device-model';
 export class ScanViewdModel extends observableModule.Observable {
 
     private _items: ObservableArray<DeviceItemModel>;
+    private _pair_instro: string = "Double tap CALM. to begin paring";
+
     constructor() {
         super();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0ce84721ddc9aeab83d8a07215e8161e0e9d72d3
         orientationModule.setCurrentOrientation("portrait", function () {
             console.log("landscape orientation set");
         });
         this._items = new ObservableArray<DeviceItemModel>();
         this.doStartScanning();
-
+        // this.set("pair_instruction", "hello");
     }
     arrDataset = [];
     get dataItems() {
@@ -58,6 +63,8 @@ export class ScanViewdModel extends observableModule.Observable {
                         onDiscovered: function (peripheral: any) {
                             peripheral.isSelect = true;
                             var obsp = new DeviceItemModel(peripheral.UUID, peripheral.name, false);
+                            if(peripheral.name.indexOf('CALM') == -1)
+                                return;
                             _self._items.push(obsp);
 
                             console.log('scanResult', _self._items.length);
@@ -87,7 +94,7 @@ export class ScanViewdModel extends observableModule.Observable {
         console.log("selectedNumber", selectedNumber);
         if (selectedNumber == 0) {
             this.set('isLoading', false);
-            this.set("tip", "Select at least One Device");
+            this.set("tip", "Select device please");
             return;
         }
 
@@ -96,6 +103,9 @@ export class ScanViewdModel extends observableModule.Observable {
     }
 
     public itemSelected(args: listViewModule.ListViewEventData) {
+        this.dataItems.forEach(dataItem => {
+            dataItem.isSelect = false;
+        })
         var item = this.dataItems.getItem(args.itemIndex);
         item.isSelect = true;
     }
@@ -103,5 +113,9 @@ export class ScanViewdModel extends observableModule.Observable {
     public itemDeselected(args: listViewModule.ListViewEventData) {
         var item = this.dataItems.getItem(args.itemIndex);
         item.isSelect = false;
+    }    
+
+    get pair_instro() {
+        return this._pair_instro;
     }
 }

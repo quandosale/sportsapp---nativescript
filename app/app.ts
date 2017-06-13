@@ -84,7 +84,7 @@ prof.start("main-page");
 if (AppSetting.getUserData() == null)
     application.mainModule = "views/main-page/main-page";
 else
-    application.mainModule = "views/main-page/setting-page/setting-page";
+    // application.mainModule = "views/main-page/setting-page/setting-page";
 // application.mainModule = "views/main-page/profile-page/profile-page";
 
 
@@ -99,7 +99,7 @@ else
 
 // application.mainModule = "views/main-page/sign-up-page/sign-up-page";
 // application.mainModule = "views/main-page/sign-in-page/sign-in-page";
-// application.mainModule = "views/main-page/scan-page/scan-page";
+application.mainModule = "views/main-page/scan-page/scan-page";
 
 // application.mainModule = "views/main-page/setting-page/setting-page";
 // application.mainModule = "views/main-page/data-page/session-ecg-page/session-ecg-page";

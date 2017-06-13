@@ -12,7 +12,7 @@ import phoneMac = require("../../../common/phone");
 import { AppSetting } from '../../../common/app-setting';
 import { User } from './user';
 export class SignInPageModule extends Observable {
-    public user: User = new User("a@a.com", "11111");
+    public user: User = new User("", "");
     // public user: User = new User("", "");
     page: Page;
     constructor(_page: Page) {
@@ -132,8 +132,53 @@ export class SignInPageModule extends Observable {
             _self._toast('Network error');
         });
     }
-
+    isValidEmail(email: string) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    // isStart = true;
+    // onEmailTextChange() {
+    //     console.log('email textChange');
+    //     console.log('email veri', this.isValidEmail(this.user.email));
+    //     if (this.isStart) {
+    //         setTimeout(() => this.isStart = false, 1000);
+    //         return;
+    //     }
+    //     if (!this.isValidEmail(this.user.email)) {
+    //         this.e_error = true;
+    //     } else {
+    //         this.e_error = false;
+    //     }
+    // }
+    // onPwdTextChange() {
+    //     // this.p_error = false;
+    //     console.log('pwd textChange');
+    //     if (this.isStart) {
+    //         setTimeout(() => this.isStart = false, 1000);
+    //         return;
+    //     }
+    //     if (this.user.password.length == 0) {
+    //         this.p_error = true;
+    //     } else {
+    //         this.p_error = false;
+    //     }
+    // }
     onLoginTap() {
+        let isOk = true;
+        console.log('email veri', this.isValidEmail(this.user.email));
+        if (!this.isValidEmail(this.user.email)) {
+            isOk = false;
+            this.e_error = true;
+        } else {
+            this.e_error = false;
+        }
+        if (this.user.password.length == 0) {
+            isOk = false;
+            this.p_error = true;
+        } else {
+            this.p_error = false;
+        }
+        if (!isOk) return;
         this.set('isLoading', true);
         var _self = this;
         let request_url = CONFIG.SERVER_URL + '/auth/login';
@@ -166,6 +211,22 @@ export class SignInPageModule extends Observable {
 
     gotoMainPage() {
         navigator.navigateToMainPage();
+    }
+    // error flag
+    get e_error(): boolean {
+        return this.get("_e_error");
+    }
+
+    set e_error(value: boolean) {
+        this.set("_e_error", value);
+    }
+
+    get p_error(): boolean {
+        return this.get("_p_error");
+    }
+
+    set p_error(value: boolean) {
+        this.set("_p_error", value);
     }
 
     _toast(_msg) {

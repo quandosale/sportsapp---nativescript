@@ -40,7 +40,26 @@ export class SignUpPageModule extends Observable {
     }
     onSignUp(args: EventData) {
         console.log('email validat', this.isValidEmail());
-
+        let isOk = true;
+        if (!this.isValidEmail()) {
+            isOk = false;
+            this.e_error = true;
+        } else {
+            this.e_error = false;
+        }
+        if (this.password.length == 0) {
+            isOk = false;
+            this.p_error = true;
+        } else {
+            this.p_error = false;
+        }
+        if (this.name.length == 0) {
+            isOk = false;
+            this.n_error = true;
+        } else {
+            this.n_error = false;
+        }
+        if (!isOk) return;
         if (this.get('isAllow')) {
             this.signup();
         } else {
@@ -313,12 +332,35 @@ export class SignUpPageModule extends Observable {
     set height(value: number) {
         this.set("_height", value);
     }
-    get weight(): number {
+    get weight(): boolean {
         return this.get("_weight");
     }
 
-    set weight(value: number) {
+    set weight(value: boolean) {
         this.set("_weight", value);
+    }
+    // error flag
+    get e_error(): boolean {
+        return this.get("_e_error");
+    }
+
+    set e_error(value: boolean) {
+        this.set("_e_error", value);
+    }
+
+    get p_error(): boolean {
+        return this.get("_p_error");
+    }
+
+    set p_error(value: boolean) {
+        this.set("_p_error", value);
+    }
+    get n_error(): boolean {
+        return this.get("_n_error");
+    }
+
+    set n_error(value: boolean) {
+        this.set("_n_error", value);
     }
 
     _toast(_msg) {

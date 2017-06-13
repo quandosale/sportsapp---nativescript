@@ -9,6 +9,7 @@ import drawerModule = require("nativescript-telerik-ui-pro/sidedrawer");
 import { Page } from 'ui/page';
 import { Image } from "ui/image";
 import * as pages from "ui/page";
+import { exit } from 'nativescript-exit';
 var image: imageModule.Image;
 var page: pages.Page;
 import { AppSetting } from '../../common/app-setting';
@@ -95,7 +96,9 @@ export class SidedrawerViewModel extends Observable {
         navigator.navigateToHome();
         AppSetting.logout();
     }
-
+    tapExit() {
+        exit();
+    }
     tapAbout(args) {
         this.closeDrawer();
         if (application.android) {

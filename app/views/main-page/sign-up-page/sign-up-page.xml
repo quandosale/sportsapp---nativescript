@@ -15,23 +15,20 @@
   <StackLayout class="c-page" padding="20" paddingTop="8">
     <GridLayout>
       <StackLayout>
-        <textField hint="Email Address" text="{{email}}" class="c-textfield" keyboardType="email"/>
-        <TIL:TextInputLayout class="demo-text-input-layout"
-          hint="Email Address"
-          error="error"
-          android:errorEnabled="true"
-          android:hintAnimationEnabled="true"
-          android:hintTextAppearance="StyledTIL">
-          <TextField text="{{email}}"/>
-        </TIL:TextInputLayout>
-        <textField hint="Create Password" text="{{password}}" class="c-textfield" secure="true"/>
+        <textField text="{{email}}" class="{{ _e_error ? 'c-textfield error' : 'c-textfield' }}" keyboardType="email" marginBottom="0" hint="Email Address"/>
+        <Label class="required-bar" marginBottom="4" backgroundColor="{{ _e_error ? '#FF0000' : '#414A94' }}"/>
+
+        <textField hint="Create Password" text="{{password}}" class="{{ _p_error ? 'c-textfield error' : 'c-textfield' }}" secure="true" marginBottom="0"/>
+        <Label class="required-bar" marginBottom="4" backgroundColor="{{ _p_error ? '#FF0000' : '#414A94' }}"/>
+
         <GridLayout orientation="horizontal" class="social-group" rows="auto" columns="*, auto, auto">
           <Label text="Connect with Social Media: " marginTop="3" fontSize="17" col="0"/>
           <Label text="&#xea90;" class="social-icon-circle facebook icon" col="1" tap="{{ onFacebookSignUpTap }}"/>
           <Label text="&#xea8b;" class="social-icon-circle google icon" col="2" tap="{{ onGoogleSignUpTap }}"/>
         </GridLayout>
         <Label text="Profile Details:" class="font-weight-bold" marginTop="7" fontSize="17"/>
-        <textField hint="Name" class="c-textfield" text="{{name}}"/>
+        <textField hint="Name" class="{{ _n_error ? 'c-textfield error' : 'c-textfield' }}" text="{{name}}" marginBottom="0"/>
+        <Label class="required-bar" marginBottom="4" backgroundColor="{{ _n_error ? '#FF0000' : '#414A94' }}"/>
         <StackLayout orientation="horizontal" marginTop="5">
           <Label text="{{_birthday}}" width="49%" class="c-textfield w-50-left" margin="0" marginRight="1%" tap="{{onBirthday}}" fontSize="17"/>
           <Label text="{{_gender}}" width="49%" class="c-textfield w-50-right" margin="0" marginLeft="1%" tap="{{setGender}}" fontSize="17"/>

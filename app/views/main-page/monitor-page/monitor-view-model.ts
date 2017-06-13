@@ -134,6 +134,16 @@ export class MonitorViewdModel extends Observable {
     }
 
     isSend = false;
+    isCSVRecord = false;
+    onCSVExportTap() {
+        console.log('csv export', this.isCSVRecord);
+        this.isCSVRecord = !this.isCSVRecord;
+        if (this.isCSVRecord) {
+            this._CalmAnalysis.startCSVExport();
+        } else {
+            this._CalmAnalysis.stopCSVExport();
+        }
+    }
     public onRecordTap() {
         this.isSend = !this.isSend;
         if (this.isSend) {

@@ -49,6 +49,14 @@
           <Label text="Logout" class="drawer-external-label" col="1"/>
         </GridLayout>
       </GridLayout>
+
+      <GridLayout class="drawer-external-link" tap="{{tapExit}}">
+        <GridLayout class="drawer-external-icon" columns="auto,auto">
+          <Label class="drawer-rect" col="0"/>
+          <Label text="Exit" class="drawer-external-label" col="1"/>
+        </GridLayout>
+      </GridLayout>
+
     </StackLayout>
   </StackLayout>
 </ScrollView>

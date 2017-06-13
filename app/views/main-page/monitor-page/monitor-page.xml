@@ -87,7 +87,9 @@
                 <StackLayout>
                   <Label text="{{ queueSize }}"/>
                   <Label text="{{ nPacketNumber }}"/>
-
+                </StackLayout>
+                <StackLayout orientation="horizontal" textAlignment="center" width="100%" horizontalAlignment="right">
+                  <Image src="{{isCSVRecord? 'res://btnrecordstop_csv' :'res://btnrecord_csv'}}" horizontalAlignment="center" verticalAlignment="center" width="40" height="40" marginLeft="10" tap="{{onCSVExportTap}}"/>
                 </StackLayout>
               </GridLayout>
             </StackLayout>

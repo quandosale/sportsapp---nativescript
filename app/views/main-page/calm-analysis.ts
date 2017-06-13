@@ -10,6 +10,7 @@ export class CalmAnalysis {
     constructor() {
         this.calmLib = new YourPlugin();
     }
+
     public init() {
         this.queue = [];
         this.queueResult = [];
@@ -37,14 +38,23 @@ export class CalmAnalysis {
 
     public start() {
         this.init();
-        this.sendEcgToAndroid();
+        this.beginEcgToAndroid();
     }
 
     public stop() {
 
     }
+    public startCSVExport() {
+        this.queue = [];
+        this.calmLib.startCSVExport();
+    }
 
-    sendEcgToAndroid() {
+    public stopCSVExport() {
+        this.calmLib.stopCSVExport();
+    }
+
+
+    beginEcgToAndroid() {
         this.calmLib.startCalmness();
         // setTimeout(() => this._sendAgain(), 3000);
         var _self = this;

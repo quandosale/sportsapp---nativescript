@@ -203,6 +203,16 @@ DrawerPage {
     placeholder-color: #FFFFFF;
 }
 
+.required-bar {
+    height: 2;
+    background-color: red;
+    margin-top: -1;
+}
+
+.c-textfield.error {
+    placeholder-color: #FF0000;
+}
+
 #profile-content {
     background-color: #FFF;
     padding: 50 30 15;
@@ -370,11 +380,13 @@ Label.label-gray {
     max-width: 100;
     width: 100%;
 }
+
 Label.scan_instro {
     color: #d8daea;
     font-size: 15;
     font-weight: 100;
 }
+
 Label.scan_status {
     font-size: 15;
     font-weight: 800;

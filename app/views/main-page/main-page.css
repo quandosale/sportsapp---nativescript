@@ -17,7 +17,6 @@
     }
 }
 
-
 @keyframes logo-img {
     0% {
         transform: translate(0, 0);
@@ -53,56 +52,54 @@
     }
     66.25% {
         opacity: 1;
-        transform: translate(0, 70);
+        transform: translate(0, 110);
     }
     100% {
         opacity: 1;
-        transform: translate(0, 70);
+        transform: translate(0, 110);
     }
 }
-
 
 @keyframes btn-sign-in {
     0% {
         opacity: 0;
-        transform: translate(0, 175);
+        transform: translate(0, 180);
     }
     66.25% {
         opacity: 0;
-        transform: translate(0, 175);
+        transform: translate(0, 180);
     }
     86.75% {
         opacity: 1;
-        transform: translate(0, 175);
+        transform: translate(0, 180);
     }
 }
-
 
 @keyframes btn-guestmode {
     0% {
         opacity: 0;
-        transform: translate(0, 260);
+        transform: translate(0, 240);
     }
     88.25% {
         opacity: 0;
-        transform: translate(0, 260);
+        transform: translate(0, 240);
     }
     100% {
         opacity: 0.8;
-        transform: translate(0, 260);
+        transform: translate(0, 240);
     }
 }
 
 .logo-cover {
-    width:93;
-    height:93;
-    border-radius:50%;
+    width: 93;
+    height: 93;
+    border-radius: 50%;
     animation-name: logo-cover;
     animation-duration: 4;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
     animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-    background-color:#3C5AFD;
+    background-color: #3C5AFD;
 }
 
 .logo-img {
@@ -120,9 +117,9 @@
 }
 
 .btn-sign-up {
-    width:80%;
-    border-radius:50%;
-    margin-top:22;
+    width: 80%;
+    border-radius: 50%;
+    margin-top: 22;
     animation-name: btn-sign-up;
     animation-duration: 4;
     animation-fill-mode: forwards;
@@ -131,8 +128,8 @@
 }
 
 .btn-sign-in {
-    width:80%;
-    margin-top:22;
+    width: 80%;
+    margin-top: 5;
     animation-name: btn-sign-in;
     animation-duration: 4;
     animation-fill-mode: forwards;
@@ -141,8 +138,9 @@
 }
 
 .btn-guestmode {
-    fontSize:14;
-     color:white;
+    fontSize: 14;
+    width: 80%;
+    color: white;
     animation-name: btn-guestmode;
     animation-duration: 4;
     animation-fill-mode: forwards;
@@ -168,7 +166,8 @@
     horizontal-align: left;
     vertical-align: top;
 }
-.letter-center{
-    horizontal-align:center;
-    vertical-align:center;
+
+.letter-center {
+    horizontal-align: center;
+    vertical-align: center;
 }

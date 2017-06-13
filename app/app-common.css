@@ -294,6 +294,15 @@ Label.label-gray {
     font-size: 18;
 }
 
+.my-transparent-btn {
+    background-color: transparent;
+    /*background-color: #BE7BC4;*/
+    color: #FFFFFF;
+    border-radius: 25;
+    height: 50;
+    font-size: 18;
+}
+
 .my-social-btn {
     color: #FFFFFF;
     font-family: 'icomoon';

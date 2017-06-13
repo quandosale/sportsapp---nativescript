@@ -4,31 +4,53 @@
     xmlns:CheckBox="nativescript-checkbox" 
     xmlns:RL="nativescript-ripple" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" class="c-page" 
     xmlns:df="nativescript-telerik-ui-pro/dataform" 
+    
     xmlns:chart="nativescript-telerik-ui-pro/chart">
     <!-- BEGIN action bar-->
-    <Page.actionBar backgroundColor="#0F1866">
-        <ActionBar title="Pairing New Device" automationText="ActionBar" backgroundColor="#0F1866">
+    <!--<Page.actionBar backgroundColor="#0F1866">
+        <ActionBar title="Pairing New Device" automationText="ActionBar" backgroundColor="#0F1866" horizontalAlignment="center">
             <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack" />
         </ActionBar>
-    </Page.actionBar>
+    </Page.actionBar>-->
+
+  <sdp:DrawerPage.actionBar>
+    <ActionBar automationText="ActionBar" class="action-bar">
+      <NavigationButton icon="res://ic_back" tap="goBack" automationText="GoBack" />
+      <ActionBar.actionItems>
+        <ActionItem>
+          <ActionItem.actionView>
+          </ActionItem.actionView>
+        </ActionItem>
+      </ActionBar.actionItems>
+      <ActionBar.titleView>
+        <GridLayout marginRight="15">
+          <Label text="Pairing New Device" horizontalAlignment="center" class="action-title"/>
+        </GridLayout>
+      </ActionBar.titleView>
+    </ActionBar>
+  </sdp:DrawerPage.actionBar>
     <!-- END  action bar-->
     <!-- BEGIN Page Content-->
-    <StackLayout padding="20" paddingTop="90" paddingBottom="0">
-        <RL:Ripple rippleColor="#c8c8c8" tap="{{ doStartScanning }}" marginBottom="30" width="70" height="70">
-            <GridLayout class="intro-logo-n-intro" backgroundImage="res://scan" borderRadius="0" horizontalAlignment="center" verticalAlignment="center" style=" background-repeat: no-repeat;background-size:100% 100%;"/>
-        </RL:Ripple>
-        <ActivityIndicator busy="{{ isLoading }}" />
-        <Label text="{{tip}}" horizontalAlignment="center" marginBottom="10"/>
+    <StackLayout padding="20" paddingBottom="0">
+        <Label text="{{pair_instro}}" horizontalAlignment="center" class="scan_instro"/>
+        <StackLayout width="60%"  tap="{{ doStartScanning }}" marginTop="20">
+            <Image src="~/images/calm.png" class="scan-image-button"/>
+        </StackLayout>
+        <ActivityIndicator busy="{{ isLoading }}" marginTop="20"/>
+        <Label text="{{tip}}" horizontalAlignment="center" margin="20 0 20 0" class="scan_status" />
         <StackLayout>
-            <ScrollView height="115">
-                <lv:RadListView items="{{ dataItems }}" itemTap="{{ onItemTap }}" row="1" id="ls" selectionBehavior="Press" multipleSelection="false" itemSelected="{{itemSelected}}" itemDeselected="{{itemDeselected}}">
+            <ScrollView height="130">
+                <lv:RadListView items="{{ dataItems }}" itemTap="{{ onItemTap }}" row="1" id="ls" selectionBehavior="Press" multipleSelection="true" itemSelected="{{itemSelected}}" itemDeselected="{{itemDeselected}}">
                     <lv:RadListView.listViewLayout>
                         <lv:ListViewLinearLayout scrollDirection="Vertical"/>
                     </lv:RadListView.listViewLayout>
                     <lv:RadListView.itemTemplate>
-                        <GridLayout padding="13 20" backgroundColor="#FFF" color="#000">
-                            <Label text="{{ _name }}" color="#000"/>
-                            <Image src="{{ _isSelect ? 'res://checkbox_checked' : 'res://checkbox_unchecked' }}" cssClass="checkbox" horizontalAlignment="right"/>
+                        <GridLayout padding="13 20" backgroundColor="#FFF" color="#000" marginTop="1">
+                            <StackLayout>
+                                <Label text="{{ 'Found ' + _name }}" class="device-name" style="font-size:14"/>
+                                <Label text="{{ _UUID }}" class="device-mac"  style="color: #7c8186; font-size: 13"/>
+                            </StackLayout>
+                            <Image src="{{ _isSelect ? '~/images/checked.png' : '~/images/unchecked.png' }}" cssClass="checkbox" horizontalAlignment="right"/>
                         </GridLayout>
                     </lv:RadListView.itemTemplate>
                 </lv:RadListView>
@@ -36,8 +58,8 @@
             <RL:Ripple rippleColor="#c8c8c8" row="3" class="button my-btn" colSpan="2" tap="{{onPairTap}}" marginTop="30" borderRadius="50%">
                 <Button text="PAIR" backgroundColor="#494D51" borderRadius="80"/>
             </RL:Ripple>
-            <RL:Ripple rippleColor="#c8c8c8" row="4" class="button my-btn" colSpan="2" tap="goMonitor" marginTop="30" borderRadius="50%">
-                <Button text="CANCEL" class="button my-btn" borderRadius="80" backgroundColor="#494D51"/>
+            <RL:Ripple rippleColor="#c8c8c8" row="4" class="button my-btn" colSpan="2" tap="goMonitor" marginTop="4" borderRadius="50%">
+                <Button text="CANCEL" class="button my-btn" borderRadius="80" backgroundColor="#8a8d90"/>
             </RL:Ripple>
         </StackLayout>
     </StackLayout>

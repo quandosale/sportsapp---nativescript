@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "calm.sportsapp.com",
+    "id": "com.calm_health.sports",
     "tns-ios": {
       "version": "2.5.0"
     },

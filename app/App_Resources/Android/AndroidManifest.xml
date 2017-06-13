@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
   xmlns:tools="http://schemas.android.com/tools"
-  xmlns:android="http://schemas.android.com/apk/res/android" package="calm.sportsapp.com" android:versionCode="18" android:versionName="2.5.0">
+  xmlns:android="http://schemas.android.com/apk/res/android" package="com.calm_health.sports" android:versionCode="18" android:versionName="2.5.0">
   <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true"/>
   <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="__APILEVEL__"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>

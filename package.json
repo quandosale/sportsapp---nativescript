@@ -18,6 +18,7 @@
     "nativescript-checkbox": "^1.2.8",
     "nativescript-drawingpad": "^1.1.2",
     "nativescript-effects": "^0.5.0",
+    "nativescript-exit": "^1.0.0",
     "nativescript-fresco": "1.0.12",
     "nativescript-imagecropper": "0.0.7",
     "nativescript-imagepicker": "^3.0.0",

@@ -1,0 +1,4 @@
+"use strict";
+exports.exit = () => {
+    android.os.Process.killProcess(android.os.Process.myPid());
+};

@@ -13,5 +13,5 @@ export function goBack(args: EventData) {
     navigator.navigateBack();
 }
 export function goMonitor(args: EventData) {
-    navigator.navigateToMonitor();
+    navigator.navigateToMainPage();
 }

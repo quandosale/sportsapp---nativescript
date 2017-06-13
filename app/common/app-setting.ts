@@ -31,6 +31,7 @@ export class AppSetting {
         return sound;
     }
     static logout() {
-        appSetting.remove('user');
+        appSetting.clear();
     }
+
 }

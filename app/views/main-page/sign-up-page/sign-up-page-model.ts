@@ -26,16 +26,21 @@ export class SignUpPageModule extends Observable {
         // this.weight = 0;
 
         //--------- demo
-        this.email = 'khs0618@yandex.com';
-        this.password = "12345";
-        this.name = "john";
-        this.birthday = "Birthday";
-        this.gender = "Gender";
-        this.height = 175;//170
-        this.weight = 160;
+        // this.email = 'khs0618@yandex.com';
+        // this.password = "12345";
+        // this.name = "john";
+        // this.birthday = "Birthday";
+        // this.gender = "Gender";
+        // this.height = 175;//170
+        // this.weight = 160;
     }
-
+    isValidEmail() {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(this.email);
+    }
     onSignUp(args: EventData) {
+        console.log('email validat', this.isValidEmail());
+
         if (this.get('isAllow')) {
             this.signup();
         } else {
@@ -245,6 +250,7 @@ export class SignUpPageModule extends Observable {
         }).then(function (result) {
             var res = result.content.toJSON();
             console.log(JSON.stringify(res));
+            _self.set('isLoading', true);
             if (res.success) {
                 _self._toast(res.message);
                 console.log(res.data);
@@ -254,6 +260,7 @@ export class SignUpPageModule extends Observable {
                 _self._toast(res.message);
             }
         }, function (error) {
+            _self.set('isLoading', true);
             console.error(JSON.stringify(error));
             _self._toast('Network error');
             // navigator.navigateToTutorial();

@@ -65,6 +65,5 @@ export function tapSignIn(args) {
     navigator.navigateToSignIn();
 }
 export function onGuestModeTap(args) {
-    global.isGuest = true;
     navigator.navigateToScan();
 }

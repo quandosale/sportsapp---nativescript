@@ -1,114 +1,94 @@
-<sdp:DrawerPage 
-    xmlns="http://www.nativescript.org/tns.xsd" 
-    xmlns:RL="nativescript-ripple" 
-    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
-    xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer" 
-    xmlns:sdc="views/side-drawer/side-drawer-content-p" loaded="onPageLoaded"
-    backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866">
-    <!-- BEGIN action bar-->
-    <sdp:DrawerPage.actionBar>
-        <ActionBar automationText="ActionBar" class="action-bar">
-            <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
-            <ActionBar.actionItems>
-                <ActionItem >
-                    <ActionItem.actionView>
-                        <Label text="" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
-                    </ActionItem.actionView>
-                </ActionItem>
-            </ActionBar.actionItems>
-            <ActionBar.titleView>
-                <GridLayout>
-                    <Label text="Profile" horizontalAlignment="center" class="action-title"/>
-                </GridLayout>
-            </ActionBar.titleView>
-        </ActionBar>
-    </sdp:DrawerPage.actionBar>
-    <!-- END  action bar-->
-    <!--BEGIN Side Drawer-->
-    <sdp:DrawerPage.sideDrawer>
-        <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
-            <rsd:RadSideDrawer.drawerContent>
-                <sdc:side-drawer-content />
-            </rsd:RadSideDrawer.drawerContent>
-        </rsd:RadSideDrawer>
-    </sdp:DrawerPage.sideDrawer>
-    <!-- END  Side Drawer-->
-    <!-- BEGIN Page Content-->
+<sdp:DrawerPage
+  xmlns="http://www.nativescript.org/tns.xsd"
+  xmlns:RL="nativescript-ripple"
+  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
+  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer"
+  xmlns:sdc="views/side-drawer/side-drawer-content-p" loaded="onPageLoaded"
+  backgroundSpanUnderStatusBar="true" class="c-page1" backgroundColor="#0F1866">
+  <!-- BEGIN action bar-->
+  <sdp:DrawerPage.actionBar>
+    <ActionBar automationText="ActionBar" class="action-bar">
+      <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
+      <ActionBar.actionItems>
+        <ActionItem>
+          <ActionItem.actionView>
+            <Label text="" class="icon" height="22" margin="0, 8, 0, -8" fontSize="25" width="32"/>
+          </ActionItem.actionView>
+        </ActionItem>
+      </ActionBar.actionItems>
+      <ActionBar.titleView>
+        <GridLayout>
+          <Label text="Profile" horizontalAlignment="center" class="action-title"/>
+        </GridLayout>
+      </ActionBar.titleView>
+    </ActionBar>
+  </sdp:DrawerPage.actionBar>
+  <!-- END  action bar-->
+  <!--BEGIN Side Drawer-->
+  <sdp:DrawerPage.sideDrawer>
+    <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
+      <rsd:RadSideDrawer.drawerContent>
+        <sdc:side-drawer-content />
+      </rsd:RadSideDrawer.drawerContent>
+    </rsd:RadSideDrawer>
+  </sdp:DrawerPage.sideDrawer>
+  <!-- END  Side Drawer-->
+  <!-- BEGIN Page Content-->
 
-    <StackLayout id="profile-content">
-        <StackLayout class="avatar">
-            <StackLayout class="circle-wrapper">
-                <Image id="userPhoto" stretch="aspectFill" tap="{{onTakePhotoTap}}"></Image>
-            </StackLayout>
-        </StackLayout>
-        <GridLayout columns="100,*" rows="auto" marginTop="40" >
-            <Label text="Name:" class="label" col="0"/>
-            <Border borderBottomWidth="1" col="1">
-                <TextField text="{{name}}" class="withoutborder common-font" margin="0 5"/>
-            </Border>
-        </GridLayout>
-
-        <GridLayout columns="100,*" rows="auto" class="info-row">
-            <Label text="Birthday:" class="label" col="0"/>
-            <StackLayout col="1" marginTop="5">
-                <Border borderBottomWidth="1" paddingBottom="6">
-                    <StackLayout tap="{{onBirthdayTap}}">
-                        <Label text="{{_birthday}}" margin="0 5" class="common-font label-gray"/>
-                    </StackLayout>
-                </Border>
-            </StackLayout>
-        </GridLayout>
-        <GridLayout columns="100,55,55,*" rows="auto" class="info-row" marginBottom="2">
-            <Label text="Height:" class="label" col="0"/>
-            <StackLayout orientation="horizontal" col="1" verticalAlignment="center">
-                <Border borderBottomWidth="1">
-                    <TextField text="{{_height}}" keyboardType="number" width="30" class="withoutborder common-font" margin="0 5"/>
-                </Border>
-                <Label text="{{_height_unit1}}" verticalAlignment="center" class="common-font label-gray" marginLeft="3"/>
-            </StackLayout>
-
-            <StackLayout orientation="horizontal" col="2" verticalAlignment="center"  marginLeft="5">
-                <Border borderBottomWidth="1">
-                    <TextField text="{{_height2}}" keyboardType="number" width="20"  class="withoutborder common-font" margin="0 5"/>
-                </Border>
-                <Label text="{{_height_unit2}}" verticalAlignment="center" class="common-font label-gray" marginLeft="3"/>
-            </StackLayout>
-
-            <Label class="label icon" col="3" marginLeft="10" textAlignment="right" marginRight="5" tap="{{onHeightTypeTap}}" >
-                <FormattedString>
-                    <Span text="{{_height_unit}}" class="common-font"></Span>
-                    <Span text=" &#xf0d7;" fontSize="18" class="icon"></Span>
-                </FormattedString>
-            </Label>
-        </GridLayout>
-        <GridLayout columns="100,60,50,*" rows="auto" class="info-row">
-            <Label text="Weight:" class="label" col="0"/>
-            <StackLayout orientation="horizontal" col="1" verticalAlignment="center" >
-                <Border borderBottomWidth="1">
-                    <TextField text="{{_weight}}" keyboardType="number" width="30" class="withoutborder common-font" margin="0 5" />
-                </Border>
-            </StackLayout>
-            <Label col="2"/>
-            <Label text="lbs &#xf0d7;" class="label icon" col="3" marginLeft="10" textAlignment="right" marginRight="5" tap="{{onWeightTypeTap}}">
-                <FormattedString>
-                    <Span text="{{_weight_unit}}" class="common-font"></Span>
-                    <Span text=" &#xf0d7;" fontSize="18"></Span>
-                </FormattedString>
-            </Label>
-        </GridLayout>
-        <GridLayout columns="100,*" rows="auto" class="info-row">
-            <Label text="Gender:" class="label" col="0"/>
-            <StackLayout col="1" marginTop="5" tap="{{onGenderTap}}">
-                <Border borderBottomWidth="1">
-                    <StackLayout paddingBottom="0">
-                        <Label text="{{_gender}}" class="gender-label common-font  label-gray" margin="0 5"/>
-                    </StackLayout>
-                </Border>
-            </StackLayout>
-        </GridLayout>
-        <ActivityIndicator busy="{{isLoading}}" />
-        <RL:Ripple rippleColor="#c8c8c8" marginTop="25" tap="{{saveChange}}" class="my-btn" borderRadius="50%">
-            <Label text="Save" horizontalAlignment="center" verticalAlignment="center"/>
-        </RL:Ripple>
+  <StackLayout id="profile-content">
+    <StackLayout class="avatar">
+      <StackLayout class="circle-wrapper">
+        <Image id="userPhoto" stretch="aspectFill" tap="{{onTakePhotoTap}}"/>
+      </StackLayout>
     </StackLayout>
+    <GridLayout columns="100,*" rows="auto" marginTop="40">
+      <Label text="Name:" class="label" col="0"/>
+      <Border borderBottomWidth="1" col="1">
+        <TextField text="{{name}}" class="withoutborder common-font" margin="0 5"/>
+      </Border>
+    </GridLayout>
+
+    <GridLayout columns="100,*" rows="auto" class="info-row">
+      <Label text="Birthday:" class="label" col="0"/>
+      <StackLayout col="1" marginTop="5">
+        <Border borderBottomWidth="1" paddingBottom="6">
+          <StackLayout tap="{{onBirthdayTap}}">
+            <Label text="{{_birthday}}" margin="0 5" class="common-font label-gray"/>
+          </StackLayout>
+        </Border>
+      </StackLayout>
+    </GridLayout>
+    <GridLayout columns="100,*" rows="auto" class="info-row" marginBottom="2">
+      <Label text="Height:" class="label" col="0"/>
+      <StackLayout orientation="horizontal" col="1" verticalAlignment="center">
+        <Border borderBottomWidth="1">
+          <TextField text="{{_height}}" keyboardType="number" width="80" class="withoutborder common-font" margin="0 5"/>
+        </Border>
+        <Label text="cm" verticalAlignment="center" class="common-font label-gray" marginLeft="3"/>
+      </StackLayout>
+    </GridLayout>
+    <GridLayout columns="100,*" rows="auto" class="info-row">
+      <Label text="Weight:" class="label" col="0"/>
+      <StackLayout orientation="horizontal" col="1" verticalAlignment="center">
+        <Border borderBottomWidth="1">
+          <TextField text="{{_weight}}" keyboardType="number" width="80" class="withoutborder common-font" margin="0 5" />
+        </Border>
+        <Label text="kg" verticalAlignment="center" class="common-font label-gray" marginLeft="3"/>
+      </StackLayout>
+    </GridLayout>
+    <GridLayout columns="100,auto,*" rows="auto" class="info-row">
+      <Label text="Gender:" class="label" col="0"/>
+      <StackLayout col="1" marginTop="5" tap="{{onGenderTap}}" width="250">
+        <Border borderBottomWidth="1">
+          <StackLayout paddingBottom="0">
+            <Label text="{{_gender}}" class="gender-label common-font  label-gray" margin="0 5"/>
+          </StackLayout>
+        </Border>
+      </StackLayout>
+    </GridLayout>
+    <ActivityIndicator busy="{{isLoading}}" />
+    <RL:Ripple rippleColor="#c8c8c8" marginTop="25" tap="{{saveChange}}" class="my-btn" borderRadius="50%">
+      <Label text="Save" horizontalAlignment="center" verticalAlignment="center"/>
+    </RL:Ripple>
+  </StackLayout>
 </sdp:DrawerPage>

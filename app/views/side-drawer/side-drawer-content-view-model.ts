@@ -28,6 +28,9 @@ export class SidedrawerViewModel extends Observable {
                 this.imgUserPhoto.src = imageSrc;
             else
                 this.imgUserPhoto.src = "res://default_man";
+        } else {
+            // guest mode
+            this.imgUserPhoto.src = "res://default_man";
         }
     }
     tileTouch(args: gestures.TouchGestureEventData) {
@@ -90,6 +93,7 @@ export class SidedrawerViewModel extends Observable {
     tapLogout(args) {
         this.closeDrawer();
         navigator.navigateToHome();
+        AppSetting.logout();
     }
 
     tapAbout(args) {

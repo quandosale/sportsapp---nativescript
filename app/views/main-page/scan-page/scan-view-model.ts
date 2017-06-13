@@ -24,9 +24,6 @@ export class ScanViewdModel extends observableModule.Observable {
     private _items: ObservableArray<DeviceItemModel>;
     constructor() {
         super();
-        if (global.isGuest) {
-
-        }
 
         orientationModule.setCurrentOrientation("portrait", function () {
             console.log("landscape orientation set");
@@ -94,12 +91,7 @@ export class ScanViewdModel extends observableModule.Observable {
             return;
         }
 
-        // guest mode
-        if (global.isGuest) {
-            global.mac = this._items.getItem(index).UUID;
-        } else {
-            AppSetting.setDevice(new DeviceModel(this._items.getItem(index).UUID, this._items.getItem(index).name));
-        }
+        AppSetting.setDevice(new DeviceModel(this._items.getItem(index).UUID, this._items.getItem(index).name));
         navigator.navigateToMainPage();
     }
 

@@ -21,9 +21,6 @@ export class ProfileModel extends Observable {
     dateTest = new Date();
     imgUserPhoto: Image;
     page: Page;
-    heightMeter = 0;
-    weightKg = 0;
-
 
     constructor(mainPage: Page) {
         super();
@@ -32,18 +29,14 @@ export class ProfileModel extends Observable {
         // })
 
         this.page = mainPage;
-        this.name = "john";
-        this.birthday = this.dateFormat(this.dateTest);
-        this.gender = "Male";
+        this.name = "";
+        this.birthday = "";
+        this.gender = "";
         this.height = 0;
-        this.height2 = 0;
-        this.height_unit = "feet";
         this.weight = 0;
-        this.weight_unit = "lbs";
 
         this.imgUserPhoto = mainPage.getViewById<Image>("userPhoto");
         this.getUserInfo();
-        console.log('takephoto', takePhoto);
         if (takePhoto == 1) {
             this.imgUserPhoto.src = imageBase64;
             takePhoto = 0;
@@ -54,7 +47,11 @@ export class ProfileModel extends Observable {
         }
     }
     onTakePhotoTap() {
-
+        let user = AppSetting.getUserData();
+        if (user == null) {
+            Toast.makeText("Now Guest mode").show();
+            return;
+        }
         var options = {
             title: "",
             message: "Select Mode",
@@ -147,70 +144,26 @@ export class ProfileModel extends Observable {
         if (user != null)
             this.initUserData(user);
         else {
-
-        }
-    }
-    setHeight() {
-        if (this.height_unit == 'feet') {
-            let feet = this.meterTofeet(this.heightMeter);
-            this.height = Math.round(feet.feet);// unit ft
-            this.height2 = Math.round(feet.inch);// unit in
-            this.height_unit1 = 'ft';
-            this.height_unit2 = 'in';
-        } else {
-            this.heightMeter = this.meterTofeet(this.height, this.height2);
-            this.height = Math.round(this.heightMeter);
-            this.height2 = 0;
-            this.height_unit1 = 'm';
-            this.height_unit2 = '';
-        }
-    }
-    setWeight() {
-        if (this.weight_unit.toLocaleLowerCase() == 'lbs') {
-            let lbs = this.kgToLbs(this.weightKg);
-            this.weight = Math.round(lbs);
-        } else {
-            this.weight = Math.round(this.weightKg);
-
+            //guest mode
+            this.name = "Guest";
+            this.birthday = "";
+            this.gender = "";
+            this.height = 0;
+            this.weight = 0;
+            this.imgUserPhoto.src = "res://default_man";
         }
     }
 
-    meterTofeet(val1: number, val2: number = undefined): any {
-        if (val2 == undefined) {
-            let foot = val1 * 3.2808399;
-            let _f = Math.floor(foot);
-            let _distance = foot - _f;
-            let inch = _distance * 12;
-            inch = Math.round(inch);
-            return { feet: _f, inch: inch };
-        } else {
-            let meter = val1 * 0.3048 + val2 * 0.3048 / 12;
-            return meter;
-        }
-    }
-    kgToLbs(v, isKg: Boolean = true) {
-        let res;
-        if (isKg)
-            res = v * 2.20462262185;
-        else
-            res = v * 0.45359237;
-        return res;
-
-    }
 
     initUserData(data) {
-        console.log('---------- photo --------------')
+        console.log('---------- photo --------------', data.photo, data.photo.length);
 
         this.name = data.firstname;
         this.birthday = this.dateFormat(data.birthday);
         this.gender = data.gender;
-        this.height_unit = data.height_unit ? data.height_unit : 'feet';
-        this.heightMeter = data.height;
-        this.setHeight();
 
-        this.weight_unit = data.weight_unit ? data.weight_unit : 'lbs';
-        this.weightKg = data.weight;
-        this.setWeight();
+        this.height = data.height;
+        this.weight = data.weight;
         var pSrc: string = data.photo;
         this.photoSrc = pSrc;
         if (data.photo != "")
@@ -220,30 +173,21 @@ export class ProfileModel extends Observable {
     }
     saveChange() {
         let user = AppSetting.getUserData();
+        if (user == null) {
+            Toast.makeText("Now Guest mode").show();
+            return;
+        }
         this.set('isLoading', true);
         if (imageBase64.length == 0) {
             imageBase64 = this.photoSrc;
         }
-        if (this.height_unit == "feet") {
-            this.heightMeter = this.meterTofeet(this.height, this.height2);
-        } else {
-            this.heightMeter = this.height;
-        }
 
-        if (this.weight_unit.toLocaleLowerCase() == "lbs") {
-            this.weightKg = this.kgToLbs(this.weight, false);
-        } else {
-            this.weightKg = this.weight;
-        }
-        console.log(this.weightKg);
         user.photo = imageBase64;
         user.firstname = this.name;
         user.birthday = this.birthday;
         user.gender = this.gender;
-        user.height = this.heightMeter;
-        user.height_unit = this.height_unit;
-        user.weight = this.weightKg;
-        user.weight_unit = this.weight_unit;
+        user.height = this.height;
+        user.weight = this.weight;
         user.photo = imageBase64;
         AppSetting.setUserData(user);
 
@@ -321,38 +265,7 @@ export class ProfileModel extends Observable {
                 _self.gender = result;
         });
     }
-    onWeightTypeTap() {
-        var options = {
-            title: "",
-            message: "Weight Unit",
-            cancelButtonText: "Cancel",
-            actions: ["Lbs", "Kg"]
-        };
-        var _self = this;
-        dialogs.action(options).then((result) => {
-            if (result.toLocaleLowerCase() != "cancel")
-                _self.weight_unit = result;
-            _self.setWeight();
-        });
-    }
-    onHeightTypeTap() {
-        var options = {
-            title: "",
-            message: "Height Unit",
-            cancelButtonText: "Cancel",
-            actions: ["feet", "meter"]
-        };
-        var _self = this;
-        dialogs.action(options).then((result) => {
-            if (result.toLocaleLowerCase() != "cancel")
-                _self.height_unit = result;
-            if (result == "feet") {
-                this.setHeight();
-            } else {
-                this.setHeight();
-            }
-        });
-    }
+
     dateFormat(date: Date): string {
         let dateTime = new Date(date);
         let yyyy = dateTime.getFullYear();
@@ -397,48 +310,12 @@ export class ProfileModel extends Observable {
     set height(value: number) {
         this.set("_height", value);
     }
-    get height2(): number {
-        return this.get("_height2");
-    }
-
-    set height2(value: number) {
-        this.set("_height2", value);
-    }
-    get height_unit(): string {
-        return this.get("_height_unit");
-    }
-
-    set height_unit(value: string) {
-        this.set("_height_unit", value);
-    }
-    get height_unit1(): string {
-        return this.get("_height_unit1");
-    }
-
-    set height_unit1(value: string) {
-        this.set("_height_unit1", value);
-    }
-    get height_unit2(): string {
-        return this.get("_height_unit2");
-    }
-
-    set height_unit2(value: string) {
-        this.set("_height_unit2", value);
-    }
-
     get weight(): number {
         return this.get("_weight");
     }
 
     set weight(value: number) {
         this.set("_weight", value);
-    }
-    get weight_unit(): string {
-        return this.get("_weight_unit");
-    }
-
-    set weight_unit(value: string) {
-        this.set("_weight_unit", value);
     }
     set photoSrc(v: string) {
         this.set("__photoSrc", v);

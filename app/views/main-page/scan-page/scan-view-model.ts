@@ -26,10 +26,7 @@ export class ScanViewdModel extends observableModule.Observable {
 
     constructor() {
         super();
-<<<<<<< HEAD
 
-=======
->>>>>>> 0ce84721ddc9aeab83d8a07215e8161e0e9d72d3
         orientationModule.setCurrentOrientation("portrait", function () {
             console.log("landscape orientation set");
         });
@@ -63,7 +60,7 @@ export class ScanViewdModel extends observableModule.Observable {
                         onDiscovered: function (peripheral: any) {
                             peripheral.isSelect = true;
                             var obsp = new DeviceItemModel(peripheral.UUID, peripheral.name, false);
-                            if(peripheral.name.indexOf('CALM') == -1)
+                            if (peripheral.name.indexOf('CALM') == -1)
                                 return;
                             _self._items.push(obsp);
 
@@ -113,7 +110,7 @@ export class ScanViewdModel extends observableModule.Observable {
     public itemDeselected(args: listViewModule.ListViewEventData) {
         var item = this.dataItems.getItem(args.itemIndex);
         item.isSelect = false;
-    }    
+    }
 
     get pair_instro() {
         return this._pair_instro;

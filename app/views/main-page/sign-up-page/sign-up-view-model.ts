@@ -70,10 +70,11 @@ export class SignUpPageModule extends Observable {
             this.set('isLoading', false);
         }
     }
-
     _googlelogin(result) {
         var _self = this;
         let request_url = CONFIG.SERVER_URL + '/auth/sns-signin/';
+        let photo: string = result.photo == {} ? "res://default_man" : result.photo;
+        console.log('photo', photo, photo.toString(), typeof photo, JSON.stringify(photo, null, 2));
         HTTP.request({
             method: "POST",
             url: request_url,
@@ -82,7 +83,7 @@ export class SignUpPageModule extends Observable {
                 username: result.userToken,
                 firstname: result.displayName,
                 secondname: result.displayName,
-                photo: "/assets/gravatar/default.jpg",
+                photo: photo,
             }),
             headers: { "Content-Type": "application/json" },
             timeout: CONFIG.timeout
@@ -98,7 +99,7 @@ export class SignUpPageModule extends Observable {
             }
         }, function (error) {
             _self.set('isLoading', false);
-            console.error(JSON.stringify(error));
+            console.error(JSON.stringify(error), error);
             _self._toast('Network error');
         });
     }

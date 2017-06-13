@@ -3,3 +3,18 @@
     height: 1;
     background-color: #FFF;
 }
+
+.demo-text-input-layout {
+    background-color: #d3d3d3;
+    margin: 5 0;
+    padding: 5 0;
+}
+
+TextInputLayout {
+    margin-top: 15;
+}
+
+StackLayout {
+    padding-left: 5;
+    padding-right: 5;
+}

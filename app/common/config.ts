@@ -1,6 +1,6 @@
 export const CONFIG = {
     SERVER_URL: 'http://13.113.160.171',
-    timeout: 6000,
+    timeout: 8000,
     COOKIE_FILE: 'calm_tmp.dat'
 };
 export const BLEConfig = {

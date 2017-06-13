@@ -32,7 +32,7 @@ export class SignInPageModule extends Observable {
             });
             SocialLogin.loginWithGoogle(function (result) {
                 _self.set('isLoading', false);
-                console.log(JSON.stringify(result, null, 2));
+                // console.log(JSON.stringify(result, null, 2));
                 if (result.id)
                     _self._googlelogin(result);
                 else {
@@ -48,6 +48,8 @@ export class SignInPageModule extends Observable {
     _googlelogin(result) {
         var _self = this;
         let request_url = CONFIG.SERVER_URL + '/auth/sns-signin/';
+        let photo: string = result.photo == {} ? "res://default_man" : result.photo.toString();
+        console.log('photo', photo, photo.length);
         HTTP.request({
             method: "POST",
             url: request_url,
@@ -56,7 +58,7 @@ export class SignInPageModule extends Observable {
                 username: result.userToken,
                 firstname: result.displayName,
                 secondname: result.displayName,
-                photo: "/assets/gravatar/default.jpg",
+                photo: photo
             }),
             headers: { "Content-Type": "application/json" },
             timeout: CONFIG.timeout
@@ -72,7 +74,7 @@ export class SignInPageModule extends Observable {
             }
         }, function (error) {
             _self.set('isLoading', false);
-            console.error(JSON.stringify(error));
+            console.error(JSON.stringify(error), error);
             _self._toast('Network error');
         });
     }

@@ -1,0 +1,18 @@
+android {
+    productFlavors {
+        "nativescripttextinputlayout" {
+            dimension "nativescripttextinputlayout"
+        }
+    }
+}
+
+dependencies {
+    def supportVer = "22.2.0";
+
+    if(project.hasProperty("supportVersion")) {
+        supportVer = supportVersion
+    }
+
+    //android support design lib required for TextInputLayout
+    compile "com.android.support:design:$supportVer"
+}

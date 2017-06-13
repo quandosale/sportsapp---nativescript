@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SportsApp</string>
-    <string name="facebook_app_id">1570076669692821</string>
-    <string name="title_activity_kimera">Sports App</string>
+  <string name="app_name">SportsApp</string>
+  <string name="facebook_app_id">1570076669692821</string>
+  <string name="title_activity_kimera">Sports App</string>
 </resources>

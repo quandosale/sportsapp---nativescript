@@ -1,18 +1,16 @@
 ﻿.v-label {
     padding-top: 15;
-    border-bottom: 1px gray solid;
     color: #000;
 }
 
 .gender-label {
-    border-bottom: 1px gray solid;
     color: #000;
 }
 
-
-.tv_height{
-      border-color: red;
+.tv_height {
+    border-color: red;
 }
-.row{
-     margin-top:20;
+
+.row {
+    margin-top: 20;
 }

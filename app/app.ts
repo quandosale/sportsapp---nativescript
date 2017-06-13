@@ -85,21 +85,21 @@ if (AppSetting.getUserData() == null)
     application.mainModule = "views/main-page/main-page";
 else
     // application.mainModule = "views/main-page/setting-page/setting-page";
-// application.mainModule = "views/main-page/profile-page/profile-page";
+    // application.mainModule = "views/main-page/profile-page/profile-page";
 
 
-// application.mainModule = "profile-main";
-// application.mainModule = "views/main-page/data-page/data-monitor";
+    // application.mainModule = "profile-main";
+    // application.mainModule = "views/main-page/data-page/data-monitor";
 
-// application.mainModule = "views/main-page/monitor-page/monitor-page";
-// application.mainModule = "views/main-page/sleep-page/sleep-page";
-// application.mainModule = "views/main-page/snooze-page/snooze-page";
+    // application.mainModule = "views/main-page/monitor-page/monitor-page";
+    // application.mainModule = "views/main-page/sleep-page/sleep-page";
+    // application.mainModule = "views/main-page/snooze-page/snooze-page";
 
-// application.mainModule = "views/main-page/draw-page/draw-page";
+    // application.mainModule = "views/main-page/draw-page/draw-page";
 
-// application.mainModule = "views/main-page/sign-up-page/sign-up-page";
-// application.mainModule = "views/main-page/sign-in-page/sign-in-page";
-application.mainModule = "views/main-page/scan-page/scan-page";
+    // application.mainModule = "views/main-page/sign-up-page/sign-up-page";
+    application.mainModule = "views/main-page/sign-in-page/sign-in-page";
+// application.mainModule = "views/main-page/scan-page/scan-page";
 
 // application.mainModule = "views/main-page/setting-page/setting-page";
 // application.mainModule = "views/main-page/data-page/session-ecg-page/session-ecg-page";

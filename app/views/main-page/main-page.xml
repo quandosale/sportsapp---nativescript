@@ -19,8 +19,8 @@
     <RL:Ripple class="my-btn btn-sign-in" tap="tapSignIn" rippleColor="#c8c8c8">
       <Label class="letter-center" text="Log In"/>
     </RL:Ripple>
-    <RL:Ripple class="my-transparent-btn btn-guestmode" tap="tapSignIn" rippleColor="#c8c8c8">
-      <Label class=" letter-center" text="Guest Mode" tap="onGuestModeTap"/>
+    <RL:Ripple class="my-transparent-btn btn-guestmode" tap="onGuestModeTap" rippleColor="#c8c8c8">
+      <Label class=" letter-center" text="Guest Mode"/>
     </RL:Ripple>
   </GridLayout>
 </Page>

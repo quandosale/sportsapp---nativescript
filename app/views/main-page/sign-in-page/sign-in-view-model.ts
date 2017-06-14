@@ -12,7 +12,7 @@ import phoneMac = require("../../../common/phone");
 import { AppSetting } from '../../../common/app-setting';
 import { User } from './user';
 export class SignInPageModule extends Observable {
-    public user: User = new User("", "");
+    public user: User = new User("a@a.com", "11111");
     // public user: User = new User("", "");
     page: Page;
     constructor(_page: Page) {

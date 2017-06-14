@@ -15,12 +15,15 @@ function traceNavigateTo(to: string, context?: string): string {
     return to;
 }
 export function navigateToMainPage() {
-    navigateToMonitor();
+    navigateToProfilePage();
 }
 export function navigateToHome() {
     var topmost = frame.topmost();
     if (topmost.currentEntry.moduleName !== "views/main-page/main-page") {
-        frame.topmost().navigate(traceNavigateTo("views/main-page/main-page"));
+        frame.topmost().navigate({
+            clearHistory: true,
+            moduleName: traceNavigateTo("views/main-page/main-page")
+        });
     }
 }
 

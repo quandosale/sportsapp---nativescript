@@ -12,6 +12,8 @@ import * as utils from "utils/utils";
 import { isIOS } from "platform";
 
 import { AppSetting } from './common/app-setting';
+import { DataService } from './service/data-service';
+
 
 // The location of this import is important. iOS swizzles the app delegate.
 
@@ -82,14 +84,15 @@ if (application.ios) {
 prof.start("main-page");
 if (AppSetting.getUserData() == null)
     application.mainModule = "views/main-page/main-page";
-else
-    application.mainModule = "views/main-page/setting-page/setting-page";
-// application.mainModule = "views/main-page/profile-page/profile-page";
-// application.mainModule = "views/main-page/main-page";
+else {
+    // application.mainModule = "views/main-page/monitor-page/monitor-page";
+    application.mainModule = "views/main-page/profile-page/profile-page";
+    // application.mainModule = "views/main-page/main-page";
 
-// application.mainModule = "profile-main";
-// application.mainModule = "views/main-page/data-page/data-monitor";
-
+    // application.mainModule = "profile-main";
+    // application.mainModule = "views/main-page/data-page/data-monitor";
+    DataService.getDatasFromServer();
+}
 // application.mainModule = "views/main-page/monitor-page/monitor-page";
 // application.mainModule = "views/main-page/sleep-page/sleep-page";
 // application.mainModule = "views/main-page/snooze-page/snooze-page";

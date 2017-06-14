@@ -13,15 +13,10 @@ export class SendEcg {
         this.queue = [];
         this.nnDateTime = new Date();
         this.nPacketIndex = 1;
-        let user = AppSetting.getUserData();
-        if (user != null) {
-            this.userId = user._id;
-        }
-        else {
-            console.log(' user not sett -----------------------');
-        }
+        this.user = AppSetting.getUserData();
     }
-    userId = "";
+    user;
+
     public init() {
         this.nPacketIndex = 1;
         this.queue = [];
@@ -54,10 +49,9 @@ export class SendEcg {
     }
 
     send() {
-        if (this.userId.length == 0) {
+        if (this.user == null) {
             return;
         }
-        let ownerId = this.userId;
 
         if (this.queue.length > this.SizeUpload) {
             let request_url = CONFIG.SERVER_URL + '/phr/datasets/add';
@@ -80,9 +74,9 @@ export class SendEcg {
                 url: request_url,
                 content: JSON.stringify({
                     datetime: this.nnDateTime,
-                    type: "ECG",
-                    ownerId: ownerId,
-                    ownerName: "k Test",
+                    type: "exercise",
+                    ownerId: this.user._id,
+                    ownerName: this.user.firstname,
                     value: value
                 }),
                 headers: { "Content-Type": "application/json" },

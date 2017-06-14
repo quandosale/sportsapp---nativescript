@@ -1,7 +1,7 @@
 export const CONFIG = {
-    SERVER_URL: 'http://13.113.160.171',
-    timeout: 8000,
-    COOKIE_FILE: 'calm_tmp.dat'
+    // SERVER_URL: 'http://13.113.160.171',
+    SERVER_URL: 'http://192.168.3.4',
+    timeout: 8000
 };
 export const BLEConfig = {
     serviceUUID: "180d",

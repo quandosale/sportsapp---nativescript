@@ -2,19 +2,73 @@
     background: #0F1866;
 }
 
-.btn-control {
-    border-radius: 50%;
-    height: 25;
-    width: 25;
-    margin: 7;
+.monitor-content {
+    background-color: #FFF;
 }
 
-.btn-record {
-    background-color: #fff;
+.monitor-content StackLayout.main {
+    padding: 0 20;
 }
 
-.btn-zoom {
-    background-color: #000;
+.img-btn {
+    horizontal-align: center;
+    vertical-align: center;
+    width: 40;
+    height: 40;
+}
+
+StackLayout.control {
+    text-align: center;
+}
+
+StackLayout.control .debug-info {
+    horizontal-align: left;
+    text-align: left;
+    color: #000;
+}
+
+StackLayout.control StackLayout.ecg-btn-group {
+    text-align: center;
+    width: 100%;
+    horizontal-align: center;
+}
+
+StackLayout.control StackLayout.csv-btn-group {
+    text-align: center;
+    width: 100%;
+    horizontal-align: right;
+}
+
+StackLayout.hr-line {
+    background-color: gray;
+    height: 1;
+    margin-bottom: 3;
+    margin-top: 7;
+}
+
+StackLayout.hrt-mark-group {
+    width: 100;
+    padding-top: 40;
+    font-size: 17;
+}
+
+StackLayout.hrt-mark-group .mark-z {
+    color: #FE3724;
+    width: 20;
+}
+
+StackLayout.hrt-mark-group .mark-v {
+    color: #E5E506;
+    width: 20;
+}
+
+StackLayout.hrt-mark-group .mark-r {
+    color: #0676FF;
+    width: 20;
+}
+
+StackLayout.hrt-mark-group .mark-txt {
+    font-size: 12;
 }
 
 .inner-circle {
@@ -22,8 +76,4 @@
     height: 110;
     border-radius: 100;
     margin-top: 7;
-}
-
-.monitor-content {
-    /*padding-top: 60;*/
 }

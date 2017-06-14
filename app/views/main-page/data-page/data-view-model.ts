@@ -6,11 +6,14 @@ import timer = require("timer");
 import * as  orientationModule from "nativescript-screen-orientation";
 import * as dialogs from "ui/dialogs";
 var http = require("http");
+import * as utils from "utils/utils";
 import * as Toast from "nativescript-toast";
 import navigator = require("../../../common/navigator");
 import { CONFIG, LEVEL } from '../../../common/config';
 import { DataItem } from './data-item';
 import { AppSetting } from '../../../common/app-setting';
+import { DataService } from '../../../service/data-service';
+var DELTA = 0.1;
 export class ViewModel extends observableModule.Observable {
     _dataItems: ObservableArray<DataItem>;
     datatypeFilter: string = "all";
@@ -25,11 +28,19 @@ export class ViewModel extends observableModule.Observable {
         this.set('menuEditText', 'Edit    ')
         // this.initDataItemsForTest();
         this.getDatas();
+        // let _data = DataService.getData();
+        // if (_data) {
+        //     _data.forEach(item => {
+        //         this._dataItems.push(item);
+        //     });
+        // } else {
+        //     Toast.makeText('Data Loading').show();
+        // }
     }
 
     initDataItemsForTest() {
         var id = "" + Math.round(Math.random() * 100);
-        this._dataItems.push(new DataItem(id, "Excercise session at 10:00 AM", "Feb 27, 2015", "MON", "Duration 8:12:34 | Resting HR 64", true, 'ecg'));
+        this._dataItems.push(new DataItem(id, "Excercise session at 10:00 AM", "Feb 27, 2015", "MON", "Duration 8:12:34 | Resting HR 64", true, 'exercise'));
         id = "" + Math.round(Math.random() * 100);
         this._dataItems.push(new DataItem(id, "Excercise session from 10:00 AM", "Feb 27, 2015", "MON", "Duration 8:12:34 | Resting HR 64", false, 'sleep'));
     }
@@ -64,8 +75,6 @@ export class ViewModel extends observableModule.Observable {
         if (user == null) {
             Toast.makeText("User Data No set.").show();
             return;
-        } else {
-            console.log('User Id', user._id);
         }
         while (this._dataItems.length) {
             this._dataItems.pop();
@@ -82,20 +91,16 @@ export class ViewModel extends observableModule.Observable {
 
         var ownerIDs = [user._id];
         let request_url = CONFIG.SERVER_URL + '/phr/datasets/get';
-        var datefrom: Date = new Date();
-        datefrom.setFullYear(0);
-        var dateto: Date = new Date();
-        dateto.setFullYear(3000);
 
         var _self = this;
         http.request({
             url: request_url,
             method: "POST",
             content: JSON.stringify({
-                datefrom: datefrom,
-                dateto: dateto,
+                datefrom: "",
+                dateto: "",
                 ownerIds: ownerIDs,
-                datatype: this.datatypeFilter.toUpperCase()
+                datatype: this.datatypeFilter.toLowerCase()
             }),
             headers: { "Content-Type": "application/json" },
             timeout: CONFIG.timeout
@@ -108,6 +113,38 @@ export class ViewModel extends observableModule.Observable {
         });
     }
 
+    onTap_DeletePost() {
+        var _self = this;
+        dialogs.confirm("Are you sure delete data ?").then(function (result) {
+            console.log("Dialog result: " + result);
+            if (result) _self.deleteDataRequest();
+        });
+    }
+    private deleteDataRequest() {
+
+        if (this._currentItemIndex >= 0) {
+            let id_delete_dataset = this.dataItems.getItem(this._currentItemIndex).id;
+            console.log(id_delete_dataset);
+            let request_url = CONFIG.SERVER_URL + '/phr/datasets/delete/' + id_delete_dataset;
+            var _self = this;
+            http.request({
+                url: request_url,
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                timeout: CONFIG.timeout
+            }).then(function (result) {
+                var res = result.content.toJSON();
+                console.log(JSON.stringify(res, null, 2));
+                if (res.success) {
+                    _self.getDatas();
+                } else {
+                    Toast.makeText(res.message).show();
+                }
+            }, function (error) {
+                Toast.makeText('delete data error' + JSON.stringify(error)).show();
+            });
+        }
+    }
     processData(res) {
         if (res.success) {
             var arrDataset = res.data;
@@ -126,33 +163,23 @@ export class ViewModel extends observableModule.Observable {
                 let type: string = element.type.toLocaleLowerCase();
 
                 switch (type) {
-                    case 'ecg':
-                        element.value = 'Show Details';
-                        type = 'ECG';
+                    case 'exercise':
                         element.duration = this.durationFormat(element.data.duration);
                         break;
                     case 'sleep':
-                        element.value = 'Show Details';
                         element.duration = this.durationFormat(element.data.duration);
-                        type = 'Sleep';
-                        break;
-                    case 'activity':
-                        // element.value = 'Show Details';
-                        element.value = element.data.activity.CALORY + 'kcal';
-                        type = 'Activity';
                         break;
                     default: {
-                        element.value = 'other';
                     }
                 }
-                element.type = type;
 
-                if (type == "Sleep") {
-                    this._dataItems.push(new DataItem(element._id, "Excercise session from " + time, date, day, "Duration " + element.duration + " | Resting HR " + element.data.resting_heart_rate, isFirstDataOfDate, type));
-                } else if (type == "ECG") {
-                    this._dataItems.push(new DataItem(element._id, "Excercise session at " + time, date, day, "Duration " + element.duration + " | Resting HR " + element.data.max_heart_rate, isFirstDataOfDate, type));
-                } else
-                    this._dataItems.push(new DataItem(element._id, "Excercise session " + " at " + time, date, day, "Duration " + "0:0:0" + " | Resting HR -1", isFirstDataOfDate, type));
+                if (type == "sleep") {
+                    let resting_heart_rate = element.data.resting_heart_rate ? element.data.resting_heart_rate : 0;
+                    this._dataItems.push(new DataItem(element._id, "Sleep Data from " + time, date, day, "Duration " + element.duration + " | Resting HR " + resting_heart_rate, isFirstDataOfDate, type));
+                } else if (type == "exercise") {
+                    let max_heart_rate = element.data.max_heart_rate ? element.data.max_heart_rate : 0;
+                    this._dataItems.push(new DataItem(element._id, "Excercise session at " + time, date, day, "Duration " + element.duration + " | Resting HR " + max_heart_rate, isFirstDataOfDate, type));
+                }
             }
         }
         else {
@@ -165,26 +192,37 @@ export class ViewModel extends observableModule.Observable {
         return this._dataItems;
     }
 
-    onFilterTap(args) {
+    onFilterTap() {
         let options = {
             title: "Filter By",
             cancelButtonText: "Cancel",
-            actions: ["All", "Activity", "Sleep"]
+            actions: ["All", "Exercise", "Sleep"]
         };
         dialogs.action(options).then((result) => {
             console.log(result);
-            if (result == "All") {
-                result = 'all';
-            }
-            else if (result == "Activity") result = "ecg";
-            else {
-                result = "BP";
-            }
-            this.datatypeFilter = result;
+            if (result == "Cancel" || result == null || result == undefined) return;
+            if (result == "All") { this.datatypeFilter = 'all'; }
+            else if (result == "Exercise") { this.datatypeFilter = "exercise"; }
+            else if (result == "Sleep") { this.datatypeFilter = "sleep"; }
+
             this.getDatas();
         });
     }
+    onStartSwipeCell(args: ListViewEventData) {
+        var density = utils.layout.getDisplayDensity();
+        var delta = Math.floor(density) !== density ? 1.1 : DELTA;
 
+        args.data.swipeLimits.top = 0;
+        args.data.swipeLimits.left = Math.round(density * 100);
+        args.data.swipeLimits.bottom = 0;
+        args.data.swipeLimits.right = Math.round(density * 100);
+        args.data.swipeLimits.threshold = Math.round(density * 50);
+    }
+    _currentItemIndex = -1;
+    onCellSwiped(args: ListViewEventData) {
+        this._currentItemIndex = args.itemIndex;
+        console.log(this._currentItemIndex);
+    }
     onItemTap(args: ListViewEventData) {
         if (this.isDeleteMode) return;
         var CurrentItemIndex = args.itemIndex;
@@ -192,7 +230,7 @@ export class ViewModel extends observableModule.Observable {
         var CurrentItem = this._dataItems.getItem(CurrentItemIndex).dataType.toLocaleLowerCase();
         global.datasetId = datasetId;
         switch (CurrentItem) {
-            case 'ecg': navigator.navigateToSessionEcg(); break;
+            case 'exercise': navigator.navigateToSessionEcg(); break;
             case 'sleep': navigator.navigateToSessionSleep(); break;
         }
     }

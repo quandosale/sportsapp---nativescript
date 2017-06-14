@@ -13,15 +13,10 @@ export class SendSleep {
         this.queue = [];
         this.nnDateTime = new Date();
         this.nPacketIndex = 1;
-        let user = AppSetting.getUserData();
-        if (user != null) {
-            this.userId = user._id;
-        }
-        else {
-            console.log(' user not sett -----------------------');
-        }
+        this.user = AppSetting.getUserData();
     }
-    userId = "";
+    user;
+
     public init() {
         this.nPacketIndex = 1;
         this.queue = [];
@@ -30,10 +25,6 @@ export class SendSleep {
     }
     public start() {
         this.isSend = true;
-        if (this.userId.length == 0) {
-            Toast.makeText("User data not setted").show();
-            this.isSend = false;
-        }
         this.send();
     }
     public stop() {
@@ -58,11 +49,9 @@ export class SendSleep {
     }
 
     send() {
-        if (this.userId.length == 0) {
-            console.log('send, ' + this.userId.length);
+        if (this.user == null) {
             return;
         }
-        let ownerId = this.userId;
 
         if (this.queue.length > this.SizeUpload) {
             let request_url = CONFIG.SERVER_URL + '/phr/datasets/add';
@@ -85,9 +74,9 @@ export class SendSleep {
                 url: request_url,
                 content: JSON.stringify({
                     datetime: this.nnDateTime,
-                    type: "ECG",
-                    ownerId: ownerId,
-                    ownerName: "k Test",
+                    type: "sleep",
+                    ownerId: this.user._id,
+                    ownerName: this.user.firstname,
                     value: value
                 }),
                 headers: { "Content-Type": "application/json" },

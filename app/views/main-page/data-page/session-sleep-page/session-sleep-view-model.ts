@@ -46,7 +46,6 @@ export class SessionViewModel extends Observable {
             this.datasetId = global.datasetId;
             this.getData();
         }
-
     }
 
     getData() {
@@ -68,6 +67,7 @@ export class SessionViewModel extends Observable {
     }
     processData(res) {
         let max_heart_rate = res.data.max_heart_rate;
+        max_heart_rate = max_heart_rate ? max_heart_rate : 0;
         let datetime = res.data.datetime;
         let timeStr = this.dateFormat(new Date(datetime));
         let timeAMPM = this.dateFormatAmPm(new Date(datetime));
@@ -75,10 +75,12 @@ export class SessionViewModel extends Observable {
         this.set("_datetime", timeStr);
         this.set("_datetimeampm", timeAMPM);
         let duration = res.data.data.duration;
+        duration = duration ? duration : 0;
         let durationStr = this.msToHourMinutes(duration);
         this.set("_duration", durationStr);
 
         let resting_heart_rate = res.data.data.resting_heart_rate;
+        resting_heart_rate = resting_heart_rate ? resting_heart_rate : 0;
         this.set("_resting_heart_rate", resting_heart_rate);
 
 
@@ -98,8 +100,11 @@ export class SessionViewModel extends Observable {
         this.set("_awake_w", Math.floor(awake * MAXWIDTH / MAXVALUE));
         this.set("_deep_sleep_w", Math.floor(deep_sleep * MAXWIDTH / MAXVALUE));
         var sleepmap = res.data.data.sleep_map;
-        let sleepQuality = res.data.data.sleep_quality;
+        sleepmap = [10, 20, 30, 20, 50, 40, 10];
         this.set("_sleepMapPoints", sleepmap);
+
+        let sleepQuality = res.data.data.sleep_quality;
+        sleepQuality = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,];
         this._spiderGraph.setPts(sleepQuality);
         this._sleepmapGraph.setPts(sleepmap);
     }

@@ -2,9 +2,45 @@
     background-color: #0F1866;
 }
 
+.data-content {
+    background-color: #FFF;
+}
+
+.header {
+    vertical-align: center;
+    color: #FFF;
+    background-color: #494D51;
+}
+
+.header-left {
+    horizontal-align: left;
+    width: 60%;
+    vertical-align: center;
+    margin-top: 3;
+    font-size: 17;
+    margin-left: 20;
+}
+
+.filter-layer {
+    horizontal-align: right;
+    padding-top: 15;
+    padding-bottom: 15;
+    width: 40%;
+    padding-right: 20;
+}
+
 .spin-arrow {
     text-align: right;
     font-size: 20;
+    horizontal-align: right;
+    text-align: right;
+    vertical-align: center;
+}
+
+.swipedImageStyle {
+    horizontal-align: center;
+    vertical-align: center;
+    background: red;
 }
 
 .item-name {
@@ -22,4 +58,16 @@
 .storage-info {
     color: #B0B3B4;
     background-color: #f8f8f8;
+}
+
+Image.gavatar {
+    width: 40;
+    height: 40;
+    margin: 2;
+    margin-right: 20;
+}
+
+.hr-line {
+    background-color: #EEEEEE;
+    height: 1.5;
 }

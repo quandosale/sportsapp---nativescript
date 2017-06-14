@@ -60,8 +60,10 @@ export class ScanViewdModel extends observableModule.Observable {
                         onDiscovered: function (peripheral: any) {
                             peripheral.isSelect = true;
                             var obsp = new DeviceItemModel(peripheral.UUID, peripheral.name, false);
-                            if (peripheral.name.indexOf('CALM') == -1)
-                                return;
+                            if (peripheral == null) return;
+                            if (peripheral.name == null) return;
+                            if (peripheral.name.indexOf('CALM') == -1) return;
+                            var obsp = new DeviceItemModel(peripheral.UUID, peripheral.name, false);
                             _self._items.push(obsp);
 
                             console.log('scanResult', _self._items.length);

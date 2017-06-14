@@ -66,10 +66,8 @@ export class MonitorViewdModel extends Observable {
         }, 1000);
 
         this.drawEcgAndHeart();
-        this.drawCalmValue();
+        this.drawCalmAndMotion();
         this._CalmAnalysis.start();
-        this.set('_calmNumber', 20);
-        this.set('test', 20);
         if (global.isGuest) {
             this.isGuest = true;
             this.doStartScanning(global.mac);
@@ -79,24 +77,25 @@ export class MonitorViewdModel extends Observable {
         //*/
     }
 
-    i = 0;
     calmInt = 0;
-    drawCalmValue() {
+    drawCalmAndMotion() {
+        if (!this._CalmAnalysis) {
+            if (this.isPageLoaded) setTimeout(() => this.drawCalmAndMotion(), 1000);
+            return;
+        }
         var calmV = this._CalmAnalysis.getCalmValue();
         this.calmInt = parseInt("" + calmV);
         var float = Math.round((calmV - this.calmInt) * 100);
         let radius = this._calmGraph.getMeasuredWidth();
-        var dataM = [radius / 2.5, 17, 134, 30, 30];
+        var dataM = [radius / 2.0, 13, 134, 30, 30];
         //                    calm Value(0~360), Number
         var arc = calmV * 360 / 100;
-        var dataC = [radius / 2.6, 17, arc, calmV, float];
+        var dataC = [radius / 2, 13, arc, calmV, float];
 
         this.set('_motionPoints', dataM);
         this.set('_calmPoints', dataC);
-
-        this.set('_calmValue', 't' + this.calmInt);
-
-        if (this.isPageLoaded) setTimeout(() => this.drawCalmValue(), 1000);
+        this.set('test', this.calmInt);
+        if (this.isPageLoaded) setTimeout(() => this.drawCalmAndMotion(), 1000);
     }
 
     onUnloaded() {
@@ -457,9 +456,8 @@ export class MonitorViewdModel extends Observable {
                                 _self._CalmAnalysis.addEcg((ecgValue - 1200) / 800);
                                 _self._sendEcg.enQueue(ecgValue);
 
-                                _self.set('queueSize', 'calm size: ' + _self._CalmAnalysis.queue.length + ',ecg ' + _self._sendEcg.queue.length);
+                                _self.set('queueSize', 'calm: ' + _self._CalmAnalysis.queue.length + ',ecg: ' + _self._sendEcg.queue.length);
                                 _self.set('nPacketNumber', 'packet index: ' + _self._sendEcg.nPacketIndex);
-
                             }
                         }
 

@@ -33,26 +33,44 @@
   </sdp:DrawerPage.sideDrawer>
   <!-- END  Side Drawer-->
   <!-- BEGIN Page Content-->
-  <StackLayout height="fetch" backgroundColor="#FFF" tap="test">
+  <StackLayout height="fetch" class="data-content">
     <!--header and bottom bar height -> 50px, and content -> remain-->
     <GridLayout rows="50, *,50">
       <!--Header(Date & Spiner for filter BEGIN-->
-      <StackLayout orientation="vertical" backgroundColor="#494D51">
-        <StackLayout row="0" orientation="horizontal" verticalAlignment="center" color="#FFF" verticalAligment="center">
-          <Label text="Today" tap="{{onAddItemClick}}" horizontalAlignment="left" width="60%" verticalAlignment="center" marginTop="13" fontSize="17" marginLeft="10"/>
-          <StackLayout horizontalAlignment="right" marginTop="15" width="40%" paddingRight="20" tap="{{onFilterTap}}">
-            <Label text="&#xf0d7;" class="icon spin-arrow" horizontalAlignment="right" textAligment="right" verticalAlignment="center"/>
+        <StackLayout row="0" orientation="horizontal" class="header">
+          <Label text="Today" class="header-left"/>
+          <StackLayout  tap="{{onFilterTap}}" class="filter-layer">
+            <Label text="&#xf0d7;" class="icon spin-arrow" />
           </StackLayout>
         </StackLayout>
-      </StackLayout>
+      
       <!--Header(Date & Spiner for filter END-->
-      <lv:RadListView pullToRefresh="true" pullToRefreshInitiated="{{onPullToRefreshInitiated}}" items="{{ dataItems }}" row="1" id="ls" itemTap="{{ onItemTap }}" selectionBehavior="Press" multipleSelection="{{ _isDeleteMode }}">
+      <lv:RadListView row="1" id="ls" itemSwipeProgressStarted="{{onStartSwipeCell}}"
+            itemSwipeProgressEnded="{{onCellSwiped}}" 
+            pullToRefresh="true"
+            itemSwipe="{{ _isDeleteMode}}"
+            pullToRefreshInitiated="{{onPullToRefreshInitiated}}"
+            items="{{ dataItems }}"
+            itemTap="{{ onItemTap }}"
+            selectionBehavior="Press">
         <lv:RadListView.listViewLayout>
           <lv:ListViewLinearLayout scrollDirection="Vertical"/>
         </lv:RadListView.listViewLayout>
+        <!--BEGIN swipe template-->
+         <lv:RadListView.itemSwipeTemplate>
+            <GridLayout columns="0, *, 100" >
+             <GridLayout width="0" class="swipe-del">
+                    <Image ios:src="res://listview/selection/ic_delete" android:src="res://ic_delete" stretch="none" class="swipedImageStyle"/>
+                </GridLayout>
+                <GridLayout col="2" tap="{{ onTap_DeletePost }}" class="swipe-del" backgroundColor="red">
+                    <Image ios:src="res://listview/selection/ic_delete" android:src="res://ic_delete" stretch="none" class="swipedImageStyle"/>
+                </GridLayout>
+            </GridLayout>
+        </lv:RadListView.itemSwipeTemplate>
+        <!--END swipe template-->
         <lv:RadListView.itemTemplate>
           <StackLayout>
-            <StackLayout backgroundColor="#EEEEEE" height="{{ _isStartOfDate ? 40 : 0}}" class="item-date">
+            <StackLayout backgroundColor="#EEEEEE" class="item-date" visibility="{{ _isStartOfDate ? 'visible' : 'collapsed' }}">
               <StackLayout orientation="horizontal" verticalAligment="center" padding="10 20">
                 <Label text="{{ _itemDay }}" width="40%"/>
                 <StackLayout horizontalAlignment="right" width="60%">
@@ -60,14 +78,15 @@
                 </StackLayout>
               </StackLayout>
             </StackLayout>
-            <StackLayout orientation="horizontal" padding="13 2">
-              <Image src="{{ _dataTypeImage }}" width="40" height="40" margin="2" marginRight="20"/>
+            <StackLayout orientation="horizontal" padding="13 20">
+              <Image src="{{ _dataTypeImage }}" class="gavatar"/>
               <!--<Label text="{{ _dataTypeImage }}" class="icon" width="40" height="40" margin="2" marginRight="20"/>-->
               <StackLayout width="60%" horizontalAligment="left">
                 <Label text="{{ _itemName }}" class="item-name"/>
                 <Label text="{{ _itemDescription }}" class="item-description"/>
               </StackLayout>
             </StackLayout>
+            <Label class="hr-line"/>
           </StackLayout>
         </lv:RadListView.itemTemplate>
       </lv:RadListView>

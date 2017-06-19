@@ -10,5 +10,5 @@ export function onPageLoaded(args: pages.NavigatedData) {
 }
 
 export function goBack(args: EventData) {
-    navigator.navigateBack();
+    navigator.navigateToHome();
 }

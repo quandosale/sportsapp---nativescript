@@ -211,6 +211,42 @@ export class SignInPageModule extends Observable {
         });
     }// login
 
+    onForgotPassword() {
+        let isOk = true;
+        if (!this.isValidEmail(this.user.email)) {
+            isOk = false;
+            this.e_error = true;
+        } else {
+            this.e_error = false;
+        }
+        if (!isOk) return;
+        this.set('isLoading', true);
+        var _self = this;
+        let request_url = CONFIG.SERVER_URL + '/auth/forgot-password';
+        HTTP.request({
+            method: "POST",
+            url: request_url,
+            content: JSON.stringify({
+                username: this.user.email
+            }),
+            headers: { "Content-Type": "application/json" },
+            timeout: CONFIG.timeout
+        }).then(function (result) {
+            var res = result.content.toJSON();
+            _self.set('isLoading', false);
+            if (res.success) {
+                _self._toast(res.message);
+            }
+            else {
+                _self._toast('There was an error sending email');
+            }
+        }, function (error) {
+            _self.set('isLoading', false);
+            console.error('login error:', JSON.stringify(error), error);
+            _self._toast('Network error');
+        });
+    }
+
     gotoMainPage() {
         DataService.getDatasFromServer();
         navigator.navigateToMainPage();

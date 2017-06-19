@@ -88,6 +88,7 @@ else {
     // application.mainModule = "views/main-page/monitor-page/monitor-page";
     application.mainModule = "views/main-page/profile-page/profile-page";
     // application.mainModule = "views/main-page/main-page";
+    // application.mainModule = "views/main-page/tutorial-page/tutorial-page";
 
     // application.mainModule = "profile-main";
     // application.mainModule = "views/main-page/data-page/data-monitor";
@@ -107,6 +108,5 @@ else {
 // application.mainModule = "views/main-page/data-page/session-ecg-page/session-ecg-page";
 // application.mainModule = "views/main-page/data-page/session-sleep-page/session-sleep-page";
 
-// application.mainModule = "views/main-page/tutorial-page/tutorial-page";
 
 application.start();

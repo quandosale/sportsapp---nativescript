@@ -307,7 +307,7 @@ Label.label-gray {
     color: #FFFFFF;
     font-family: 'icomoon';
     border-radius: 0;
-    height: 70;
+    height: 60;
     font-size: 18;
     margin-bottom: 7;
 }
@@ -326,13 +326,13 @@ Label.label-gray {
 }
 
 .my-social-btn .social-icon {
-    width: 80;
-    font-size: 30;
+    width: 70;
+    font-size: 25;
     text-align: center;
 }
 
 .my-social-btn .v-bar {
-    height: 60;
+    height: 40;
     width: 1;
     background-color: #FFF;
 }

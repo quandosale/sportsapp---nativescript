@@ -45,7 +45,7 @@
             <Label text="Allow my data to be anonymised and used" cssClass="field-switch-title" />
             <StackLayout orientation="horizontal">
               <Label text="for health research."/>
-              <Label text="Find out more" class="moreLink" />
+              <Label text=" Find out more" class="moreLink" />
             </StackLayout>
           </StackLayout>
         </StackLayout>

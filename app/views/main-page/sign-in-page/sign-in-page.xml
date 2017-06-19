@@ -18,7 +18,7 @@
     <RL:Ripple rippleColor="#c8c8c8" tap="{{ onFacebookLoginTap }}">
       <StackLayout class="my-social-btn facebook" orientation="horizontal">
         <!--<Label text="&#xea90;" class="social-icon"/>-->
-        <Label text="&#xea90;" class="social-icon"/>
+        <Label text="&#xea90;" class="social-icon" marginTop="-6"/>
         <Label class="v-bar"/>
         <Label text=" Connect with "/>
         <Label text="Facebook" class="social-letter bold"/>
@@ -26,32 +26,36 @@
     </RL:Ripple>
     <RL:Ripple rippleColor="#c8c8c8" tap="{{ onGoogleLoginTap }}">
       <StackLayout class="my-social-btn google" orientation="horizontal">
-        <Label text="&#xea8b;" class="social-icon"/>
+        <Label text="&#xea8b;" class="social-icon" marginTop="-6"/>
         <Label class="v-bar"/>
         <Label text=" Connect with "/>
         <Label text="Google" class="social-letter bold"/>
       </StackLayout>
     </RL:Ripple>
     <!--Social Login END-->
-    <StackLayout marginTop="30" marginBottom="20" orientation="horizontal" horizontalAlignment="center">
+    <StackLayout marginTop="30" marginBottom="0" orientation="horizontal" horizontalAlignment="center">
       <Label class="h-bar"/>
       <Label text="  OR  "/>
       <Label class="h-bar"/>
     </StackLayout>
     <ActivityIndicator busy="{{isLoading}}" />
-    <StackLayout class="form">
-      <StackLayout class="input-field">
+    <StackLayout class="form" padding="0">
+      <StackLayout class="input-field"  padding="0">
         <TextField hint="Email" text="{{user.email}}" class="{{ _e_error ? 'c-textfield error' : 'c-textfield' }}" autocorrect="false" keyboardType="email" marginBottom="0" propertyChange="{{onEmailTextChange}}"/>
         <Label class="required-bar" marginBottom="4" backgroundColor="{{ _e_error ? '#FF0000' : '#414A94' }}"/>
       </StackLayout>
-      <StackLayout class="input-field">
+      <StackLayout class="input-field"  padding="0">
         <TextField hint="Password" secure="true" text="{{user.password}}" class="{{ _p_error ? 'c-textfield error' : 'c-textfield' }}" autocorrect="false" marginBottom="0" propertyChange="{{onPwdTextChange}}"/>
         <Label class="required-bar" marginBottom="4" backgroundColor="{{ _p_error ? '#FF0000' : '#414A94' }}"/>
       </StackLayout>
     </StackLayout>
-    <RL:Ripple rippleColor="#c8c8c8" tap="{{onLoginTap}}" marginTop="12" class="my-btn" borderRadius="50%">
+    <RL:Ripple rippleColor="#c8c8c8" tap="{{onLoginTap}}" marginTop="22" class="my-btn" borderRadius="50%">
       <Label text="LOG IN" horizontalAlignment="center" verticalAlignment="center"/>
     </RL:Ripple>
+
+    <StackLayout>
+      <Label text="Forgot password?" tap="{{onForgotPassword}}" horizontalAlignment="center" verticalAlignment="center" marginTop="20"></Label>
+    </StackLayout>
 
   </StackLayout>
 </Page>

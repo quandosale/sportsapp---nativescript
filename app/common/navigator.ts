@@ -82,6 +82,7 @@ export function navigateToTutorial() {
     var topmost = frame.topmost();
     if (topmost.currentEntry.moduleName !== "views/main-page/tutorial-page/tutorial-page") {
         frame.topmost().navigate({
+            clearHistory: true,
             moduleName: traceNavigateTo("views/main-page/tutorial-page/tutorial-page"), animated: true, transition: {
                 name: 'fade',
                 duration: 380,

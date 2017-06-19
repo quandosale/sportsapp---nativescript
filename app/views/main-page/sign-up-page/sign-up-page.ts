@@ -7,5 +7,5 @@ export function onPageLoaded(args: pages.NavigatedData) {
     page.bindingContext = new SignUpPageModule(page);
 }
 export function goBack(args: EventData) {
-    navigator.navigateBack();
+    navigator.navigateToHome();
 }

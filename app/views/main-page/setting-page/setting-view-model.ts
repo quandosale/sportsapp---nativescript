@@ -10,6 +10,7 @@ import { CONFIG } from '../../../common/config';
 import phoneMac = require("../../../common/phone");
 import { AppSetting } from '../../../common/app-setting';
 import { Sportsotadfu } from 'nativescript-sportsotadfu';
+import * as navigator from "../../../common/navigator"
 
 export class SettingPageModule extends Observable {
     page: pages.Page;
@@ -86,6 +87,7 @@ export class SettingPageModule extends Observable {
         dialogs.confirm(options).then((result: boolean) => {
             if (result) {
                 _self.closeAccount();
+                navigator.navigateToSignIn();
             }
         });
     }
@@ -109,7 +111,7 @@ export class SettingPageModule extends Observable {
             var res = result.content.toJSON();
             _self.set('isLoading', false);
             if (res.success) {
-                alert('Success');
+                AppSetting.logout();
             }
             else {
                 alert('Your email or password is invalid.');

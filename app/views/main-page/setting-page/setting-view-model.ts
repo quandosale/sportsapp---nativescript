@@ -87,6 +87,7 @@ export class SettingPageModule extends Observable {
         dialogs.confirm(options).then((result: boolean) => {
             if (result) {
                 _self.closeAccount();
+                AppSetting.logout();
                 navigator.navigateToSignIn();
             }
         });

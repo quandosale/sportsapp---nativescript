@@ -146,6 +146,7 @@
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
     animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    padding-top: 10;
 }
 
 .default-background {
@@ -154,20 +155,4 @@
 
 .example-intro {
     opacity: 0;
-}
-
-.example-label {
-    margin: 0 8;
-    text-align: center;
-}
-
-.example-new {
-    margin: 10;
-    horizontal-align: left;
-    vertical-align: top;
-}
-
-.letter-center {
-    horizontal-align: center;
-    vertical-align: center;
 }

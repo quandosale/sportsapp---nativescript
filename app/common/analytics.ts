@@ -13,8 +13,8 @@ export function start(): void {
             }
         });
 
-        // Analytics.start();
-        enabled = false;
+        Analytics.start();
+        enabled = true;
     }
 }
 

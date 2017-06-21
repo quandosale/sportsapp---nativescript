@@ -15,6 +15,3 @@ export function goBack() {
 export function showSlideout(args) {
     page.getViewById("side-drawer").toggleDrawerState();
 }
-export function tapDrawerLink(args) {
-    navigator.openLink(args.object);
-}

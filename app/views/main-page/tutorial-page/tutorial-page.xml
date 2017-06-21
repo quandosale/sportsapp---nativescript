@@ -1,10 +1,9 @@
-<sdp:DrawerPage 
+<Page 
     xmlns="http://www.nativescript.org/tns.xsd" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" class="c-page" 
     xmlns:df="nativescript-telerik-ui-pro/dataform" 
-    xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
     xmlns:Slides="nativescript-slides">
     <!-- BEGIN action bar-->
-    <sdp:DrawerPage.actionBar>
+    <Page.actionBar>
         <ActionBar automationText="ActionBar" class="action-bar">
             <ActionBar.actionItems>
                 <ActionItem>
@@ -19,7 +18,7 @@
                 </GridLayout>
             </ActionBar.titleView>
         </ActionBar>
-    </sdp:DrawerPage.actionBar>
+    </Page.actionBar>
     <!-- END  action bar-->
     <!-- BEGIN Page Content-->
     <StackLayout padding="0">
@@ -44,4 +43,4 @@
             <Button text="SKIP THIS STEP" height="50" width="65%" class="my-btn" marginTop="70%" tap="goScan"/>
         </GridLayout>
     </StackLayout>
-</sdp:DrawerPage>
+</Page>

@@ -1,16 +1,10 @@
-<sdp:DrawerPage
-  xmlns="http://www.nativescript.org/tns.xsd"
-  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
-  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer"
-  xmlns:sdc="views/side-drawer/side-drawer-content-m"
-  backgroundSpanUnderStatusBar="true"
-  class="c-page1"
-  xmlns:DrawingPad="nativescript-drawingpad"
-  xmlns:drawer="nativescript-telerik-ui-pro/sidedrawer"
-  loaded="pageLoaded"
-  unloaded="onUnloaded">
+<Page 
+  xmlns="http://www.nativescript.org/tns.xsd" 
+  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer" 
+  xmlns:sdc="views/side-drawer/side-drawer-content-m" backgroundSpanUnderStatusBar="true" class="c-page1" 
+  xmlns:DrawingPad="nativescript-drawingpad" loaded="pageLoaded" unloaded="onUnloaded">
   <!-- BEGIN action bar-->
-  <sdp:DrawerPage.actionBar>
+  <Page.actionBar>
     <ActionBar automationText="ActionBar" class="action-bar">
       <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
       <ActionBar.actionItems>
@@ -26,113 +20,110 @@
         </GridLayout>
       </ActionBar.titleView>
     </ActionBar>
-  </sdp:DrawerPage.actionBar>
+  </Page.actionBar>
   <!-- END  action bar-->
   <!--BEGIN Side Drawer-->
-  <sdp:DrawerPage.sideDrawer>
-    <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
-      <rsd:RadSideDrawer.drawerContent>
-        <sdc:side-drawer-content />
-      </rsd:RadSideDrawer.drawerContent>
-    </rsd:RadSideDrawer>
-  </sdp:DrawerPage.sideDrawer>
-  <!-- END  Side Drawer-->
-  <!-- BEGIN Page Content-->
-  <rsd:RadSideDrawer.mainContent>
-    <StackLayout class="monitor-content">
-      <StackLayout class="main">
-      <GridLayout class="all" rows="auto,*,*,*" height="100%">
-          <!--BEGIN simple title-->
-          <GridLayout row="0">
-            <Label text="Electrocardiograph" fontSize="14" margin="10 0"/>
-            <StackLayout orientation="horizontal" horizontalAlignment="right">
-              <Label text="Device Connect" margin="10 0"/>
-              <Button text="" backgroundColor="{{isConnected?'green':'gray'}}" borderRadius="50%" height="20" width="20" margin="3"/>
-            </StackLayout>
-          </GridLayout>
-          <!--END simple title-->
-          
-          <!--BEGIN ecg chart-->
-          <GridLayout row="1" class="group-ecg-chart" rows="*,50">
-            <DrawingPad:DrawingPad row="0" backgroundColor="#000" id="ecgGraph" marginBottom="10" height="100%" penColor="0" penWidth="{{ _ecgPoints }}" tap="{{onRescanTap}}"/>
-            <StackLayout row="1" class="control">
-              <GridLayout>
-                <StackLayout orientation="horizontal" class="ecg-btn-group">
-                  <Image src="{{isSend? 'res://btnrecordstop' :'res://btnrecord'}}" class="img-btn" tap="{{onRecordTap}}" marginRight="10"/>
-                  <Image src="res://btnzoom" class="img-btn" marginLeft="10" tap="{{onZoomTap}}"/>
-                </StackLayout>
-                <StackLayout class="debug-info" width="200">
-                  <Label text="{{ queueSize }}"/>
-                  <Label text="{{ nPacketNumber }}"/>
-                </StackLayout>
-                <StackLayout orientation="horizontal" class="csv-btn-group">
-                  <Image src="{{isCSVRecord? 'res://btnrecordstop_csv' :'res://btnrecord_csv'}}" class="img-btn" marginLeft="10" tap="{{onCSVExportTap}}"/>
-                </StackLayout>
-              </GridLayout>
-            </StackLayout>
-          </GridLayout>
-          <!--END ecg chart-->
-          <!--BEGIN heartRate chart-->
-          <StackLayout row="2" class="group-heart-rate-chart">
-            <StackLayout class="hr-line"/>
-            <Label text="Heart Rate" fontSize="14"/>
-            <GridLayout columns="*,10,90">
-              <DrawingPad:DrawingPad col="0" marginRight="15" id="hrtGraph" margin="0" height="100%" penColor="3" penWidth="{{ _hrtPoints }}"/>
-              <StackLayout col="2" class="hrt-mark-group">
-                <StackLayout orientation="horizontal">
-                  <Label text="&#xf056;" class="icon mark-z"/>
-                  <Label text=" HR Zone" class="mark-txt"/>
-                </StackLayout>
-                <StackLayout orientation="horizontal" marginTop="12">
-                  <Label text="&#xf05a;" class="icon mark-v"/>
-                  <Label text=" HR Variance" class="mark-txt"/>
-                </StackLayout>
-                <StackLayout orientation="horizontal" marginTop="12">
-                  <Label text="&#xf058;" class="icon mark-r"/>
-                  <Label text=" Beat Rythm" class="mark-txt"/>
-                </StackLayout>
+  <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
+    <rsd:RadSideDrawer.drawerContent>
+      <sdc:side-drawer-content />
+    </rsd:RadSideDrawer.drawerContent>
+    <!-- END  Side Drawer-->
+    <!-- BEGIN Page Content-->
+    <rsd:RadSideDrawer.mainContent>
+      <StackLayout class="monitor-content">
+        <StackLayout class="main">
+          <GridLayout class="all" rows="auto,*,*,*" height="100%" id="mainGridlayout">
+            <!--BEGIN simple title-->
+            <GridLayout row="0" id="first">
+              <Label text="Electrocardiograph" fontSize="14" margin="10 0"/>
+              <StackLayout orientation="horizontal" horizontalAlignment="right">
+                <Label text="Device Connect" margin="10 0"/>
+                <Button text="" backgroundColor="{{isConnected?'green':'gray'}}" borderRadius="50%" height="20" width="20" margin="3"/>
               </StackLayout>
             </GridLayout>
-          </StackLayout>
-          <!--END heartRate chart-->
-          <!--BEGIN Motion & Calmness Chart-->
-          <StackLayout row="3" class="group-motion-calm">
-            <StackLayout orientation="horizontal">
-              <StackLayout width="50%">
-                <Label text="Motion" fontSize="10"/>
-                <Label text="intensity" fontSize="10"/>
+            <!--END simple title-->
+            <!--BEGIN ecg chart-->
+            <GridLayout row="1" class="group-ecg-chart" rows="*,50">
+              <DrawingPad:DrawingPad row="0" backgroundColor="#000" id="ecgGraph" marginBottom="10" height="100%" penColor="0" penWidth="{{ _ecgPoints }}" tap="{{onRescanTap}}"/>
+              <StackLayout row="1" class="control">
+                <GridLayout>
+                  <StackLayout orientation="horizontal" class="ecg-btn-group">
+                    <Image src="{{isSend? 'res://btnrecordstop' :'res://btnrecord'}}" class="img-btn" tap="{{onRecordTap}}" marginRight="10"/>
+                    <Image src="res://btnzoom" class="img-btn" marginLeft="10" tap="{{onZoomTap}}"/>
+                  </StackLayout>
+                  <StackLayout class="debug-info" width="200">
+                    <Label text="{{ queueSize }}"/>
+                    <Label text="{{ nPacketNumber }}"/>
+                  </StackLayout>
+                  <StackLayout orientation="horizontal" class="csv-btn-group">
+                    <Image src="{{isCSVRecord? 'res://btnrecordstop_csv' :'res://btnrecord_csv'}}" class="img-btn" marginLeft="10" tap="{{onCSVExportTap}}"/>
+                  </StackLayout>
+                </GridLayout>
               </StackLayout>
-              <Label text="CALMness" width="50%" fontSize="10"/>
-            </StackLayout>
-            <StackLayout orientation="horizontal" height="160" marginTop="-17">
-              <!--BEGIN Motion Intensity-->
-              <GridLayout width="50%" id="motionGraph">
-                <DrawingPad:DrawingPad penColor="7" penWidth="{{ _motionPoints }}"/>
-                <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+            </GridLayout>
+            <!--END ecg chart-->
+            <!--BEGIN heartRate chart-->
+            <StackLayout row="2" class="group-heart-rate-chart">
+              <StackLayout class="hr-line"/>
+              <Label text="Heart Rate" fontSize="14"/>
+              <GridLayout columns="*,10,90">
+                <DrawingPad:DrawingPad col="0" marginRight="15" id="hrtGraph" margin="0" height="100%" penColor="3" penWidth="{{ _hrtPoints }}" backgroundColor="#FAFAFA"/>
+                <StackLayout col="2" class="hrt-mark-group">
                   <StackLayout orientation="horizontal">
-                     <Label text="1.3" fontSize="35" width="58" marginLeft="10" color="#44444E"/>
-                    <Label text="G" fontSize="27" horizontalAlignment="center" color="gray" marginTop="6"/>
+                    <Label text="&#xf056;" class="icon mark-z"/>
+                    <Label text=" HR Zone" class="mark-txt"/>
+                  </StackLayout>
+                  <StackLayout orientation="horizontal" marginTop="12">
+                    <Label text="&#xf05a;" class="icon mark-v"/>
+                    <Label text=" HR Variance" class="mark-txt"/>
+                  </StackLayout>
+                  <StackLayout orientation="horizontal" marginTop="12">
+                    <Label text="&#xf058;" class="icon mark-r"/>
+                    <Label text=" Beat Rythm" class="mark-txt"/>
                   </StackLayout>
                 </StackLayout>
               </GridLayout>
-              <!--END Motion Intensity-->
-              <!--BEGIN Calmness-->
-              <GridLayout width="50%" id="calmGraph">
-                <DrawingPad:DrawingPad penColor="8" penWidth="{{ _calmPoints }}"/>
-                <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
-                  <StackLayout orientation="horizontal">
-                    <Label text="{{test}}" fontSize="35" width="58" marginLeft="10" color="#44444E"/>
-                    <Label text="%" fontSize="27" horizontalAlignment="center" color="gray" marginTop="6"/>
-                  </StackLayout>
-                </StackLayout>
-              </GridLayout>
-              <!--END Calmness-->
             </StackLayout>
+            <!--END heartRate chart-->
+            <!--BEGIN Motion & Calmness Chart-->
+            <StackLayout row="3" class="group-motion-calm">
+              <StackLayout orientation="horizontal">
+                <StackLayout width="50%">
+                  <Label text="Motion" fontSize="10"/>
+                  <Label text="intensity" fontSize="10"/>
+                </StackLayout>
+                <Label text="CALMness" width="50%" fontSize="10"/>
+              </StackLayout>
+              <StackLayout orientation="horizontal" height="160" marginTop="-17">
+                <!--BEGIN Motion Intensity-->
+                <GridLayout width="50%" id="motionGraphLayout">
+                  <DrawingPad:DrawingPad id="motionGraph" penColor="7" penWidth="{{ _motionPoints }}"/>
+                  <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+                    <StackLayout orientation="horizontal">
+                      <Label text="1.3" fontSize="35" width="58" marginLeft="10" color="#44444E"/>
+                      <Label text="G" fontSize="27" horizontalAlignment="center" color="gray" marginTop="6"/>
+                    </StackLayout>
+                  </StackLayout>
+                </GridLayout>
+                <!--END Motion Intensity-->
+                <!--BEGIN Calmness-->
+                <GridLayout width="50%" id="calmGraphLayout">
+                  <DrawingPad:DrawingPad id="calmGraph" penColor="8" penWidth="{{ _calmPoints }}"/>
+                  <StackLayout class="inner-circle" horizontalAlignment="center" verticalAlignment="center">
+                    <StackLayout orientation="horizontal">
+                      <Label text="{{test}}" fontSize="35" width="58" marginLeft="10" color="#44444E"/>
+                      <Label text="%" fontSize="27" horizontalAlignment="center" color="gray" marginTop="6"/>
+                    </StackLayout>
+                  </StackLayout>
+                </GridLayout>
+                <!--END Calmness-->
+              </StackLayout>
+            </StackLayout>
+            <!--END Motion & Calmness Chart-->
+          </GridLayout>
+          <!--<DrawingPad:DrawingPad tap="{{onZoomTap}}" height="{{isZoom?  '300':0}}" backgroundColor="#F7F7F7" id="ecgGraphFull" margin="10" marginBottom="0" penColor="4" penWidth="{{ _ecgPoints }}"/>-->
         </StackLayout>
-        <!--END Motion & Calmness Chart-->
-        </GridLayout>
-        <DrawingPad:DrawingPad tap="{{onZoomTap}}" height="{{isZoom?  '300':0}}" backgroundColor="#F7F7F7" id="ecgGraphFull" margin="10" marginBottom="0" penColor="4" penWidth="{{ _ecgPoints }}"/>
       </StackLayout>
-    </StackLayout>
-  </rsd:RadSideDrawer.mainContent>
-</sdp:DrawerPage>
+    </rsd:RadSideDrawer.mainContent>
+  </rsd:RadSideDrawer>
+</Page>

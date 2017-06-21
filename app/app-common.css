@@ -177,6 +177,10 @@ DrawerPage {
     vertical-align: center;
 }
 
+Page {
+    background-color: #0F1866;
+}
+
 .c-page {
     background-color: #0F1866;
     color: #FFFFFF;
@@ -201,6 +205,12 @@ DrawerPage {
     margin-top: 4;
     margin-bottom: 4;
     placeholder-color: #FFFFFF;
+}
+
+button {
+    outline: none;
+    border: none;
+    border-color: transparent;
 }
 
 .required-bar {
@@ -399,4 +409,10 @@ Label.scan_instro {
 Label.scan_status {
     font-size: 15;
     font-weight: 800;
+}
+
+.letter-center {
+    horizontal-align: center;
+    vertical-align: center;
+    text-align: center;
 }

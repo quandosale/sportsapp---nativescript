@@ -1,7 +1,6 @@
 import * as Toast from 'nativescript-toast';
 import observable = require("data/observable");
 var image = require("ui/image");
-var plugin = require("nativescript-screenshot");
 import dialogs = require("ui/dialogs");
 
 import pages = require("ui/page");
@@ -28,20 +27,16 @@ import { RadSideDrawer } from "nativescript-telerik-ui-pro/sidedrawer";
 import * as linearGradient from "../../../../common/linear-gradient";
 
 export function pageLoaded(args) {
+    console.log(' -------------------------------------------------- pageLoaded');
     var page = <Page>args.object;
-    page.bindingContext = new SessionViewModel(page);
 
-    try {
-        Toast.makeText('Screen').show();
-        var img = new image.Image();
-        img.imageSource = plugin.getImage(args.object);
-        console.log(img, args);
-        // stackLayout.addChild(img);
-    } catch (e) {
-        console.log("error: " + e);
-    }
-
+    var gotData = page.navigationContext;
+    console.log('receive Paramet: ', gotData.datasetId);
+    let datasetId: string = gotData.datasetId ? gotData.datasetId : "";
+    datasetId = "5940acdc05b027581d0ddd60";
+    page.bindingContext = new SessionViewModel(page, datasetId);
 }
+
 export function goBack(args: observable.EventData) {
     navigator.navigateBack();
 }
@@ -81,16 +76,5 @@ export function onMotionBackgroundLoaded(args: EventData) {
                 linearGradient.drawBackground(background, colors, orientation);
             });
             break;
-    }
-}
-export function onSnapShotTap(args: EventData) {
-    try {
-        Toast.makeText('Screen').show();
-        var img = new image.Image();
-        img.imageSource = plugin.getImage(args.object);
-
-        // stackLayout.addChild(img);
-    } catch (e) {
-        console.log("error: " + e);
     }
 }

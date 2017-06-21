@@ -26,30 +26,28 @@ export class SessionViewModel extends Observable {
     testValue = [];
     index = 0;
     queue = [];
-    datasetId = "";
     mainPage;
-    constructor(mainPage: Page) {
+    constructor(_mainPage: Page, _datasetId: string) {
         super();
         orientationModule.setCurrentOrientation("portrait", function () {
             console.log("landscape orientation set");
         });
-        this.mainPage = mainPage;
-        this._spiderGraph = <DrawingPad>mainPage.getViewById('spiderGraph');
-        this._sleepmapGraph = <DrawingPad>mainPage.getViewById('sleepmapGraph');
+        this.mainPage = _mainPage;
+        this._spiderGraph = <DrawingPad>_mainPage.getViewById('spiderGraph');
+        this._sleepmapGraph = <DrawingPad>_mainPage.getViewById('sleepmapGraph');
 
         this.initDataItems();
         for (var i = 0; i < 5; i++)
             this.sleepPoints.push(0);
         this.set('_sleepPoints', this.sleepPoints);
         var _self = this;
-        if (global.datasetId) {
-            this.datasetId = global.datasetId;
-            this.getData();
+        if (_datasetId.length > 0) {
+            this.getData(_datasetId);
         }
     }
 
-    getData() {
-        let request_url = CONFIG.SERVER_URL + '/phr/datasets/get/' + this.datasetId;
+    getData(_datasetId: string) {
+        let request_url = CONFIG.SERVER_URL + '/phr/datasets/get/' + _datasetId;
         var _self = this;
         http.request({
             url: request_url,

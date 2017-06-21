@@ -19,10 +19,10 @@ export class WakeViewModule extends Observable {
         super();
         this.setTimeForDisplay();
         this.page = page;
+        let wakeuptime = AppSetting.getWakeupTime();
+        if (wakeuptime) {
 
-        if (global.wakeuptime) {
-            let time = new Date(global.wakeuptime);
-            this.time = new Date(global.wakeuptime);
+            this.time = new Date(wakeuptime);
             this.setRemainTime();
 
             NotificationMudule.setNotification(this.time);

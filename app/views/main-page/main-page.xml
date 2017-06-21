@@ -1,6 +1,6 @@
-<Page
-  xmlns="http://www.nativescript.org/tns.xsd"
-  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
+<Page 
+  xmlns="http://www.nativescript.org/tns.xsd" 
+  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage" 
   xmlns:RL="nativescript-ripple" class="qsf-page" navigatingTo="onNavigatingTo" loaded="pageLoaded" backgroundSpanUnderStatusBar="true" ios:actionBarHidden="true">
   <!-- BEGIN action bar-->
   <!--Remove any action bar-->
@@ -14,13 +14,13 @@
     <GridLayout class="logo-cover letter-center"/>
     <GridLayout class="logo-img letter-center" backgroundImage="res://logo_blue_bg"/>
     <RL:Ripple class="my-btn btn-sign-up" tap="tapSignUp" rippleColor="#c8c8c8">
-      <Label class="letter-center" text="Sign Up"/>
+      <Button class="letter-center" text="Sign Up"/>
     </RL:Ripple>
-    <RL:Ripple class="my-btn btn-sign-in" tap="tapSignIn" rippleColor="#c8c8c8">
-      <Label class="letter-center" text="Log In"/>
+    <RL:Ripple class="button my-btn btn-sign-in " tap="tapSignIn" rippleColor="#c8c8c8">
+      <Button class="button letter-center" text="Log In"/>
     </RL:Ripple>
     <RL:Ripple class="my-transparent-btn btn-guestmode" tap="onGuestModeTap" rippleColor="#c8c8c8">
-      <Label class=" letter-center" text="Guest Mode"/>
+      <Label class="letter-center" text="Guest Mode"/>
     </RL:Ripple>
   </GridLayout>
 </Page>

@@ -1,4 +1,3 @@
-var tnsfx = require('nativescript-effects');
 import { TNSPlayer } from 'nativescript-audio';
 import dialogs = require("ui/dialogs");
 import bluetooth = require("nativescript-bluetooth");
@@ -32,9 +31,9 @@ export class SnoozeViewModule extends Observable {
         this.setTimeForDisplay();
         this.page = page;
         this.getDevice();
-        if (global.wakeuptime) {
-            let time = new Date(global.wakeuptime);
-            this.time = new Date(global.wakeuptime)
+        let wakeuptime = AppSetting.getWakeupTime();
+        if (wakeuptime) {
+            this.time = new Date(wakeuptime);
         }
 
         this._player = new TNSPlayer();
@@ -89,7 +88,7 @@ export class SnoozeViewModule extends Observable {
         after5Minutes.setMinutes(after5Minutes.getMinutes() + 5);
         NotificationMudule.setNotification(after5Minutes);
 
-        global.wakeuptime = after5Minutes;
+        AppSetting.setWakeupTime(after5Minutes);
         navigator.navigateToWakeUp();
     }
 

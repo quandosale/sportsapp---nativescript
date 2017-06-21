@@ -41,8 +41,12 @@ function notify(msg: string) {
             break;
     }
 }
-
+import { RadSideDrawer } from "nativescript-telerik-ui-pro/sidedrawer";
 export function showSlideout(args: EventData) {
-    let sideDrawer: drawerModule.RadSideDrawer = <drawerModule.RadSideDrawer>(frameModule.topmost().getViewById("side-drawer"));
-    sideDrawer.showDrawer();
+    let sideDrawer: drawerModule.RadSideDrawer = <drawerModule.RadSideDrawer>(frameModule.topmost().getViewById("side-drawer1"));
+    if (sideDrawer == undefined) {
+        console.log('undefinde');
+    } else {
+        sideDrawer.showDrawer();
+    }
 }

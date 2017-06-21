@@ -30,6 +30,15 @@ export class AppSetting {
             return null;
         return sound;
     }
+    static setWakeupTime(_time: Date) {
+        appSetting.setString('waketime', JSON.stringify(_time));
+    }
+    static getWakeupTime(): Date {
+        let time = appSetting.getString('waketime');
+        if (time == undefined)
+            return null;
+        return JSON.parse(time);
+    }
     static logout() {
         appSetting.clear();
     }

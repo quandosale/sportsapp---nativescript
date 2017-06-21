@@ -39,9 +39,11 @@ export class ScanViewdModel extends observableModule.Observable {
         return this._items;
     }
     public onItemTap(args: listViewModule.ListViewEventData) {
-        var item = this.dataItems.getItem(args.itemIndex);
+        var item = this.dataItems.getItem(args.index);
     }
     public doStartScanning() {
+        let _str_Device_filter = "";
+        Toast.makeText("Filtered By \'" + _str_Device_filter + "\'").show();
         var _self = this;
         // On Android 6 we need this permission to be able to scan for peripherals in the background.
         bluetooth.hasCoarseLocationPermission().then(
@@ -62,7 +64,7 @@ export class ScanViewdModel extends observableModule.Observable {
                             var obsp = new DeviceItemModel(peripheral.UUID, peripheral.name, false);
                             if (peripheral == null) return;
                             if (peripheral.name == null) return;
-                            if (peripheral.name.indexOf('CALM') == -1) return;
+                            if (peripheral.name.indexOf(_str_Device_filter) == -1) return;
                             var obsp = new DeviceItemModel(peripheral.UUID, peripheral.name, false);
                             _self._items.push(obsp);
 
@@ -105,12 +107,12 @@ export class ScanViewdModel extends observableModule.Observable {
         this.dataItems.forEach(dataItem => {
             dataItem.isSelect = false;
         })
-        var item = this.dataItems.getItem(args.itemIndex);
+        var item = this.dataItems.getItem(args.index);
         item.isSelect = true;
     }
 
     public itemDeselected(args: listViewModule.ListViewEventData) {
-        var item = this.dataItems.getItem(args.itemIndex);
+        var item = this.dataItems.getItem(args.index);
         item.isSelect = false;
     }
 

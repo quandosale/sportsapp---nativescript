@@ -46,3 +46,8 @@
     border-radius: 100;
     margin-top: 5;
 }
+
+.tip-label {
+    width: 80%;
+    text-align: center;
+}

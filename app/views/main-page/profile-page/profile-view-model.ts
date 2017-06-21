@@ -45,6 +45,7 @@ export class ProfileModel extends Observable {
             this.imgUserPhoto.src = imageUrl;
             takePhoto = 0;
         }
+        //*/
     }
     onTakePhotoTap() {
         let user = AppSetting.getUserData();

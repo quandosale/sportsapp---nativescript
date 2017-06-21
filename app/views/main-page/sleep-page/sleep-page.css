@@ -13,7 +13,7 @@
 
 .time {
     margin-top: 30px;
-    font-size: 60px;
+    font-size: 50px;
     font-weight: 500;
 }
 
@@ -28,7 +28,9 @@
     background-color: #009A00;
     border-radius: 100;
 }
-
+.sleep-btn{
+     text-align:center;
+}
 .inner-circle {
     width: 140;
     height: 140;

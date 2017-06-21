@@ -1,7 +1,7 @@
-<Page
-  xmlns:TIL="nativescript-textinputlayout"
-  xmlns="http://www.nativescript.org/tns.xsd"
-  xmlns:RL="nativescript-ripple" navigatingTo="pageNavigatingTo" backgroundSpanUnderStatusBar="true" class="c-page"
+<Page 
+  xmlns:TIL="nativescript-textinputlayout" 
+  xmlns="http://www.nativescript.org/tns.xsd" 
+  xmlns:RL="nativescript-ripple" navigatingTo="pageNavigatingTo" backgroundSpanUnderStatusBar="true" class="c-page" 
   xmlns:df="nativescript-telerik-ui-pro/dataform" loaded="onPageLoaded">
   <!-- BEGIN action bar-->
   <Page.actionBar backgroundColor="#0F1866">
@@ -12,7 +12,6 @@
   <!-- END  action bar-->
   <!-- BEGIN Page Content-->
   <StackLayout padding="20" id="content">
-
     <Label text="{{loginResult}}" textWrap="true"/>
     <!--Social Login BEGIN-->
     <RL:Ripple rippleColor="#c8c8c8" tap="{{ onFacebookLoginTap }}">
@@ -40,22 +39,20 @@
     </StackLayout>
     <ActivityIndicator busy="{{isLoading}}" />
     <StackLayout class="form" padding="0">
-      <StackLayout class="input-field"  padding="0">
+      <StackLayout class="input-field" padding="0">
         <TextField hint="Email" text="{{user.email}}" class="{{ _e_error ? 'c-textfield error' : 'c-textfield' }}" autocorrect="false" keyboardType="email" marginBottom="0" propertyChange="{{onEmailTextChange}}"/>
         <Label class="required-bar" marginBottom="4" backgroundColor="{{ _e_error ? '#FF0000' : '#414A94' }}"/>
       </StackLayout>
-      <StackLayout class="input-field"  padding="0">
+      <StackLayout class="input-field" padding="0">
         <TextField hint="Password" secure="true" text="{{user.password}}" class="{{ _p_error ? 'c-textfield error' : 'c-textfield' }}" autocorrect="false" marginBottom="0" propertyChange="{{onPwdTextChange}}"/>
         <Label class="required-bar" marginBottom="4" backgroundColor="{{ _p_error ? '#FF0000' : '#414A94' }}"/>
       </StackLayout>
     </StackLayout>
     <RL:Ripple rippleColor="#c8c8c8" tap="{{onLoginTap}}" marginTop="22" class="my-btn" borderRadius="50%">
-      <Label text="LOG IN" horizontalAlignment="center" verticalAlignment="center"/>
+      <Button text="LOG IN" class="letter-center" textAligment="center"/>
     </RL:Ripple>
-
     <StackLayout>
       <Label text="Forgot password?" tap="{{onForgotPassword}}" horizontalAlignment="center" verticalAlignment="center" marginTop="20"></Label>
     </StackLayout>
-
   </StackLayout>
 </Page>

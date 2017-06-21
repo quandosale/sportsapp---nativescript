@@ -1,11 +1,10 @@
-<sdp:DrawerPage
-  xmlns="http://www.nativescript.org/tns.xsd"
-  xmlns:sdp="nativescript-telerik-ui-pro/sidedrawer/drawerpage"
-  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer/sidedrawer"
-  xmlns:sdc="views/side-drawer/side-drawer-content-d"
+<Page 
+  xmlns="http://www.nativescript.org/tns.xsd" 
+  xmlns:rsd="nativescript-telerik-ui-pro/sidedrawer" 
+  xmlns:sdc="views/side-drawer/side-drawer-content-d" 
   xmlns:lv="nativescript-telerik-ui-pro/listview" loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page">
   <!-- BEGIN action bar-->
-  <sdp:DrawerPage.actionBar>
+  <Page.actionBar>
     <ActionBar automationText="ActionBar" class="action-bar">
       <NavigationButton icon="res://ic_menu_main" tap="showSlideout" automationText="SidebarMenu"/>
       <ActionBar.actionItems>
@@ -21,81 +20,73 @@
         </GridLayout>
       </ActionBar.titleView>
     </ActionBar>
-  </sdp:DrawerPage.actionBar>
+  </Page.actionBar>
   <!-- END  action bar-->
   <!--BEGIN Side Drawer-->
-  <sdp:DrawerPage.sideDrawer>
-    <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
-      <rsd:RadSideDrawer.drawerContent>
-        <sdc:side-drawer-content />
-      </rsd:RadSideDrawer.drawerContent>
-    </rsd:RadSideDrawer>
-  </sdp:DrawerPage.sideDrawer>
-  <!-- END  Side Drawer-->
-  <!-- BEGIN Page Content-->
-  <StackLayout height="fetch" class="data-content">
-    <!--header and bottom bar height -> 50px, and content -> remain-->
-    <GridLayout rows="50, *,50">
-      <!--Header(Date & Spiner for filter BEGIN-->
-        <StackLayout row="0" orientation="horizontal" class="header">
-          <Label text="Today" class="header-left"/>
-          <StackLayout  tap="{{onFilterTap}}" class="filter-layer">
-            <Label text="&#xf0d7;" class="icon spin-arrow" />
+  <rsd:RadSideDrawer id="side-drawer" drawerSize="260">
+    <rsd:RadSideDrawer.drawerContent>
+      <sdc:side-drawer-content />
+    </rsd:RadSideDrawer.drawerContent>
+    <!-- END  Side Drawer-->
+    <rsd:RadSideDrawer.mainContent>
+      <!-- BEGIN Page Content-->
+      <StackLayout height="100%" class="data-content">
+        <!--header and bottom bar height -> 50px, and content -> remain-->
+        <GridLayout rows="50, *,50">
+          <!--Header(Date & Spiner for filter BEGIN-->
+          <StackLayout row="0" orientation="horizontal" class="header">
+            <Label text="Today" class="header-left"/>
+            <StackLayout tap="{{onFilterTap}}" class="filter-layer">
+              <Label text="&#xf0d7;" class="icon spin-arrow" />
+            </StackLayout>
           </StackLayout>
-        </StackLayout>
-      
-      <!--Header(Date & Spiner for filter END-->
-      <lv:RadListView row="1" id="ls" itemSwipeProgressStarted="{{onStartSwipeCell}}"
-            itemSwipeProgressEnded="{{onCellSwiped}}" 
-            pullToRefresh="true"
-            itemSwipe="{{ _isDeleteMode}}"
-            pullToRefreshInitiated="{{onPullToRefreshInitiated}}"
-            items="{{ dataItems }}"
-            itemTap="{{ onItemTap }}"
-            selectionBehavior="Press">
-        <lv:RadListView.listViewLayout>
-          <lv:ListViewLinearLayout scrollDirection="Vertical"/>
-        </lv:RadListView.listViewLayout>
-        <!--BEGIN swipe template-->
-         <lv:RadListView.itemSwipeTemplate>
-            <GridLayout columns="0, *, 100" >
-             <GridLayout width="0" class="swipe-del">
-                    <Image ios:src="res://listview/selection/ic_delete" android:src="res://ic_delete" stretch="none" class="swipedImageStyle"/>
+          <!--Header(Date & Spiner for filter END-->
+          <lv:RadListView row="1" id="ls" itemSwipeProgressStarted="{{onStartSwipeCell}}" itemSwipeProgressEnded="{{onCellSwiped}}" pullToRefresh="true" itemSwipe="{{ _isDeleteMode}}" pullToRefreshInitiated="{{onPullToRefreshInitiated}}" items="{{ dataItems }}" itemTap="{{ onItemTap }}" selectionBehavior="Press">
+            <lv:RadListView.listViewLayout>
+              <lv:ListViewLinearLayout scrollDirection="Vertical"/>
+            </lv:RadListView.listViewLayout>
+            <!--BEGIN swipe template-->
+            <lv:RadListView.itemSwipeTemplate>
+              <GridLayout columns="0, *, 100">
+                <GridLayout width="0" class="swipe-del">
+                  <Image ios:src="res://listview/selection/ic_delete" android:src="res://ic_delete" stretch="none" class="swipedImageStyle"/>
                 </GridLayout>
                 <GridLayout col="2" tap="{{ onTap_DeletePost }}" class="swipe-del" backgroundColor="red">
-                    <Image ios:src="res://listview/selection/ic_delete" android:src="res://ic_delete" stretch="none" class="swipedImageStyle"/>
+                  <Image ios:src="res://listview/selection/ic_delete" android:src="res://ic_delete" stretch="none" class="swipedImageStyle"/>
                 </GridLayout>
-            </GridLayout>
-        </lv:RadListView.itemSwipeTemplate>
-        <!--END swipe template-->
-        <lv:RadListView.itemTemplate>
-          <StackLayout>
-            <StackLayout backgroundColor="#EEEEEE" class="item-date" visibility="{{ _isStartOfDate ? 'visible' : 'collapsed' }}">
-              <StackLayout orientation="horizontal" verticalAligment="center" padding="10 20">
-                <Label text="{{ _itemDay }}" width="40%"/>
-                <StackLayout horizontalAlignment="right" width="60%">
-                  <Label text="{{ _itemDate }}" horizontalAlignment="right"/>
+              </GridLayout>
+            </lv:RadListView.itemSwipeTemplate>
+            <!--END swipe template-->
+            <lv:RadListView.itemTemplate>
+              <StackLayout>
+                <StackLayout backgroundColor="#EEEEEE" class="item-date" visibility="{{ _isStartOfDate ? 'visible' : 'collapsed' }}">
+                  <StackLayout orientation="horizontal" verticalAligment="center" padding="10 20">
+                    <Label text="{{ _itemDay }}" width="40%"/>
+                    <StackLayout horizontalAlignment="right" width="60%">
+                      <Label text="{{ _itemDate }}" horizontalAlignment="right"/>
+                    </StackLayout>
+                  </StackLayout>
                 </StackLayout>
+                <StackLayout orientation="horizontal" padding="13 20">
+                  <Image src="{{ _dataTypeImage }}" class="gavatar"/>
+                  <!--<Label text="{{ _dataTypeImage }}" class="icon" width="40" height="40" margin="2" marginRight="20"/>-->
+                  <StackLayout width="60%" horizontalAligment="left">
+                    <Label text="{{ _itemName }}" class="item-name"/>
+                    <Label text="{{ _itemDescription }}" class="item-description"/>
+                  </StackLayout>
+                </StackLayout>
+                <Label class="hr-line"/>
               </StackLayout>
-            </StackLayout>
-            <StackLayout orientation="horizontal" padding="13 20">
-              <Image src="{{ _dataTypeImage }}" class="gavatar"/>
-              <!--<Label text="{{ _dataTypeImage }}" class="icon" width="40" height="40" margin="2" marginRight="20"/>-->
-              <StackLayout width="60%" horizontalAligment="left">
-                <Label text="{{ _itemName }}" class="item-name"/>
-                <Label text="{{ _itemDescription }}" class="item-description"/>
-              </StackLayout>
-            </StackLayout>
-            <Label class="hr-line"/>
+            </lv:RadListView.itemTemplate>
+          </lv:RadListView>
+          <!--Bottom      user storage infomation BEGIN-->
+          <StackLayout orientation="vertical" row="2" verticalAligment="middle" paddingRight="15" class="storage-info">
+            <Label text="{{_storageInfor}}" horizontalAlignment="right" verticalAligment="middle1" marginTop="15"/>
           </StackLayout>
-        </lv:RadListView.itemTemplate>
-      </lv:RadListView>
-      <!--Bottom      user storage infomation BEGIN-->
-      <StackLayout orientation="vertical" row="2" verticalAligment="middle" paddingRight="15" class="storage-info">
-        <Label text="{{_storageInfor}}" horizontalAlignment="right" verticalAligment="middle1" marginTop="15"/>
+          <!--Bottom      user storage infomation END-->
+        </GridLayout>
       </StackLayout>
-      <!--Bottom      user storage infomation END-->
-    </GridLayout>
-  </StackLayout>
+    </rsd:RadSideDrawer.mainContent>
+  </rsd:RadSideDrawer>
   <!--Page Content END-->
-</sdp:DrawerPage>
+</Page>

@@ -1,27 +1,29 @@
-alert('bundle modules');
 if (global.TNS_WEBPACK) {
+    global.registerModule("examples/chart/area-series", () => require("examples/chart/area-series"));
+    global.registerModule("examples/chart/bar-series", () => require("examples/chart/bar-series"));
+    global.registerModule("examples/chart/line-series", () => require("examples/chart/line-series"));
+    global.registerModule("examples/chart/pie-series", () => require("examples/chart/pie-series"));
+    global.registerModule("examples/chart/view-model", () => require("examples/chart/view-model"));
+    global.registerModule("examples/conference-agenda/conference-agenda-example", () => require("examples/conference-agenda/conference-agenda-example"));
+    global.registerModule("examples/conference-agenda/conference-view-model", () => require("examples/conference-agenda/conference-view-model"));
+    global.registerModule("examples/example-base-page", () => require("examples/example-base-page"));
+    global.registerModule("examples/example-menu", () => require("examples/example-menu"));
+    global.registerModule("examples/layouts/layouts-example", () => require("examples/layouts/layouts-example"));
+    global.registerModule("examples/listview/layouts/layouts-view-model", () => require("examples/listview/layouts/layouts-view-model"));
+    global.registerModule("examples/listview/layouts/listview-layouts", () => require("examples/listview/layouts/listview-layouts"));
+    global.registerModule("examples/listview/reorder/listview-reorder-model", () => require("examples/listview/reorder/listview-reorder-model"));
+    global.registerModule("examples/listview/reorder/listview-reorder", () => require("examples/listview/reorder/listview-reorder"));
+    global.registerModule("examples/listview/selection/detail-page", () => require("examples/listview/selection/detail-page"));
+    global.registerModule("examples/listview/selection/main-page", () => require("examples/listview/selection/main-page"));
+    global.registerModule("examples/listview/selection/selection-view-model", () => require("examples/listview/selection/selection-view-model"));
+    global.registerModule("examples/user-profile/user-profile-example", () => require("examples/user-profile/user-profile-example"));
     global.registerModule("views/about/about", () => require("views/about/about"));
+    global.registerModule("views/code-page", () => require("views/code-page"));
+    global.registerModule("views/example-info-page", () => require("views/example-info-page"));
+    global.registerModule("views/group-info-page", () => require("views/group-info-page"));
+    global.registerModule("views/group-page/group-page", () => require("views/group-page/group-page"));
     global.registerModule("views/main-page/main-page", () => require("views/main-page/main-page"));
-    global.registerModule("views/main-page/data-page/data-monitor", () => require("views/main-page/data-page/data-monitor"));
-    global.registerModule("views/main-page/data-page/session-ecg-page/session-ecg-page", () => require("views/main-page/data-page/session-ecg-page/session-ecg-page"));
-    global.registerModule("views/main-page/data-page/session-sleep-page/session-sleep-page", () => require("views/main-page/data-page/session-sleep-page/session-sleep-page"));
-
-    global.registerModule("views/main-page/monitor-page/monitor-page", () => require("views/main-page/monitor-page/monitor-page"));
-    global.registerModule("views/main-page/profile-page/profile-page", () => require("views/main-page/profile-page/profile-page"));
-    global.registerModule("views/main-page/scan-page/scan-page", () => require("views/main-page/scan-page/scan-page"));
-    global.registerModule("views/main-page/setting-page/setting-page", () => require("views/main-page/setting-page/setting-page"));
-    global.registerModule("views/main-page/sign-in-page/sign-in-page", () => require("views/main-page/sign-in-page/sign-in-page"));
-    global.registerModule("views/main-page/sign-up-page/sign-up-page", () => require("views/main-page/sign-up-page/sign-up-page"));
-    global.registerModule("views/main-page/sleep-page/sleep-page", () => require("views/main-page/sleep-page/sleep-page"));
-    global.registerModule("views/main-page/sleep-page/wake-page/wake-page", () => require("views/main-page/sleep-page/wake-page/wake-page"));
-    global.registerModule("views/main-page/sleep-page/snooze-page/snooze-page", () => require("views/main-page/sleep-page/snooze-page/snooze-page"));
-    global.registerModule("views/main-page/tutorial-page/tutorial-page", () => require("views/main-page/tutorial-page/tutorial-page"));
-
-    global.registerModule("views/side-drawer/side-drawer-content-d/side-drawer-content", () => require("views/side-drawer/side-drawer-content-d/side-drawer-content"));
-    global.registerModule("views/side-drawer/side-drawer-content-m/side-drawer-content", () => require("views/side-drawer/side-drawer-content-m/side-drawer-content"));
-    global.registerModule("views/side-drawer/side-drawer-content-p/side-drawer-content", () => require("views/side-drawer/side-drawer-content-p/side-drawer-content"));
-    global.registerModule("views/side-drawer/side-drawer-content-s/side-drawer-content", () => require("views/side-drawer/side-drawer-content-s/side-drawer-content"));
-    global.registerModule("views/side-drawer/side-drawer-content-st/side-drawer-content", () => require("views/side-drawer/side-drawer-content-st/side-drawer-content"));
+    global.registerModule("views/side-drawer-content/side-drawer-content", () => require("views/side-drawer-content/side-drawer-content"));
 
     global.registerModule("ui/page", () => require("ui/page"))
     global.registerModule("ui/action-bar", () => require("ui/action-bar"))

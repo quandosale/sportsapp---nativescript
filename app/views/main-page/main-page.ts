@@ -13,7 +13,7 @@ import { LayoutBase } from "ui/layouts/layout-base";
 import { RadSideDrawer } from "nativescript-telerik-ui-pro/sidedrawer";
 import * as linearGradient from "../../common/linear-gradient";
 import { EventData } from "data/observable";
-
+import { AppSetting } from '../../common/app-setting'; // app setting module
 export function pageLoaded(args) {
     prof.stop("main-page");
     let page = <pages.Page>(<View>args.object).page;
@@ -65,5 +65,6 @@ export function tapSignIn(args) {
     navigator.navigateToSignIn();
 }
 export function onGuestModeTap(args) {
+    AppSetting.logout();
     navigator.navigateToScan();
 }

@@ -12,38 +12,11 @@ android {
     dexOptions {
         jumboMode true
     }
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
 }
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
- 
-   dependencies {
-    
-  	classpath "com.android.tools.build:gradle:2.1.2"
-    classpath 'com.google.gms:google-services:3.0.0'
-   
-   }
-}
-repositories {
-    mavenCentral()
-    maven { url 'https://maven.fabric.io/public' }
-}
 dependencies {
     compile 'no.nordicsemi.android.support.v18:scanner:1.0.0'
+    compile 'com.nononsenseapps:filepicker:3.1.0'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
- 
-    compile('com.twitter.sdk.android:twitter:1.13.2@aar') {
-        transitive = true
-    }
-     compile 'com.nononsenseapps:filepicker:4.1.0'
 }

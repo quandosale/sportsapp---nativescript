@@ -1,8 +1,7 @@
-<Page
-  xmlns:TIL="nativescript-textinputlayout"
-  xmlns="http://www.nativescript.org/tns.xsd"
-  xmlns:RL="nativescript-ripple"
-  loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page"
+<Page 
+  xmlns:TIL="nativescript-textinputlayout" 
+  xmlns="http://www.nativescript.org/tns.xsd" 
+  xmlns:RL="nativescript-ripple" loaded="onPageLoaded" backgroundSpanUnderStatusBar="true" class="c-page" 
   xmlns:df="nativescript-telerik-ui-pro/dataform">
   <!-- BEGIN action bar-->
   <Page.actionBar backgroundColor="#0F1866">
@@ -17,10 +16,8 @@
       <StackLayout>
         <textField text="{{email}}" class="{{ _e_error ? 'c-textfield error' : 'c-textfield' }}" keyboardType="email" marginBottom="0" hint="Email Address"/>
         <Label class="required-bar" marginBottom="4" backgroundColor="{{ _e_error ? '#FF0000' : '#414A94' }}"/>
-
         <textField hint="Create Password" text="{{password}}" class="{{ _p_error ? 'c-textfield error' : 'c-textfield' }}" secure="true" marginBottom="0"/>
         <Label class="required-bar" marginBottom="4" backgroundColor="{{ _p_error ? '#FF0000' : '#414A94' }}"/>
-
         <GridLayout orientation="horizontal" class="social-group" rows="auto" columns="*, auto, auto">
           <Label text="Connect with Social Media: " marginTop="3" fontSize="17" col="0"/>
           <Label text="&#xea90;" class="social-icon-circle facebook icon" col="1" tap="{{ onFacebookSignUpTap }}"/>
@@ -40,9 +37,9 @@
         </StackLayout>
         <Label text="Privacy Option:" class="font-weight-bold" fontSize="17" marginTop="5"/>
         <StackLayout orientation="horizontal" tap="{{onShowPasswordTapped}}" marginTop="5">
-          <Image src="{{ isAllow ? 'res://checkbox_checked' : 'res://checkbox_unchecked' }}" cssClass="checkbox" />
+          <Image src="{{ isAllow ? 'res://checkbox_checked' : 'res://checkbox_unchecked' }}" class="checkbox" />
           <StackLayout fontSize="17">
-            <Label text="Allow my data to be anonymised and used" cssClass="field-switch-title" />
+            <Label text="Allow my data to be anonymised and used" class="field-switch-title" />
             <StackLayout orientation="horizontal">
               <Label text="for health research."/>
               <Label text=" Find out more" class="moreLink" />
@@ -50,7 +47,7 @@
           </StackLayout>
         </StackLayout>
         <RL:Ripple rippleColor="#c8c8c8" tap="{{onSignUp}}" marginTop="12" class="my-btn" borderRadius="50%">
-          <Label text="NEXT" horizontalAlignment="center" verticalAlignment="center"/>
+          <Button text="NEXT" horizontalAlignment="center" verticalAlignment="center"/>
         </RL:Ripple>
       </StackLayout>
       <!--<ActivityIndicator busy="{{isLoading}}" />-->

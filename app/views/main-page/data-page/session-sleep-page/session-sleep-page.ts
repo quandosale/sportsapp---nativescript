@@ -11,8 +11,12 @@ import { RadSideDrawer } from "nativescript-telerik-ui-pro/sidedrawer";
 import * as linearGradient from "../../../../common/linear-gradient";
 
 export function pageLoaded(args) {
-    var page = args.object;
-    page.bindingContext = new SessionViewModel(page);
+    var page = <Page>args.object;
+    var gotData = page.navigationContext;
+    console.log('receive Paramet: ', gotData.datasetId);
+    let datasetId: string = gotData.datasetId ? gotData.datasetId : "";
+    // datasetId = "5940fcfcfd183444a40b56ac";
+    page.bindingContext = new SessionViewModel(page, datasetId);
 }
 export function goBack(args: observable.EventData) {
     navigator.navigateBack();

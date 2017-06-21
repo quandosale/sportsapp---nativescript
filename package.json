@@ -2,43 +2,41 @@
   "nativescript": {
     "id": "com.calm_health.sports",
     "tns-ios": {
-      "version": "2.5.0"
+      "version": "3.0.0"
     },
     "tns-android": {
       "version": "3.0.1"
     }
   },
   "dependencies": {
-    "a-nativescript-ecg-sleep-analysis": "file:g:\\nativescript-plugin-seed-master",
-    "acra-telerik-analytics": "*",
-    "highlight.js": "^8.7.0",
-    "nativescript-audio": "^3.3.0",
-    "nativescript-bluetooth": "^1.1.5",
+    "a-nativescript-ecg-sleep-analysis": "https://github.com/a0af/nativescript-p1.git",
+    "acra-telerik-analytics": "~0.0.3",
+    "highlight.js": "~8.7.0",
+    "import": "0.0.6",
+    "nativescript-audio": "^3.4.3",
+    "nativescript-bluetooth": "^1.1.6",
     "nativescript-camera": "^3.0.0",
-    "nativescript-checkbox": "^1.2.8",
-    "nativescript-drawingpad": "^1.1.2",
-    "nativescript-effects": "^0.5.0",
-    "nativescript-exit": "^1.0.0",
-    "nativescript-fresco": "1.0.12",
+    "nativescript-drawingpad": "https://github.com/a0af/nativescript-p2.git",
+    "nativescript-exit": "^1.0.1",
+    "nativescript-fresco": "~3.0.2",
     "nativescript-imagecropper": "0.0.7",
-    "nativescript-imagepicker": "^3.0.0",
+    "nativescript-imagepicker": "^3.0.1",
+    "nativescript-iqkeyboardmanager": "~1.0.1",
     "nativescript-local-notifications": "^1.2.1",
-    "nativescript-pulltorefresh": "^2.0.0-rc.1",
-    "nativescript-ripple": "^1.1.0",
+    "nativescript-ripple": "^2.0.0",
     "nativescript-screen-orientation": "^2.0.0",
     "nativescript-screenshot": "0.0.2",
-    "nativescript-slides": "^2.2.8",
-    "nativescript-social-login": "^1.5.2",
+    "nativescript-slides": "^2.2.9",
+    "nativescript-social-login": "^1.5.6",
     "nativescript-social-share": "^1.3.2",
-    "nativescript-sportsotadfu": "file:g:\\!work\\nativescript-plugin-seed-master",
-    "nativescript-telerik-analytics": "*",
-    "nativescript-telerik-ui-pro": "*",
-    "nativescript-textinputlayout": "^0.1.5",
-    "nativescript-timedatepicker": "^1.1.1",
+    "nativescript-sportsotadfu": "https://github.com/a0af/nativescript-p3.git",
+    "nativescript-telerik-analytics": "~1.0.8",
+    "nativescript-telerik-ui-pro": "next",
+    "nativescript-timedatepicker": "^1.2.0",
     "nativescript-toast": "^1.4.5",
     "nativescript-vibrate": "^1.1.2",
-    "tns-core-modules": "2.5.0",
-    "tns-core-modules-snapshot": "^3.0.1-5.5.372.32"
+    "tns-core-modules": "~3.0.0",
+    "tns-core-modules-snapshot": "3.0.1-5.5.372.32"
   },
   "devDependencies": {
     "babel-traverse": "6.9.0",
@@ -47,10 +45,10 @@
     "filewalker": "0.1.2",
     "json-loader": "^0.5.4",
     "lazy": "1.0.11",
-    "nativescript-dev-android-snapshot": "~0.0.6",
-    "nativescript-dev-typescript": "~0.3.7",
-    "typescript": "~2.1.5",
-    "shelljs": "^0.5.3"
+    "nativescript-dev-android-snapshot": "~0.0.9",
+    "nativescript-dev-typescript": "~0.4.3",
+    "shelljs": "^0.5.3",
+    "typescript": "^2.3.2"
   },
   "license": "Apache-2.0"
 }

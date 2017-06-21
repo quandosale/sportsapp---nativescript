@@ -37,30 +37,24 @@ export class SleepViewModule extends Observable {
             console.log(result);
             switch (result) {
                 case "Beep":
-                    _self.setSound(result);
                     break;
                 case "ClockBird":
-                    _self.setSound(result);
                     break;
                 case "Daydream":
-                    _self.setSound(result);
                     break;
                 case "Dolphn":
-                    _self.setSound(result);
                     break;
                 case "GetUp":
-                    _self.setSound(result);
                     break;
                 case "GOODLuck":
-                    _self.setSound(result);
                     break;
                 case "GoodNewDay":
-                    _self.setSound(result);
                     break;
                 case "From SD Card":
                     _self.selectSongFromSDCard();
                     break;
-            }
+
+            }AppSetting.setSound(result);
         });
     }
     selectSongFromSDCard() {
@@ -81,7 +75,7 @@ export class SleepViewModule extends Observable {
                         let fPos = v.indexOf("external_files/");
                         let soundPath = "file:///sdcard/" + v.substr(fPos + 15, v.length - fPos - 15);
                         console.log('realPath', soundPath);
-                        _self.setSound(soundPath);
+                        AppSetting.setSound(soundPath);
                     }
                     else {
                         Toast.makeText("No supported file").show();
@@ -92,10 +86,7 @@ export class SleepViewModule extends Observable {
                 });
         } catch (e) { }
     }
-    setSound(soundPath: string) {
-        global.alarmSound = soundPath;
-        AppSetting.setSound(soundPath);
-    }
+
 
     onSleepTap() {
         console.log('wakeup time', this.time);
@@ -104,7 +95,7 @@ export class SleepViewModule extends Observable {
             return;
         }
         if (this.time) {
-            global.wakeuptime = this.time;
+            AppSetting.setWakeupTime(this.time);
             navigator.navigateToWakeUp();
         } else {
             Toast.makeText("Select wake up time").show();

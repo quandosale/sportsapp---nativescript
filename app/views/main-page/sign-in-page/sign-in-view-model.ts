@@ -11,14 +11,13 @@ import navigator = require("../../../common/navigator");
 import phoneMac = require("../../../common/phone");
 import { AppSetting } from '../../../common/app-setting';
 import { User } from './user';
-import { DataService } from '../../../service/data-service';
+// import { DataService } from '../../../service/data-service';
 export class SignInPageModule extends Observable {
     public user: User = new User("chen1222@yandex.com", "11111");
     // public user: User = new User("", "");
     page: Page;
     constructor(_page: Page) {
         super();
-        console.log('consturctor');
         this.page = _page;
         SocialLogin.addLogger(function (msg, tag) {            // console.log('[nativescript-social-login]: (' + tag + '): ' + msg);
         });
@@ -248,7 +247,7 @@ export class SignInPageModule extends Observable {
     }
 
     gotoMainPage() {
-        DataService.getDatasFromServer();
+        // DataService.getDatasFromServer();
         navigator.navigateToMainPage();
     }
     // error flag

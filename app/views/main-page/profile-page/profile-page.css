@@ -14,3 +14,8 @@
 .row {
     margin-top: 20;
 }
+
+button {
+    outline: none;
+    border: none;
+}

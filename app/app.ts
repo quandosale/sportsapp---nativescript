@@ -1,9 +1,9 @@
 // import trace = require("trace");
 // trace.setCategories(trace.categories.Style);
 // trace.enable();
+
 import application = require("application");
 import frame = require("ui/frame");
-
 import prof = require("./common/profiling");
 import * as trace from "trace";
 import * as analytics from "./common/analytics";
@@ -11,23 +11,23 @@ import "./bundle-modules";
 import * as utils from "utils/utils";
 import { isIOS } from "platform";
 
-import { AppSetting } from './common/app-setting';
-import { DataService } from './service/data-service';
-
-
-// The location of this import is important. iOS swizzles the app delegate.
+import { AppSetting } from './common/app-setting'; // app setting module
 
 application.on("uncaughtError", args => {
-    var error = args.android || args.ios;
-    if (error.nativeException) {
+    let error: Error;
+    let nativescriptError = args.android || args.ios;
+    if (nativescriptError.nativeError) {
         error = {
-            name: error.name,
-            message: error.message,
-            stack: error.stackTrace
+            name: nativescriptError.name,
+            message: nativescriptError.message,
+            stack: (<any>nativescriptError).stackTrace
         };
+    } else {
+        error = nativescriptError;
     }
     analytics.trackException(error, `Uncaught application error`);
 });
+
 application.on(application.launchEvent, context => {
     analytics.start();
 });
@@ -51,7 +51,7 @@ if (application.android) {
     application.on("launch", args => {
         console.log("onLaunch");
         com.facebook.drawee.backends.pipeline.Fresco.initialize(application.android.context);
-        application.android.onActivityStarted = function (activity) {
+        application.android.on("activityStarted", ({ activity }) => {
             console.log("onStarted");
             var window = activity.getWindow();
             if (window) {
@@ -60,7 +60,7 @@ if (application.android) {
                 // Prevent the soft keyboard from hiding EditText's while typing.
                 window.setSoftInputMode(32); //android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
             }
-        }
+        });
 
         // Enable ACRA Telerik Analytics crash reporting
         var packageJson = require("./package.json");
@@ -82,31 +82,18 @@ if (application.ios) {
 }
 
 prof.start("main-page");
-if (AppSetting.getUserData() == null)
-    application.mainModule = "views/main-page/main-page";
-else {
-    // application.mainModule = "views/main-page/monitor-page/monitor-page";
-    application.mainModule = "views/main-page/profile-page/profile-page";
-    // application.mainModule = "views/main-page/main-page";
-    // application.mainModule = "views/main-page/tutorial-page/tutorial-page";
 
-    // application.mainModule = "profile-main";
-    // application.mainModule = "views/main-page/data-page/data-monitor";
-    DataService.getDatasFromServer();
+let mainModule = "";
+if (AppSetting.getUserData() == null) {
+    mainModule = "views/main-page/main-page";
+} else {
+    // mainModule = "views/main-page/main-page";
+    // mainModule = "views/main-page/tutorial-page/tutorial-page";
+    // mainModule = "views/main-page/profile-page/profile-page";
+    // mainModule = "views/main-page/setting-page/setting-page";
+    // mainModule = "views/main-page/data-page/data-monitor";
+    // mainModule = "views/main-page/sleep-page/sleep-page";
+    mainModule = "views/main-page/monitor-page/monitor-page";
+    // mainModule = "views/main-page/scan-page/scan-page";
 }
-// application.mainModule = "views/main-page/monitor-page/monitor-page";
-// application.mainModule = "views/main-page/sleep-page/sleep-page";
-// application.mainModule = "views/main-page/snooze-page/snooze-page";
-
-// application.mainModule = "views/main-page/draw-page/draw-page";
-
-// application.mainModule = "views/main-page/sign-up-page/sign-up-page";
-// application.mainModule = "views/main-page/sign-in-page/sign-in-page";
-// application.mainModule = "views/main-page/scan-page/scan-page";
-
-// application.mainModule = "views/main-page/setting-page/setting-page";
-// application.mainModule = "views/main-page/data-page/session-ecg-page/session-ecg-page";
-// application.mainModule = "views/main-page/data-page/session-sleep-page/session-sleep-page";
-
-
-application.start();
+application.start(mainModule);

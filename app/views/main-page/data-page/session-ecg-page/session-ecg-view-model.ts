@@ -18,20 +18,18 @@ export class SessionViewModel extends observableModule.Observable {
     points = [];
     index = 0;
     queue = [];
-    datasetId = "";
     mainPage;
-    constructor(mainPage: Page) {
+    constructor(_mainPage: Page, _datasetId: string) {
         super();
         orientationModule.setCurrentOrientation("portrait", function () {
             console.log("landscape orientation set");
         });
-        this.mainPage = mainPage;
-        this._hrtGraph = <DrawingPad>mainPage.getViewById('hrtGraph');
-        this._calmGraph = <DrawingPad>mainPage.getViewById('calmGraph');
-        this._motionGraph = <DrawingPad>mainPage.getViewById('motionGraph');
-        if (global.datasetId) {
-            this.datasetId = global.datasetId;
-            this.getData();
+        this.mainPage = _mainPage;
+        this._hrtGraph = <DrawingPad>_mainPage.getViewById('hrtGraph');
+        this._calmGraph = <DrawingPad>_mainPage.getViewById('calmGraph');
+        this._motionGraph = <DrawingPad>_mainPage.getViewById('motionGraph');
+        if (_datasetId.length > 0) {
+            this.getData(_datasetId);
         }
         for (var i = 0; i < 50; i++)
             this.points.push(0);
@@ -58,8 +56,8 @@ export class SessionViewModel extends observableModule.Observable {
             console.log("error: " + e);
         }
     }
-    getData() {
-        let request_url = CONFIG.SERVER_URL + '/phr/datasets/get/' + this.datasetId;
+    getData(_datasetId) {
+        let request_url = CONFIG.SERVER_URL + '/phr/datasets/get/' + _datasetId;
         var _self = this;
         http.request({
             url: request_url,

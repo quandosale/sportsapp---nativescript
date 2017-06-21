@@ -11,227 +11,81 @@ var isAndroid: boolean = platform.device.os === platform.platformNames.android;
 function traceNavigateTo(to: string, context?: string): string {
     var eventText = "Navigate to: " + to + (context ? " (" + context + ")" : "");
     console.log("Track: " + eventText);
-    analytics.trackEvent(eventText);
+    // analytics.trackEvent(eventText);
     return to;
 }
 export function navigateToMainPage() {
-    navigateToProfilePage();
+    // navigateToProfilePage();
+    // navigateToDataPage();
+    navigateToMonitor();
+    // navigateToScan();
+    // navigateToSleep();
+    // navigateToTutorial();
+    // navigateToSettingPage();
+    // navigateToAbout();
 }
 export function navigateToHome() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/main-page") {
-        frame.topmost().navigate({
-            clearHistory: true,
-            moduleName: traceNavigateTo("views/main-page/main-page")
-        });
-    }
+    commonNavigateWithClear("views/main-page/main-page");
 }
 
 export function navigateToAbout() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/about/about") {
-        frame.topmost().navigate(traceNavigateTo("views/about/about"));
-    }
+    commonNavigateWithClear("views/about/about");
 }
 export function navigateToSignUp() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/sign-up-page/sign-up-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/sign-up-page/sign-up-page"), animated: true,
-            transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/sign-up-page/sign-up-page");
 }
 
+
 export function navigateToConfigureDate() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/sign-up-page/configure/configure-date-picker.component") {
-        frame.topmost().navigate(traceNavigateTo("views/main-page/sign-up-page/configure/configure-date-picker.component"));
-    }
+    commonNavigateWithClear("views/main-page/sign-up-page/configure/configure-date-picker.component");
 }
 export function navigateToSignIn() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/sign-in-page/sign-in-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/sign-in-page/sign-in-page"), animated: true,
-            transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/sign-in-page/sign-in-page");
 }
 export function navigateToScan() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/scan-page/scan-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/scan-page/scan-page"), animated: true, transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/scan-page/scan-page");
 }
 export function navigateToTutorial() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/tutorial-page/tutorial-page") {
-        frame.topmost().navigate({
-            clearHistory: true,
-            moduleName: traceNavigateTo("views/main-page/tutorial-page/tutorial-page"), animated: true, transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/tutorial-page/tutorial-page", true);
 }
 
 export function navigateToMonitor() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/monitor-page/monitor-page") {
-        frame.topmost().navigate({
-            clearHistory: true,
-            moduleName: traceNavigateTo("views/main-page/monitor-page/monitor-page"), animated: true, transition: {
-                name: 'fade',
-                duration: 780,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/monitor-page/monitor-page", true);
 }
 
 export function navigateToMonitorFullDrawer() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/monitor-page/draw-page/draw-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/monitor-page/draw-page/draw-page"), animated: true, transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/monitor-page/draw-page/draw-page");
 }
 
 export function navigateToSleep() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/sleep-page/sleep-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/sleep-page/sleep-page"),
-            clearHistory: true,
-            animated: true,
-            transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/sleep-page/sleep-page");
 }
 
 export function navigateToWakeUp() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/sleep-page/wake-page/wake-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/sleep-page/wake-page/wake-page"),
-            animated: true,
-            transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/sleep-page/wake-page/wake-page");
 }
 export function navigateToSnooze() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/sleep-page/snooze-page/snooze-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/sleep-page/snooze-page/snooze-page"),
-            animated: true, transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/sleep-page/snooze-page/snooze-page");
 }
-
 
 export function navigateToDataPage() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/data-page/data-monitor") {
-        frame.topmost().navigate({
-            clearHistory: true,
-            moduleName: traceNavigateTo("views/main-page/data-page/data-monitor"), animated: true, transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/data-page/data-monitor", true);
 }
 
 
-export function navigateToSessionEcg() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/data-page/session-ecg-page/session-ecg-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/data-page/session-ecg-page/session-ecg-page"), animated: true, transition: {
-                name: 'slideLeft',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+export function navigateToSessionEcg(datasetId: string) {
+    commonNavigateWithClear("views/main-page/data-page/session-ecg-page/session-ecg-page", false, datasetId);
 }
-export function navigateToSessionSleep() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/data-page/session-sleep-page/session-sleep-page") {
-        frame.topmost().navigate({
-            moduleName: traceNavigateTo("views/main-page/data-page/session-sleep-page/session-sleep-page"), animated: true, transition: {
-                name: 'slideLeft',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+export function navigateToSessionSleep(datasetId: string) {
+    commonNavigateWithClear("views/main-page/data-page/session-sleep-page/session-sleep-page", false, datasetId);
 }
 export function navigateToProfilePage() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/profile-page/profile-page") {
-        frame.topmost().navigate({
-            clearHistory: true,
-            moduleName: traceNavigateTo("views/main-page/profile-page/profile-page"), animated: true, transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/profile-page/profile-page", true);
 }
 
 export function navigateToSettingPage() {
-    var topmost = frame.topmost();
-    if (topmost.currentEntry.moduleName !== "views/main-page/setting-page/setting-page") {
-        frame.topmost().navigate({
-            clearHistory: true,
-            moduleName: traceNavigateTo("views/main-page/setting-page/setting-page"), animated: true,
-            transition: {
-                name: 'fade',
-                duration: 380,
-                curve: "easeIn"
-            }
-        });
-    }
+    commonNavigateWithClear("views/main-page/setting-page/setting-page", true);
 }
-
 
 export function navigateBack() {
     frame.goBack();
@@ -252,5 +106,22 @@ export function openLink(view: any) {
             var activity = frame.topmost().android.activity;
             activity.startActivity(android.content.Intent.createChooser(intent, "share"));
         }
+    }
+}
+function commonNavigateWithClear(page: string, _flagClearHistory?: boolean, _datasetId?: string) {
+    _flagClearHistory = _flagClearHistory ? _flagClearHistory : false;
+    var topmost = frame.topmost();
+    if (topmost.currentEntry.moduleName !== page) {
+        frame.topmost().navigate({
+            clearHistory: _flagClearHistory,
+            moduleName: traceNavigateTo(page), animated: true, transition: {
+                name: 'fade',
+                duration: 380,
+                curve: "easeIn"
+            },
+            context: {
+                datasetId: _datasetId
+            }
+        });
     }
 }

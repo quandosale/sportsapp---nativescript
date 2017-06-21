@@ -26,7 +26,7 @@ export class ViewModel extends observableModule.Observable {
         });
         this._dataItems = new ObservableArray<DataItem>();
         this.set('menuEditText', 'Edit    ')
-        // this.initDataItemsForTest();
+        this.initDataItemsForTest();
         this.getDatas();
         // let _data = DataService.getData();
         // if (_data) {
@@ -220,18 +220,17 @@ export class ViewModel extends observableModule.Observable {
     }
     _currentItemIndex = -1;
     onCellSwiped(args: ListViewEventData) {
-        this._currentItemIndex = args.itemIndex;
+        this._currentItemIndex = args.index;
         console.log(this._currentItemIndex);
     }
     onItemTap(args: ListViewEventData) {
         if (this.isDeleteMode) return;
-        var CurrentItemIndex = args.itemIndex;
+        var CurrentItemIndex = args.index;
         var datasetId = this._dataItems.getItem(CurrentItemIndex).id;
         var CurrentItem = this._dataItems.getItem(CurrentItemIndex).dataType.toLocaleLowerCase();
-        global.datasetId = datasetId;
         switch (CurrentItem) {
-            case 'exercise': navigator.navigateToSessionEcg(); break;
-            case 'sleep': navigator.navigateToSessionSleep(); break;
+            case 'exercise': navigator.navigateToSessionEcg(datasetId); break;
+            case 'sleep': navigator.navigateToSessionSleep(datasetId); break;
         }
     }
 

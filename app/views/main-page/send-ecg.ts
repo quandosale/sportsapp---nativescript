@@ -6,9 +6,13 @@ import { CONFIG } from '../../common/config';
 export class SendEcg {
     queue = [];
     nnDateTime = new Date();
+    nPacketStartTime: number;
+    nPacketEndTime: number;
+    totalDuration: number;
     nPacketIndex = 1;
     isSend: boolean = false;
-    SizeUpload = 10000;
+    SizeUpload = 4000;
+
     constructor() {
         this.queue = [];
         this.nnDateTime = new Date();
@@ -25,6 +29,8 @@ export class SendEcg {
     }
     public start() {
         this.isSend = true;
+        this.nnDateTime = new Date();
+        this.nPacketStartTime = new Date().getTime();
         this.send();
     }
     public stop() {
@@ -56,19 +62,20 @@ export class SendEcg {
         if (this.queue.length > this.SizeUpload) {
             let request_url = CONFIG.SERVER_URL + '/phr/datasets/add';
 
+            console.log('ecg upload start time', this.nnDateTime);
+            this.nPacketEndTime = new Date().getTime();
+            let duration = this.nPacketEndTime - this.nPacketStartTime;
+            this.nPacketStartTime = this.nPacketEndTime;
+
             var _self = this;
             let ecg = this.queue.splice(0, this.SizeUpload);
-            let heartRate = [0, ecg.length];
-            let acc = [0, 0, 0, ecg.length]
+
             let value = {
                 id: this.nPacketIndex,
                 ecg: ecg,
-                heartRate: heartRate,
-                accelX: acc,
-                accelY: acc,
-                accelZ: acc,
-                duration: 10
+                duration: duration
             };
+
             HTTP.request({
                 method: "POST",
                 url: request_url,
@@ -85,9 +92,6 @@ export class SendEcg {
                 var res = result.content.toJSON();
 
                 if (res.success) {
-                    // Toast.makeText('Upload success').show();
-                    console.log('Upload success');
-                    Toast.makeText('Upload success').show();
                     _self.nPacketIndex++;
                     if (_self.isSend)
                         setTimeout(() => _self.send(), 1000);

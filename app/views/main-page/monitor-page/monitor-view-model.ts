@@ -20,7 +20,7 @@ import { DeviceModel } from '../../../model/device-model'
 import { AppSetting } from '../../../common/app-setting';
 import { DataItem } from './dataitem';
 export class MonitorViewdModel extends Observable {
-    private _mainGridlayout: GridLayout;
+    
     private _ecgGraph: DrawingPad;
 
     private _hrtGraph: DrawingPad;
@@ -52,7 +52,6 @@ export class MonitorViewdModel extends Observable {
         // orientationModule.setCurrentOrientation("portrait", function () {
         //     console.log("landscape orientation set");
         // });
-        this._mainGridlayout = <GridLayout>_mainPage.getViewById('mainGridlayout');
 
         this._ecgGraph = <DrawingPad>_mainPage.getViewById('ecgGraph');
 
@@ -107,12 +106,7 @@ export class MonitorViewdModel extends Observable {
         if (this.isPageLoaded) setTimeout(() => this.drawCalmAndMotion(), 1000);
     }
 
-    onUnloaded() {
-        this.isPageLoaded = false;
-        this._CalmAnalysis.stop();
-    }
-
-    getDeviceUUID() {
+     getDeviceUUID() {
         let device: DeviceModel = AppSetting.getDevice();
         console.log(device);
         if (device == null) {
@@ -137,11 +131,7 @@ export class MonitorViewdModel extends Observable {
 
             let testView: GridLayout;
             testView = <GridLayout>this.mainPage.getViewById('first');
-            // this._mainGridlayout.removeChild(testView);
-            // this._mainGridlayout.getRows().forEach((item: gridLayoutModule.ItemSpec, index: number) => {
-            //     console.log('item', item, 'index', index);
-            //     this._mainGridlayout.removeRow(item);
-            // });
+            
         } else {
             // orientationModule.setCurrentOrientation("portrait", function () {
             //     console.log("landscape orientation set");
@@ -163,14 +153,12 @@ export class MonitorViewdModel extends Observable {
     public onRecordTap() {
         this.isSend = !this.isSend;
         if (this.isSend) {
-            Toast.makeText('record start').show();
 
             this._sendEcg.start(); // uplaod to cloud
 
             this._CalmAnalysis.start();
         }
         else {
-            Toast.makeText('record stop').show();
             this._sendEcg.stop();
             this._CalmAnalysis.stop();
         }
@@ -469,7 +457,7 @@ export class MonitorViewdModel extends Observable {
                         for (let i = 0; i < ecgSize; i++) {
                             let ecgValue = data[2 + 2 * i] + data[2 + 2 * i + 1] * 255;
                             if (ecgValue > 2500) continue;
-                            strData.push(ecgValue);
+                            
                             _self.enQueue(ecgValue);
                             if (data[0] == 1) { // hand connected
                                 _self._CalmAnalysis.addEcg((ecgValue - 1200) / 800);
@@ -479,12 +467,7 @@ export class MonitorViewdModel extends Observable {
                                 _self.set('nPacketNumber', 'packet index: ' + _self._sendEcg.nPacketIndex);
                             }
                         }
-
-                        for (let i = 0; i < data.length; i++) {
-                            var data1 = ("00" + data[i]).slice(-3);
-                        }
-                        var str = JSON.stringify(strData);
-                        // console.log('test', str, ecgSize);
+                       
                     }
                 }).then(function (result) {
                     console.log('end', result);
@@ -492,7 +475,6 @@ export class MonitorViewdModel extends Observable {
             },
             onDisconnected: function (peripheral) {
                 _self.set('isConnected', false);
-                Toast.makeText("Device disconnected").show();
                 // dialogs.confirm({
                 //     title: "Disconnected",
                 //     message: "Disconnected from peripheral: " + JSON.stringify(peripheral),

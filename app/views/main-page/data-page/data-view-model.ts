@@ -148,12 +148,12 @@ export class ViewModel extends observableModule.Observable {
     processData(res) {
         if (res.success) {
             var arrDataset = res.data;
-
             while (this._dataItems.length) {
                 this._dataItems.pop();
             }
 
             for (let element of arrDataset) {
+                console.log(JSON.stringify(element));
                 let isFirstDataOfDate = this.isFirstDataOfDate(element.datetime);
                 var time: string = this.datetimeToTime(element.datetime);
                 var date = this.datetimeToDate(element.datetime);
@@ -164,10 +164,10 @@ export class ViewModel extends observableModule.Observable {
 
                 switch (type) {
                     case 'exercise':
-                        element.duration = this.durationFormat(element.data.duration);
+                        element.duration = this.durationFormat(element.duration);
                         break;
                     case 'sleep':
-                        element.duration = this.durationFormat(element.data.duration);
+                        element.duration = this.durationFormat(element.duration);
                         break;
                     default: {
                     }

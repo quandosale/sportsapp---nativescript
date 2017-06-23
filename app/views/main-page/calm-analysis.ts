@@ -23,7 +23,7 @@ export class CalmAnalysis {
         this.queue.push(data);
         // console.log('calm queue length', this.queue.length);
 
-        if (this.queue.length >= 10000) {
+        if (this.queue.length >= 500) {
             // let preTime = new Date().getTime();
             var arrTmp = this.queue;
             setTimeout(() => this._sendEcgData(arrTmp), 0);
